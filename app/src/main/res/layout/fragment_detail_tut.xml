@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/detail_tut_thumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/detail_thumbnail"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/detail_tut_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/detail_tut_headText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:text="강의 타이틀\n강의 한줄 소개"
+                android:textSize="25dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/detail_tut_sign_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="수강하기"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_tut_headText" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/detail_tut_scroll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_tut_sign_button" />
+
+            <TextView
+                android:id="@+id/detail_tut_detail_headText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="세부 설명"
+                android:textSize="30dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_tut_scroll" />
+
+            <TextView
+                android:id="@+id/detail_tut_detail_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Disclaimer This project is directly inspired by the BLOKK font. The idea is simple and brilliant, but I wasn't happy with functional aspects of that implementation of the idea, and it isn't an open source project, so I created my own. Credit where credit is due. FAQ Q: What's different about this compared to BLOKK? A: BLOKK has unusually large character widths, which adds much length to  bits of dummy text, and also creates unecessarily ragged rags in my copy. Redacted solves this by using sane character widths; averaging character widths of narrow, regular, and wide characters of standard fonts. This gives a more realistic look to the text and helps it fit into narrow columns like real text would. Redacted Font also comes with script versions in three weights, regular, bold and light."
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_tut_detail_headText" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

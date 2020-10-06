@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/recommend_tut_headText"
+                android:layout_width="125dp"
+                android:layout_height="48dp"
+                android:text="추천 강의"
+                android:textSize="30dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/recommend_tut_subText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="빅데이터를 활용한 맞춤 강의 추천"
+                android:textSize="15dp"
+                app:layout_constraintLeft_toLeftOf="@id/recommend_tut_headText"
+                app:layout_constraintTop_toBottomOf="@id/recommend_tut_headText" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recommend_tut_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recommend_tut_subText"></androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/recommend_study_headText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="추천 스터디"
+                android:textSize="30dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recommend_tut_scroll" />
+
+            <TextView
+                android:id="@+id/recommend_study_subText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="빅데이터를 활용한 맞춤 스터디 추천"
+                android:textSize="15dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recommend_study_headText" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recommend_study_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recommend_study_subText" />
+
+            <TextView
+                android:id="@+id/category_headText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="카테고리"
+                android:textSize="30dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recommend_study_scroll" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/category_chipgroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/category_headText">
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="카테고리 A"
+                    android:textAppearance="@style/TextStyle" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="카테고리 B"
+                    android:textAppearance="@style/TextStyle" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="카테고리 C"
+                    android:textAppearance="@style/TextStyle" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="카테고리 DDD"
+                    android:textAppearance="@style/TextStyle" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="카테고리 EEEEEEE"
+                    android:textAppearance="@style/TextStyle" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="카테고리 FFFFFFFFFFFFFFFFFF"
+                    android:textAppearance="@style/TextStyle" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="카테고리 G"
+                    android:textAppearance="@style/TextStyle" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="카테고리 HHHHHHH"
+                    android:textAppearance="@style/TextStyle" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <TextView
+                android:id="@+id/trend_tut_headText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="인기 강의"
+                android:textSize="30dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/category_chipgroup" />
+
+            <TextView
+                android:id="@+id/trend_tut_subText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="현재 가장 많이 수강중인 강의 추천"
+                android:textSize="15dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/trend_tut_headText" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/trend_tut_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/trend_tut_subText" />
+
+            <TextView
+                android:id="@+id/trend_study_headText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="인기 스터디"
+                android:textSize="30dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/trend_tut_scroll" />
+
+            <TextView
+                android:id="@+id/trend_study_subText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="현재 가장 많이 수강중인 스터디 추천"
+                android:textSize="15dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/trend_study_headText" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/trend_study_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/trend_study_subText" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <com.dygames.cia.CustomActionBar
+        android:id="@+id/main_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:adjustViewBounds="true"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@android:drawable/stat_sys_upload" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_tut_upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/fab"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@android:drawable/stat_sys_vp_phone_call" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_study_upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/fab_tut_upload"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@android:drawable/btn_default" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
