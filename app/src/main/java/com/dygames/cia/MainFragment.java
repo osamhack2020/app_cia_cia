@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +18,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.ChipGroup;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class MainFragment extends Fragment {
 
     private com.dygames.cia.CategoryFragment categoryFragment = new com.dygames.cia.CategoryFragment();
@@ -24,7 +34,7 @@ public class MainFragment extends Fragment {
     private com.dygames.cia.UploadTutFragment uploadTutFragment = new com.dygames.cia.UploadTutFragment();
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         rootView.findViewById(R.id.main_layout).setPadding(Util.dpToPx(20), Util.dpToPx(100), Util.dpToPx(20), getActivity().findViewById(R.id.navigationView).getHeight());
         final CustomActionBar actionBar = rootView.findViewById(R.id.main_actionbar);
         final ScrollView main_scrollView = (ScrollView) rootView.findViewById(R.id.main_layout).getParent();
@@ -56,17 +66,41 @@ public class MainFragment extends Fragment {
                         new CourseAdapter.Data("타이틀 6", "설명 6", R.drawable.ic_launcher_background, true),
                 }));
 
-        RecyclerView recommend_study = rootView.findViewById(R.id.recommend_study_scroll);
-        recommend_study.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        recommend_study.setHasFixedSize(true);
-        recommend_study.setAdapter(new CourseAdapter(new CourseAdapter.Data[]
-                {new CourseAdapter.Data("타이틀 11", "설명 11", R.drawable.ic_launcher_background, false),
-                        new CourseAdapter.Data("타이틀 22", "설명 22", R.drawable.ic_launcher_background, false),
-                        new CourseAdapter.Data("타이틀 33", "설명 33", R.drawable.ic_launcher_background, false),
-                        new CourseAdapter.Data("타이틀 44", "설명 44", R.drawable.ic_launcher_background, false),
-                        new CourseAdapter.Data("타이틀 55", "설명 55", R.drawable.ic_launcher_background, false),
-                        new CourseAdapter.Data("타이틀 66", "설명 66", R.drawable.ic_launcher_background, false),
-                }));
+        new Thread() {
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder().url(String.format("http://cia777.cafe24.com/api/study/1")).build();
+                try {
+                    Response response = client.newCall(request).execute();
+                    if (response.code() == 200) {
+                        final JSONObject jsonObject = new JSONObject(response.body().string());
+
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                RecyclerView recommend_study = rootView.findViewById(R.id.recommend_study_scroll);
+                                recommend_study.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+                                recommend_study.setHasFixedSize(true);
+                                try {
+                                    recommend_study.setAdapter(new CourseAdapter(new CourseAdapter.Data[]
+                                            {new CourseAdapter.Data(jsonObject.getString("title"), jsonObject.getString("note"), R.drawable.ic_launcher_background, false),
+                                            }));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    } else {
+                    }
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }.start();
+
 
         RecyclerView trend_tut = rootView.findViewById(R.id.trend_tut_scroll);
         trend_tut.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
