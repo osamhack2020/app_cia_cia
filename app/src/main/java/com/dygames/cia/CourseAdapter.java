@@ -1,5 +1,9 @@
 package com.dygames.cia;
 
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder> {
 
     private DetailStudyFragment fragmentDetailStudy = new DetailStudyFragment();
@@ -20,10 +28,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     public static class Data {
         public String title;
         public String desc;
-        public int thumbnailID;
+        public String thumbnailID;
         public boolean isTut;
 
-        public Data(String title, String desc, int thumbnailID, boolean isTut) {
+        public Data(String title, String desc, String thumbnailID, boolean isTut) {
             this.title = title;
             this.desc = desc;
             this.thumbnailID = thumbnailID;
@@ -45,6 +53,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     }
 
     Data[] data;
+    Context context;
 
     public CourseAdapter(Data[] d) {
         this.data = d;
@@ -53,15 +62,35 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        context = parent.getContext();
         View holderView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_course_item, parent, false);
         ViewHolder h = new ViewHolder(holderView);
         return h;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final int pos = position;
-        holder.thumbnail.setBackgroundResource(this.data[position].thumbnailID);
+        final String finalThumbnailID = this.data[pos].thumbnailID;
+        new Thread() {
+            public void run() {
+                URL url = null;
+                try {
+                    url = new URL(finalThumbnailID);
+                    final Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                    ((Activity) context).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            holder.thumbnail.setImageBitmap(bitmap);
+                        }
+                    });
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
         holder.title.setText(this.data[position].title);
         holder.desc.setText(this.data[position].desc);
         holder.itemView.setOnClickListener(new View.OnClickListener() {

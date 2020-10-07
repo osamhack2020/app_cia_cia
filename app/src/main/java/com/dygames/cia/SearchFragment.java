@@ -22,12 +22,12 @@ public class SearchFragment extends Fragment {
         search_tut.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         search_tut.setHasFixedSize(true);
         search_tut.setAdapter(new CourseAdapter(new CourseAdapter.Data[]
-                {       new CourseAdapter.Data("타이틀 1", "설명 1", R.drawable.ic_launcher_background, true),
-                        new CourseAdapter.Data("타이틀 2", "설명 2", R.drawable.ic_launcher_background, true),
-                        new CourseAdapter.Data("타이틀 3", "설명 3", R.drawable.ic_launcher_background, true),
-                        new CourseAdapter.Data("타이틀 4", "설명 4", R.drawable.ic_launcher_background, true),
-                        new CourseAdapter.Data("타이틀 5", "설명 5", R.drawable.ic_launcher_background, true),
-                        new CourseAdapter.Data("타이틀 6", "설명 6", R.drawable.ic_launcher_background, true),
+                {       new CourseAdapter.Data("타이틀 1", "설명 1", "", true),
+                        new CourseAdapter.Data("타이틀 2", "설명 2", "", true),
+                        new CourseAdapter.Data("타이틀 3", "설명 3", "", true),
+                        new CourseAdapter.Data("타이틀 4", "설명 4", "", true),
+                        new CourseAdapter.Data("타이틀 5", "설명 5", "", true),
+                        new CourseAdapter.Data("타이틀 6", "설명 6", "", true),
                 }));
 
 
@@ -35,12 +35,12 @@ public class SearchFragment extends Fragment {
         search_study.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         search_study.setHasFixedSize(true);
         search_study.setAdapter(new CourseAdapter(new CourseAdapter.Data[]
-                {       new CourseAdapter.Data("타이틀 11", "설명 11", R.drawable.ic_launcher_background, false),
-                        new CourseAdapter.Data("타이틀 22", "설명 22", R.drawable.ic_launcher_background, false),
-                        new CourseAdapter.Data("타이틀 33", "설명 33", R.drawable.ic_launcher_background, false),
-                        new CourseAdapter.Data("타이틀 44", "설명 44", R.drawable.ic_launcher_background, false),
-                        new CourseAdapter.Data("타이틀 55", "설명 55", R.drawable.ic_launcher_background, false),
-                        new CourseAdapter.Data("타이틀 66", "설명 66", R.drawable.ic_launcher_background, false),
+                {       new CourseAdapter.Data("타이틀 11", "설명 11", "", false),
+                        new CourseAdapter.Data("타이틀 22", "설명 22", "", false),
+                        new CourseAdapter.Data("타이틀 33", "설명 33", "", false),
+                        new CourseAdapter.Data("타이틀 44", "설명 44", "", false),
+                        new CourseAdapter.Data("타이틀 55", "설명 55", "", false),
+                        new CourseAdapter.Data("타이틀 66", "설명 66", "", false),
                 }));
 
 
