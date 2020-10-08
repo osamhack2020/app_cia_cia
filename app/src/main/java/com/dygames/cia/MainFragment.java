@@ -59,18 +59,19 @@ public class MainFragment extends Fragment {
         recommend_tut.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         recommend_tut.setHasFixedSize(true);
         recommend_tut.setAdapter(new CourseAdapter(new CourseAdapter.Data[]
-                {new CourseAdapter.Data("타이틀 1", "설명 1", "", true),
-                        new CourseAdapter.Data("타이틀 2", "설명 2", "", true),
-                        new CourseAdapter.Data("타이틀 3", "설명 3", "", true),
-                        new CourseAdapter.Data("타이틀 4", "설명 4", "", true),
-                        new CourseAdapter.Data("타이틀 5", "설명 5", "", true),
-                        new CourseAdapter.Data("타이틀 6", "설명 6", "", true),
+                {new CourseAdapter.Data("타이틀 1", "설명 1", "", 0,true),
+                        new CourseAdapter.Data("타이틀 2", "설명 2", "",0,true),
+                        new CourseAdapter.Data("타이틀 3", "설명 3", "",0,true),
+                        new CourseAdapter.Data("타이틀 4", "설명 4", "",0,true),
+                        new CourseAdapter.Data("타이틀 5", "설명 5", "",0,true),
+                        new CourseAdapter.Data("타이틀 6", "설명 6", "",0,true),
                 }));
 
         new Thread() {
             public void run() {
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder().url(String.format("http://cia777.cafe24.com/api/study?page=1&rowBlockCount=10")).build();
+                //Request request = new Request.Builder().url(String.format("http://10.0.2.2:8080/api/study?page=1&rowBlockCount=10")).build();
                 try {
                     Response response = client.newCall(request).execute();
                     if (response.code() == 200) {
@@ -87,7 +88,7 @@ public class MainFragment extends Fragment {
 
                                     for (int i = 0; i < jsonArray.length(); i++) {
                                         JSONObject object = jsonArray.getJSONObject(i);
-                                        courseAdapterData[i] = new CourseAdapter.Data(object.getString("title"), object.getString("note"), object.getString("img"), false);
+                                        courseAdapterData[i] = new CourseAdapter.Data(object.getString("title"), object.getString("note"), object.getString("img"), object.getInt("idx"),false);
                                     }
 
                                     recommend_study.setAdapter(new CourseAdapter(courseAdapterData));
@@ -108,24 +109,24 @@ public class MainFragment extends Fragment {
         trend_tut.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         trend_tut.setHasFixedSize(true);
         trend_tut.setAdapter(new CourseAdapter(new CourseAdapter.Data[]
-                {new CourseAdapter.Data("타이틀 111", "설명 111", "", true),
-                        new CourseAdapter.Data("타이틀 222", "설명 222", "", true),
-                        new CourseAdapter.Data("타이틀 333", "설명 333", "", true),
-                        new CourseAdapter.Data("타이틀 444", "설명 444", "", true),
-                        new CourseAdapter.Data("타이틀 555", "설명 555", "", true),
-                        new CourseAdapter.Data("타이틀 666", "설명 666", "", true),
+                {new CourseAdapter.Data("타이틀 111", "설명 111", "", 0,true),
+                        new CourseAdapter.Data("타이틀 222", "설명 222", "", 0,true),
+                        new CourseAdapter.Data("타이틀 333", "설명 333", "", 0,true),
+                        new CourseAdapter.Data("타이틀 444", "설명 444", "", 0,true),
+                        new CourseAdapter.Data("타이틀 555", "설명 555", "", 0,true),
+                        new CourseAdapter.Data("타이틀 666", "설명 666", "", 0,true),
                 }));
 
         RecyclerView trend_study = rootView.findViewById(R.id.trend_study_scroll);
         trend_study.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         trend_study.setHasFixedSize(true);
         trend_study.setAdapter(new CourseAdapter(new CourseAdapter.Data[]
-                {new CourseAdapter.Data("타이틀 1111", "설명 1111", "", false),
-                        new CourseAdapter.Data("타이틀 2222", "설명 2222", "", false),
-                        new CourseAdapter.Data("타이틀 3333", "설명 3333", "", false),
-                        new CourseAdapter.Data("타이틀 4444", "설명 4444", "", false),
-                        new CourseAdapter.Data("타이틀 5555", "설명 5555", "", false),
-                        new CourseAdapter.Data("타이틀 6666", "설명 6666", "", false),
+                {new CourseAdapter.Data("타이틀 1111", "설명 1111", "", 0,false),
+                        new CourseAdapter.Data("타이틀 2222", "설명 2222", "", 0,false),
+                        new CourseAdapter.Data("타이틀 3333", "설명 3333", "", 0,false),
+                        new CourseAdapter.Data("타이틀 4444", "설명 4444", "", 0,false),
+                        new CourseAdapter.Data("타이틀 5555", "설명 5555", "", 0,false),
+                        new CourseAdapter.Data("타이틀 6666", "설명 6666", "", 0,false),
                 }));
 
         ChipGroup chipGroup = rootView.findViewById(R.id.category_chipgroup);

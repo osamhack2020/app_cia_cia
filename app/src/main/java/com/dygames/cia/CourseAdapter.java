@@ -29,12 +29,14 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         public String title;
         public String desc;
         public String thumbnailID;
+        public int idx;
         public boolean isTut;
 
-        public Data(String title, String desc, String thumbnailID, boolean isTut) {
+        public Data(String title, String desc, String thumbnailID, int idx, boolean isTut) {
             this.title = title;
             this.desc = desc;
             this.thumbnailID = thumbnailID;
+            this.idx = idx;
             this.isTut = isTut;
         }
     }
@@ -97,6 +99,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, data[pos].isTut ? fragmentDetailTut : fragmentDetailStudy).commitAllowingStateLoss();
+                fragmentDetailStudy.studyIdx = data[pos].idx;
                 ((BottomNavigationView) ((FragmentActivity) v.getContext()).findViewById(R.id.navigationView)).getMenu().setGroupCheckable(0, false, true);
             }
         });
