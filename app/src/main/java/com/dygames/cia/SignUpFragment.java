@@ -51,7 +51,7 @@ public class SignUpFragment extends Fragment {
                 new Thread() {
                     public void run() {
                         OkHttpClient client = new OkHttpClient();
-                        Request request = new Request.Builder().url(String.format("http://cia777.cafe24.com/api/users/signup?name=%s&password=%s&email=%s&phonenm=%s", name.getText().toString().trim(), pw.getText().toString().trim(),
+                        Request request = new Request.Builder().url(String.format("%s/api/users/signup?name=%s&password=%s&email=%s&phonenm=%s", getResources().getString(R.string.server_address), name.getText().toString().trim(), pw.getText().toString().trim(),
                                 email.getText().toString().trim(), phone.getText().toString().trim().replace("-", ""))).build();
                         boolean success = false;
                         try {

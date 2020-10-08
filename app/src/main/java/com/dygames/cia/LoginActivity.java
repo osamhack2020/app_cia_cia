@@ -10,10 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
     @Override
@@ -32,11 +36,13 @@ public class LoginActivity extends AppCompatActivity {
                 new Thread() {
                     public void run() {
                         OkHttpClient client = new OkHttpClient();
-                        Request request = new Request.Builder().url(String.format("http://cia777.cafe24.com/api/users/signin?password=%s&email=%s", pw.getText().toString().trim(),
+                        Request request = new Request.Builder().url(String.format("%s/api/users/signin?password=%s&email=%s", getResources().getString(R.string.server_address), pw.getText().toString().trim(),
                                 email.getText().toString().trim())).build();
                         boolean success = false;
                         try {
-                            if (client.newCall(request).execute().code() == 200) {
+                            Response response = client.newCall(request).execute();
+                            if (response.code() == 200) {
+                                Util.userHSID = response.header("HSID");
                                 success = true;
                                 getFragmentManager().popBackStack();
                             } else {

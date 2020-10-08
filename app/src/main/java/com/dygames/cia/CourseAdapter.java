@@ -98,7 +98,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, data[pos].isTut ? fragmentDetailTut : fragmentDetailStudy).commitAllowingStateLoss();
+                ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, data[pos].isTut ? fragmentDetailTut : fragmentDetailStudy).addToBackStack(null).commitAllowingStateLoss();
                 fragmentDetailStudy.studyIdx = data[pos].idx;
                 ((BottomNavigationView) ((FragmentActivity) v.getContext()).findViewById(R.id.navigationView)).getMenu().setGroupCheckable(0, false, true);
             }

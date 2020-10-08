@@ -1,11 +1,15 @@
 package com.dygames.cia;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,11 +18,55 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.URL;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class DetailStudyFragment extends Fragment {
-    public int studyIdx;
+    public int studyIdx = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_detail_study, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_detail_study, container, false);
+
+        new Thread() {
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder().url(String.format("%s/api/study/%d", getResources().getString(R.string.server_address), studyIdx)).build();
+                try {
+                    Response response = client.newCall(request).execute();
+                    if (response.code() == 200) {
+                        final JSONObject jsonObject = new JSONObject(response.body().string()).getJSONObject("info");
+                        URL url = new URL(jsonObject.getString("img"));
+                        final Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ((ImageView) rootView.findViewById(R.id.detail_study_thumbnail)).setImageBitmap(bitmap);
+                                try {
+                                    ((TextView) rootView.findViewById(R.id.detail_study_headText)).setText(jsonObject.getString("title"));
+                                    ((TextView) rootView.findViewById(R.id.detail_study_detail_text)).setText(jsonObject.getString("note"));
+                                    ((TextView) rootView.findViewById(R.id.detail_study_date_text)).setText(jsonObject.getString("signdate"));
+                                    ((TextView) rootView.findViewById(R.id.detail_study_location_text)).setText(jsonObject.getString("station"));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    } else {
+                    }
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
         RecyclerView member_scroll = rootView.findViewById(R.id.detail_study_member_scroll);
         member_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         member_scroll.setHasFixedSize(true);
