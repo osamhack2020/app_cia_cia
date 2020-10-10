@@ -9,9 +9,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -70,55 +72,76 @@ public class UploadStudyFragment extends Fragment {
         rootView.findViewById(R.id.upload_study_upload_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    Bitmap photo = ((BitmapDrawable) study_thumbnail.getDrawable()).getBitmap();
-                    Bitmap resizedImage = Bitmap.createScaledBitmap(photo, 512, 512, true);
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream(photo.getWidth() * photo.getHeight());
-                    resizedImage.compress(Bitmap.CompressFormat.PNG, 100, bos);
+                final Bitmap photo = ((BitmapDrawable) study_thumbnail.getDrawable()).getBitmap();
 
-                    RequestBody req = new MultipartBody.Builder()
-                            .setType(MultipartBody.FORM)
-                            .addFormDataPart("image", "profile.png",
-                                    RequestBody.create(MediaType.parse("image/bmp"), bos.toByteArray()))
-                            .build();
+                final EditText study_title_editText = rootView.findViewById(R.id.upload_study_title_editText);
+                final EditText study_desc_editText = rootView.findViewById(R.id.upload_study_desc_editText);
+                final EditText study_location_editText = rootView.findViewById(R.id.upload_study_location_editText);
+                final DatePicker study_date_editText = rootView.findViewById(R.id.upload_study_date_editText);
 
-                    Request request = new Request.Builder()
-                            .url(String.format("%s/file/upload", getResources().getString(R.string.server_address)))
-                            .post(req)
-                            .build();
+                new Thread() {
+                    public void run() {
 
-                    OkHttpClient client = new OkHttpClient();
-                    Response response = client.newCall(request).execute();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                        String fileName = "profile.png";
+                        try {
+                            Bitmap resizedImage = Bitmap.createScaledBitmap(photo, 512, 512, true);
+                            ByteArrayOutputStream bos = new ByteArrayOutputStream(photo.getWidth() * photo.getHeight());
+                            resizedImage.compress(Bitmap.CompressFormat.PNG, 100, bos);
 
-                RequestBody requestBody = new FormBody.Builder()
-                        .add("title", ((EditText) rootView.findViewById(R.id.upload_tut_title_editText)).getText().toString())
-                        .add("img", "")
-                        .add("note", ((EditText) rootView.findViewById(R.id.upload_study_desc_editText)).getText().toString())
-                        .add("station", ((EditText) rootView.findViewById(R.id.upload_study_location_editText)).getText().toString())
-                        .add("signdate", ((EditText) rootView.findViewById(R.id.upload_study_date_editText)).getText().toString())
-                        .add("maxPeople", "10")
-                        .build();
+                            RequestBody req = new MultipartBody.Builder()
+                                    .setType(MultipartBody.FORM)
+                                    .addFormDataPart("image", fileName,
+                                            RequestBody.create(MediaType.parse("image/png"), bos.toByteArray()))
+                                    .build();
 
+                            Request request = new Request.Builder()
+                                    .url(String.format("%s/file/upload", getResources().getString(R.string.server_address)))
+                                    .post(req)
+                                    .build();
 
-                Request request = new Request.Builder()
-                        .url(String.format("%s/study/", getResources().getString(R.string.server_address)))
-                        .addHeader("Authorization", Util.userHSID)
-                        .post(requestBody)
-                        .build();
+                            OkHttpClient client = new OkHttpClient();
+                            Response response = client.newCall(request).execute();
+                            fileName = response.body().string();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
-                try {
-                    if (new OkHttpClient().newCall(request).execute().code() != 200) {
-                        Toast.makeText(getContext(), "스터디 생성에 실패했습니다.", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getContext(), "스터디 생성에 성공했습니다.", Toast.LENGTH_SHORT).show();
-                        getActivity().getSupportFragmentManager().beginTransaction().remove(UploadStudyFragment.this).commit();
+                        final RequestBody requestBody = new FormBody.Builder()
+                                .add("title", study_title_editText.getText().toString())
+                                .add("img", String.format("%s%s", getResources().getString(R.string.server_address), fileName))
+                                .add("note", study_desc_editText.getText().toString())
+                                .add("station", study_location_editText.getText().toString())
+                                .add("signdate", String.format("%d-%d-%d", study_date_editText.getYear(), study_date_editText.getMonth(), study_date_editText.getDayOfMonth()))
+                                .add("maxPeople", "10")
+                                .build();
+
+                        Request request = new Request.Builder()
+                                .url(String.format("%s/api/study/regist", getResources().getString(R.string.server_address)))
+                                .addHeader("Authorization", Util.userHSID)
+                                .post(requestBody)
+                                .build();
+                        try {
+                            final Response response = new OkHttpClient().newCall(request).execute();
+
+                            Log.d("DDDD", response.code() + "");
+
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (response.code() != 200) {
+                                        Toast.makeText(getContext(), "스터디 생성에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(getContext(), "스터디 생성에 성공했습니다.", Toast.LENGTH_SHORT).show();
+                                        getActivity().getSupportFragmentManager().beginTransaction().remove(UploadStudyFragment.this).commit();
+                                    }
+                                }
+                            });
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                }.start();
+
             }
         });
         return rootView;

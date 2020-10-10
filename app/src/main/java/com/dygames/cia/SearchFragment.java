@@ -1,6 +1,7 @@
 package com.dygames.cia;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,46 +13,71 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class SearchFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_search, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_search, container, false);
 
         rootView.findViewById(R.id.search_layout).setPadding(Util.dpToPx(20), Util.dpToPx(20), Util.dpToPx(20), getActivity().findViewById(R.id.navigationView).getHeight());
 
-        RecyclerView search_tut = rootView.findViewById(R.id.main_search_tut_scroll);
-        search_tut.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        search_tut.setHasFixedSize(true);
-        search_tut.setAdapter(new CourseAdapter(new CourseAdapter.Data[]
-                {       new CourseAdapter.Data("타이틀 1", "설명 1", "", 0,true),
-                        new CourseAdapter.Data("타이틀 2", "설명 2", "", 0,true),
-                        new CourseAdapter.Data("타이틀 3", "설명 3", "", 0,true),
-                        new CourseAdapter.Data("타이틀 4", "설명 4", "", 0,true),
-                        new CourseAdapter.Data("타이틀 5", "설명 5", "", 0,true),
-                        new CourseAdapter.Data("타이틀 6", "설명 6", "", 0,true),
-                }));
 
-
-        RecyclerView search_study = rootView.findViewById(R.id.main_search_study_scroll);
-        search_study.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        search_study.setHasFixedSize(true);
-        search_study.setAdapter(new CourseAdapter(new CourseAdapter.Data[]
-                {       new CourseAdapter.Data("타이틀 11", "설명 11", "", 0,false),
-                        new CourseAdapter.Data("타이틀 22", "설명 22", "", 0,false),
-                        new CourseAdapter.Data("타이틀 33", "설명 33", "", 0,false),
-                        new CourseAdapter.Data("타이틀 44", "설명 44", "", 0,false),
-                        new CourseAdapter.Data("타이틀 55", "설명 55", "", 0,false),
-                        new CourseAdapter.Data("타이틀 66", "설명 66", "", 0,false),
-                }));
-
+        final RecyclerView recommend_study = rootView.findViewById(R.id.main_search_study_scroll);
+        recommend_study.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        recommend_study.setHasFixedSize(true);
+        recommend_study.setAdapter(new CourseAdapter(new CourseAdapter.Data[0]));
 
         ((SearchView) rootView.findViewById(R.id.main_search_view)).setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(final String query) {
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
+            public boolean onQueryTextChange(final String newText) {
+                new Thread() {
+                    public void run() {
+                        OkHttpClient client = new OkHttpClient();
+                        Request request = new Request.Builder().url(String.format("%s/api/study?q=%s", getResources().getString(R.string.server_address), newText.trim())).build();
+                        try {
+                            Response response = client.newCall(request).execute();
+                            if (response.code() == 200) {
+                                final JSONObject jsonObject = new JSONObject(response.body().string());
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            JSONArray jsonArray = jsonObject.getJSONArray("list");
+                                            CourseAdapter.Data[] courseAdapterData = new CourseAdapter.Data[jsonArray.length()];
+
+                                            for (int i = 0; i < jsonArray.length(); i++) {
+                                                JSONObject object = jsonArray.getJSONObject(i);
+                                                courseAdapterData[i] = new CourseAdapter.Data(object.getString("title"), object.getString("note"), object.getString("img"), object.getInt("idx"), false);
+                                            }
+
+                                            ((CourseAdapter) recommend_study.getAdapter()).data = courseAdapterData;
+                                            recommend_study.getAdapter().notifyDataSetChanged();
+                                            recommend_study.requestLayout();
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                            } else {
+                            }
+                        } catch (IOException | JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();
                 return false;
             }
         });

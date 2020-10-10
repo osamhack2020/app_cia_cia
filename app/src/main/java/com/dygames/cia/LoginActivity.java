@@ -2,6 +2,7 @@ package com.dygames.cia;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -42,7 +44,13 @@ public class LoginActivity extends AppCompatActivity {
                         try {
                             Response response = client.newCall(request).execute();
                             if (response.code() == 200) {
-                                Util.userHSID = response.header("HSID");
+                                List<String> cookies = response.headers("Set-Cookie");
+                                for (int i = 0; i < cookies.size(); i++) {
+                                    if (cookies.get(i).contains("HSID")) {
+                                        Util.userHSID = cookies.get(i).replace("HSID=", "").replace("; Path=/", "");
+                                        Log.d("DDDD", Util.userHSID);
+                                    }
+                                }
                                 success = true;
                                 getFragmentManager().popBackStack();
                             } else {
@@ -56,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 if (finalSuccess) {
+                                    Toast.makeText(getApplicationContext(), "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                     finish();
                                 } else

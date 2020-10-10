@@ -153,7 +153,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.frameLayout, uploadStudyFragment).addToBackStack(null).commitAllowingStateLoss();
+                transaction.add(R.id.frameLayout, uploadStudyFragment).addToBackStack(null).commitAllowingStateLoss();
             }
         });
 
@@ -161,7 +161,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.frameLayout, uploadTutFragment).addToBackStack(null).commitAllowingStateLoss();
+                transaction.add(R.id.frameLayout, uploadTutFragment).addToBackStack(null).commitAllowingStateLoss();
             }
         });
 
