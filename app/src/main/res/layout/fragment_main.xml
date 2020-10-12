@@ -85,64 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/category_headText">
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.MaterialComponents.Chip.Action"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="카테고리 A"
-                    android:textAppearance="@style/TextStyle" />
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.MaterialComponents.Chip.Action"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="카테고리 B"
-                    android:textAppearance="@style/TextStyle" />
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.MaterialComponents.Chip.Action"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="카테고리 C"
-                    android:textAppearance="@style/TextStyle" />
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.MaterialComponents.Chip.Action"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="카테고리 DDD"
-                    android:textAppearance="@style/TextStyle" />
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.MaterialComponents.Chip.Action"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="카테고리 EEEEEEE"
-                    android:textAppearance="@style/TextStyle" />
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.MaterialComponents.Chip.Action"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="카테고리 FFFFFFFFFFFFFFFFFF"
-                    android:textAppearance="@style/TextStyle" />
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.MaterialComponents.Chip.Action"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="카테고리 G"
-                    android:textAppearance="@style/TextStyle" />
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.MaterialComponents.Chip.Action"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="카테고리 HHHHHHH"
-                    android:textAppearance="@style/TextStyle" />
-            </com.google.android.material.chip.ChipGroup>
+                app:layout_constraintTop_toBottomOf="@id/category_headText" />
 
             <TextView
                 android:id="@+id/trend_tut_headText"

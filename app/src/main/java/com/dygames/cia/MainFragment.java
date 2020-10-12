@@ -2,6 +2,7 @@ package com.dygames.cia;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 import org.json.JSONArray;
@@ -165,6 +167,38 @@ public class MainFragment extends Fragment {
             }
         });
 
+        new Thread() {
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder().url(String.format("%s/api/study/cat", getResources().getString(R.string.server_address))).build();
+                try {
+                    Response response = client.newCall(request).execute();
+                    if (response.code() == 200) {
+                        final JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("lists");
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        Chip chip = new Chip(getContext(), null, R.style.Widget_MaterialComponents_Chip_Action);
+                                        chip.setText(jsonArray.getJSONObject(i).getString("name"));
+                                        chip.setTextAppearance(R.style.TextStyle);
+                                        chip.setClickable(true);
+                                        chip.setFocusable(true);
+                                        ((ChipGroup) rootView.findViewById(R.id.category_chipgroup)).addView(chip);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    } else {
+                    }
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
 
         return rootView;
     }
