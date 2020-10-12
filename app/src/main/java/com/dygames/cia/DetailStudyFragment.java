@@ -24,6 +24,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -37,6 +38,37 @@ public class DetailStudyFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_detail_study, container, false);
+
+        rootView.findViewById(R.id.detail_study_delete_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread() {
+                    public void run() {
+                        OkHttpClient client = new OkHttpClient();
+
+                        Request request = new Request.Builder()
+                                .url(String.format("%s/api/study/%d", getResources().getString(R.string.server_address), studyIdx))
+                                .addHeader("Authorization", Util.userHSID)
+                                .delete()
+                                .build();
+                        try {
+                            Response response = client.newCall(request).execute();
+                            if (response.code() == 200) {
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        getActivity().getSupportFragmentManager().beginTransaction().remove(DetailStudyFragment.this).commit();
+                                    }
+                                });
+                            } else {
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();
+            }
+        });
 
         rootView.findViewById(R.id.detail_study_quit_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +139,15 @@ public class DetailStudyFragment extends Fragment {
         new Thread() {
             public void run() {
                 OkHttpClient client = new OkHttpClient();
+
+                try {
+                    RequestBody viewsbody = new MultipartBody.Builder().addFormDataPart("", "").build();
+                    Request viewsrequest = new Request.Builder().url(String.format("%s/api/study/%d/views", getResources().getString(R.string.server_address), studyIdx)).put(viewsbody).build();
+                    Response response = client.newCall(viewsrequest).execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 Request request = new Request.Builder().url(String.format("%s/api/study/%d", getResources().getString(R.string.server_address), studyIdx)).build();
                 try {
                     Response response = client.newCall(request).execute();
