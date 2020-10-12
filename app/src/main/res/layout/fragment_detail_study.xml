@@ -50,6 +50,16 @@
                 android:layout_marginTop="15dp"
                 android:text="이 스터디에 가입하기"
                 app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/detail_study_quit_button"
+                app:layout_constraintTop_toBottomOf="@id/detail_study_headText" />
+
+            <Button
+                android:id="@+id/detail_study_quit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="스터디 탈퇴하기"
+                app:layout_constraintLeft_toRightOf="@id/detail_study_sign_button"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detail_study_headText" />
 
