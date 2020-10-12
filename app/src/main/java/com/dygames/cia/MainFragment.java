@@ -72,7 +72,8 @@ public class MainFragment extends Fragment {
         new Thread() {
             public void run() {
                 OkHttpClient client = new OkHttpClient();
-                Request request = new Request.Builder().url(String.format("%s/api/study?page=1&rowBlockCount=10", getResources().getString(R.string.server_address))).build();
+                Request request = new Request.Builder().url(String.format("%s/api/study/recommend?limitCount=5", getResources().getString(R.string.server_address))).build();
+                //Request request = new Request.Builder().url(String.format("%s/api/study?page=1&rowBlockCount=10", getResources().getString(R.string.server_address))).build();
                 try {
                     Response response = client.newCall(request).execute();
                     if (response.code() == 200) {
@@ -84,7 +85,7 @@ public class MainFragment extends Fragment {
                                 recommend_study.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
                                 recommend_study.setHasFixedSize(true);
                                 try {
-                                    JSONArray jsonArray = jsonObject.getJSONArray("list");
+                                    JSONArray jsonArray = jsonObject.getJSONArray("lists");
                                     CourseAdapter.Data[] courseAdapterData = new CourseAdapter.Data[jsonArray.length()];
 
                                     for (int i = 0; i < jsonArray.length(); i++) {

@@ -139,11 +139,8 @@ public class DetailStudyFragment extends Fragment {
         new Thread() {
             public void run() {
                 OkHttpClient client = new OkHttpClient();
-
                 try {
-                    RequestBody viewsbody = new MultipartBody.Builder().addFormDataPart("", "").build();
-                    Request viewsrequest = new Request.Builder().url(String.format("%s/api/study/%d/views", getResources().getString(R.string.server_address), studyIdx)).put(viewsbody).build();
-                    Response response = client.newCall(viewsrequest).execute();
+                    client.newCall(new Request.Builder().url(String.format("%s/api/study/%d/views", getResources().getString(R.string.server_address), studyIdx)).put(new MultipartBody.Builder().addFormDataPart("", "").build()).build()).execute();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
