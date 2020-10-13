@@ -50,14 +50,9 @@ public class InfoFragment extends Fragment {
         new Thread() {
             public void run() {
                 OkHttpClient client = new OkHttpClient();
-                RequestBody req = new MultipartBody.Builder()
-                        .setType(MultipartBody.FORM)
-                        .addFormDataPart("", "")
-                        .build();
                 Request request = new Request.Builder()
                         .url(String.format("%s/api/users/profile", getResources().getString(R.string.server_address)))
                         .addHeader("Authorization", Util.userHSID)
-                        .post(req)
                         .build();
                 try {
                     Response response = client.newCall(request).execute();

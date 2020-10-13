@@ -19,7 +19,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/upload_study_thumbnail"
+                android:id="@+id/update_study_thumbnail"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:layout_marginTop="50dp"
@@ -33,79 +33,79 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/upload_study_title_headText"
+                android:id="@+id/update_study_title_headText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:text="스터디 제목"
                 android:textSize="30sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/upload_study_thumbnail" />
+                app:layout_constraintTop_toBottomOf="@id/update_study_thumbnail" />
 
             <EditText
-                android:id="@+id/upload_study_title_editText"
+                android:id="@+id/update_study_title_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:hint="스터디 제목"
                 android:textSize="20sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/upload_study_title_headText" />
+                app:layout_constraintTop_toBottomOf="@id/update_study_title_headText" />
 
             <TextView
-                android:id="@+id/upload_study_desc_headText"
+                android:id="@+id/update_study_desc_headText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:text="세부 설명"
                 android:textSize="30sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/upload_study_title_editText" />
+                app:layout_constraintTop_toBottomOf="@id/update_study_title_editText" />
 
             <EditText
-                android:id="@+id/upload_study_desc_editText"
+                android:id="@+id/update_study_desc_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:hint="세부 설명"
                 android:textSize="20sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/upload_study_desc_headText" />
+                app:layout_constraintTop_toBottomOf="@id/update_study_desc_headText" />
 
 
             <TextView
-                android:id="@+id/upload_study_category_headText"
+                android:id="@+id/update_study_category_headText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:text="카테고리"
                 android:textSize="30sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/upload_study_desc_editText" />
+                app:layout_constraintTop_toBottomOf="@id/update_study_desc_editText" />
 
             <Spinner
-                android:id="@+id/upload_study_category_spinner"
+                android:id="@+id/update_study_category_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:hint="세부 설명"
                 android:textSize="20sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/upload_study_category_headText" />
+                app:layout_constraintTop_toBottomOf="@id/update_study_category_headText" />
 
 
             <TextView
-                android:id="@+id/upload_study_date_headText"
+                android:id="@+id/update_study_date_headText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:text="날짜"
                 android:textSize="30sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/upload_study_category_spinner" />
+                app:layout_constraintTop_toBottomOf="@id/update_study_category_spinner" />
 
             <DatePicker
-                android:id="@+id/upload_study_date_editText"
+                android:id="@+id/update_study_date_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -114,36 +114,36 @@
                 android:hint="날짜"
                 android:textSize="20sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/upload_study_date_headText" />
+                app:layout_constraintTop_toBottomOf="@id/update_study_date_headText" />
 
             <TextView
-                android:id="@+id/upload_study_location_headText"
+                android:id="@+id/update_study_location_headText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:text="장소"
                 android:textSize="30sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/upload_study_date_editText" />
+                app:layout_constraintTop_toBottomOf="@id/update_study_date_editText" />
 
             <EditText
-                android:id="@+id/upload_study_location_editText"
+                android:id="@+id/update_study_location_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:hint="장소"
                 android:textSize="20sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/upload_study_location_headText" />
+                app:layout_constraintTop_toBottomOf="@id/update_study_location_headText" />
 
             <Button
-                android:id="@+id/upload_study_upload_button"
+                android:id="@+id/update_study_upload_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="등록하기"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/upload_study_location_editText" />
+                app:layout_constraintTop_toBottomOf="@id/update_study_location_editText" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

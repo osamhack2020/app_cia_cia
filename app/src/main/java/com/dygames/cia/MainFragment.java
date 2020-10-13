@@ -57,27 +57,53 @@ public class MainFragment extends Fragment {
                 }
             });
         }
-        RecyclerView recommend_tut = rootView.findViewById(R.id.recommend_tut_scroll);
-        recommend_tut.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        recommend_tut.setHasFixedSize(true);
-        recommend_tut.setAdapter(new CourseAdapter(new CourseAdapter.Data[]
-                {new CourseAdapter.Data("타이틀 1", "설명 1", "", 0, true),
-                        new CourseAdapter.Data("타이틀 2", "설명 2", "", 0, true),
-                        new CourseAdapter.Data("타이틀 3", "설명 3", "", 0, true),
-                        new CourseAdapter.Data("타이틀 4", "설명 4", "", 0, true),
-                        new CourseAdapter.Data("타이틀 5", "설명 5", "", 0, true),
-                        new CourseAdapter.Data("타이틀 6", "설명 6", "", 0, true),
-                }));
+
+
+        new Thread() {
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder().url(String.format("%s/api/class/recommend?limitCount=5", getResources().getString(R.string.server_address))).build();
+                try {
+                    Response response = client.newCall(request).execute();
+                    if (response.code() == 200) {
+                        final JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("list");
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                RecyclerView recommend_tut = rootView.findViewById(R.id.recommend_tut_scroll);
+                                recommend_tut.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+                                recommend_tut.setHasFixedSize(true);
+                                try {
+                                    CourseAdapter.Data[] courseAdapterData = new CourseAdapter.Data[jsonArray.length()];
+
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject object = jsonArray.getJSONObject(i);
+                                        courseAdapterData[i] = new CourseAdapter.Data(object.getString("title"), object.getString("note"), object.getString("img"), object.getInt("idx"), true);
+                                    }
+
+                                    recommend_tut.setAdapter(new CourseAdapter(courseAdapterData));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    } else {
+                    }
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
 
         new Thread() {
             public void run() {
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder().url(String.format("%s/api/study/recommend?limitCount=5", getResources().getString(R.string.server_address))).build();
-                //Request request = new Request.Builder().url(String.format("%s/api/study?page=1&rowBlockCount=10", getResources().getString(R.string.server_address))).build();
                 try {
                     Response response = client.newCall(request).execute();
                     if (response.code() == 200) {
-                        final JSONObject jsonObject = new JSONObject(response.body().string());
+                        final JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("list");
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -85,7 +111,6 @@ public class MainFragment extends Fragment {
                                 recommend_study.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
                                 recommend_study.setHasFixedSize(true);
                                 try {
-                                    JSONArray jsonArray = jsonObject.getJSONArray("lists");
                                     CourseAdapter.Data[] courseAdapterData = new CourseAdapter.Data[jsonArray.length()];
 
                                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -131,17 +156,6 @@ public class MainFragment extends Fragment {
                         new CourseAdapter.Data("타이틀 6666", "설명 6666", "", 0, false),
                 }));
 
-        ChipGroup chipGroup = rootView.findViewById(R.id.category_chipgroup);
-        for (int i = 0, c = chipGroup.getChildCount(); i < c; i++) {
-            (chipGroup.getChildAt(i)).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.frameLayout, categoryFragment).addToBackStack(null).commitAllowingStateLoss();
-                }
-            });
-        }
-
         final View fab_study = rootView.findViewById(R.id.fab_study_upload);
         final View fab_tut = rootView.findViewById(R.id.fab_tut_upload);
         rootView.findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
@@ -175,17 +189,27 @@ public class MainFragment extends Fragment {
                 try {
                     Response response = client.newCall(request).execute();
                     if (response.code() == 200) {
-                        final JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("lists");
+                        final JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("list");
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 try {
+                                    Util.categorys = new String[jsonArray.length()];
                                     for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject object = jsonArray.getJSONObject(i);
+                                        Util.categorys[i] = object.getString("name");
                                         Chip chip = new Chip(getContext(), null, R.style.Widget_MaterialComponents_Chip_Action);
-                                        chip.setText(jsonArray.getJSONObject(i).getString("name"));
+                                        chip.setText(object.getString("name"));
                                         chip.setTextAppearance(R.style.TextStyle);
                                         chip.setClickable(true);
                                         chip.setFocusable(true);
+                                        chip.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                                                transaction.replace(R.id.frameLayout, categoryFragment).addToBackStack(null).commitAllowingStateLoss();
+                                            }
+                                        });
                                         ((ChipGroup) rootView.findViewById(R.id.category_chipgroup)).addView(chip);
                                     }
                                 } catch (JSONException e) {

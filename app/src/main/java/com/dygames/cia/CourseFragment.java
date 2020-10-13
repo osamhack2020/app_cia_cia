@@ -64,16 +64,16 @@ public class CourseFragment extends Fragment {
             member_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
             member_scroll.setHasFixedSize(true);
             member_scroll.setAdapter(new DetailMemberAdapter(new DetailMemberAdapter.Data[]
-                    {new DetailMemberAdapter.Data("", R.drawable.ic_launcher_background),
-                            new DetailMemberAdapter.Data("", R.drawable.ic_launcher_background),
-                            new DetailMemberAdapter.Data("", R.drawable.ic_launcher_background),
-                            new DetailMemberAdapter.Data("", R.drawable.ic_launcher_background),
-                            new DetailMemberAdapter.Data("", R.drawable.ic_launcher_background),
-                            new DetailMemberAdapter.Data("", R.drawable.ic_launcher_background),
-                            new DetailMemberAdapter.Data("", R.drawable.ic_launcher_background),
-                            new DetailMemberAdapter.Data("", R.drawable.ic_launcher_background),
-                            new DetailMemberAdapter.Data("", R.drawable.ic_launcher_background),
-                            new DetailMemberAdapter.Data("", R.drawable.ic_launcher_background),
+                    {new DetailMemberAdapter.Data("", "https://cdn.sstatic.net/Img/product/enterprise/illo-ent-1-M01.png?v=83efb5300844"),
+                            new DetailMemberAdapter.Data("", "https://cdn.sstatic.net/Img/product/enterprise/illo-ent-1-M01.png?v=83efb5300844"),
+                            new DetailMemberAdapter.Data("", "https://cdn.sstatic.net/Img/product/enterprise/illo-ent-1-M01.png?v=83efb5300844"),
+                            new DetailMemberAdapter.Data("", "https://cdn.sstatic.net/Img/product/enterprise/illo-ent-1-M01.png?v=83efb5300844"),
+                            new DetailMemberAdapter.Data("", "https://cdn.sstatic.net/Img/product/enterprise/illo-ent-1-M01.png?v=83efb5300844"),
+                            new DetailMemberAdapter.Data("", "https://cdn.sstatic.net/Img/product/enterprise/illo-ent-1-M01.png?v=83efb5300844"),
+                            new DetailMemberAdapter.Data("", "https://cdn.sstatic.net/Img/product/enterprise/illo-ent-1-M01.png?v=83efb5300844"),
+                            new DetailMemberAdapter.Data("", "https://cdn.sstatic.net/Img/product/enterprise/illo-ent-1-M01.png?v=83efb5300844"),
+                            new DetailMemberAdapter.Data("", "https://cdn.sstatic.net/Img/product/enterprise/illo-ent-1-M01.png?v=83efb5300844"),
+                            new DetailMemberAdapter.Data("", "https://cdn.sstatic.net/Img/product/enterprise/illo-ent-1-M01.png?v=83efb5300844"),
                     }));
 
             study_result.addView(v);

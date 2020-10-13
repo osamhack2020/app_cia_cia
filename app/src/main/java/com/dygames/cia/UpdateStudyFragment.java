@@ -18,74 +18,74 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import okhttp3.Credentials;
 import okhttp3.FormBody;
-import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okio.BufferedSink;
 
-public class UploadStudyFragment extends Fragment {
+public class UpdateStudyFragment extends Fragment {
+    public int studyIdx;
+    public JSONObject targetJsonObject;
+    public Bitmap targetBitmap;
     View rootView;
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 11 && resultCode == Activity.RESULT_OK && null != data) {
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            Cursor cursor = getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
-            cursor.close();
-            ImageView imageView = (ImageView) rootView.findViewById(R.id.upload_study_thumbnail);
-            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-        }
-    }
-
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_upload_study, container, false);
+        rootView = inflater.inflate(R.layout.fragment_update_study, container, false);
 
-        final Spinner spinner = rootView.findViewById(R.id.upload_study_category_spinner);
+        final ImageView study_thumbnail = rootView.findViewById(R.id.update_study_thumbnail);
+        final Spinner spinner = rootView.findViewById(R.id.update_study_category_spinner);
+        final EditText study_title_editText = rootView.findViewById(R.id.update_study_title_editText);
+        final EditText study_desc_editText = rootView.findViewById(R.id.update_study_desc_editText);
+        final EditText study_location_editText = rootView.findViewById(R.id.update_study_location_editText);
+        final DatePicker study_date_editText = rootView.findViewById(R.id.update_study_date_editText);
+
+        try {
+            study_thumbnail.setImageBitmap(targetBitmap);
+            study_title_editText.setText(targetJsonObject.getString("title"));
+            study_desc_editText.setText(targetJsonObject.getString("note"));
+            String[] date = targetJsonObject.getString("signdate").split(" ")[0].split("-");
+            study_date_editText.updateDate(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]));
+            study_location_editText.setText(targetJsonObject.getString("station"));
+            spinner.setSelection(targetJsonObject.getInt("catIdx") - 1);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, Util.categorys);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        final ImageView study_thumbnail = rootView.findViewById(R.id.upload_study_thumbnail);
         study_thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(i, 11);
             }
         });
 
-        rootView.findViewById(R.id.upload_study_upload_button).setOnClickListener(new View.OnClickListener() {
+        rootView.findViewById(R.id.update_study_upload_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Bitmap photo = ((BitmapDrawable) study_thumbnail.getDrawable()).getBitmap();
-
-                final EditText study_title_editText = rootView.findViewById(R.id.upload_study_title_editText);
-                final EditText study_desc_editText = rootView.findViewById(R.id.upload_study_desc_editText);
-                final EditText study_location_editText = rootView.findViewById(R.id.upload_study_location_editText);
-                final DatePicker study_date_editText = rootView.findViewById(R.id.upload_study_date_editText);
 
                 new Thread() {
                     public void run() {
@@ -125,7 +125,7 @@ public class UploadStudyFragment extends Fragment {
                                 .build();
 
                         Request request = new Request.Builder()
-                                .url(String.format("%s/api/study/regist", getResources().getString(R.string.server_address)))
+                                .url(String.format("%s/api/study/%d", getResources().getString(R.string.server_address), studyIdx))
                                 .addHeader("Authorization", Util.userHSID)
                                 .post(requestBody)
                                 .build();
@@ -138,10 +138,10 @@ public class UploadStudyFragment extends Fragment {
                                 @Override
                                 public void run() {
                                     if (response.code() != 200) {
-                                        Toast.makeText(getContext(), "스터디 생성에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "스터디 수정에 실패했습니다.", Toast.LENGTH_SHORT).show();
                                     } else {
-                                        Toast.makeText(getContext(), "스터디 생성에 성공했습니다.", Toast.LENGTH_SHORT).show();
-                                        getActivity().getSupportFragmentManager().beginTransaction().remove(UploadStudyFragment.this).commit();
+                                        Toast.makeText(getContext(), "스터디 수정에 성공했습니다.", Toast.LENGTH_SHORT).show();
+                                        getActivity().getSupportFragmentManager().beginTransaction().remove(UpdateStudyFragment.this).commit();
                                     }
                                 }
                             });
