@@ -32,10 +32,10 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-//TODO : UpdateTutFragment
-
 public class DetailTutFragment extends Fragment {
     public int tutIdx;
+
+    UpdateTutFragment updateTutFragment = new UpdateTutFragment();
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_detail_tut, container, false);
@@ -75,8 +75,8 @@ public class DetailTutFragment extends Fragment {
         rootView.findViewById(R.id.detail_tut_update_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //updateStudyFragment.studyIdx = studyIdx;
-                // ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, updateStudyFragment).addToBackStack(null).commitAllowingStateLoss();
+                updateTutFragment.tutIdx = tutIdx;
+                ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, updateTutFragment).addToBackStack(null).commitAllowingStateLoss();
             }
         });
 
@@ -94,10 +94,10 @@ public class DetailTutFragment extends Fragment {
                     Response response = client.newCall(request).execute();
                     if (response.code() == 200) {
                         final JSONObject jsonObject = new JSONObject(response.body().string()).getJSONObject("info");
-                        //updateStudyFragment.targetJsonObject = jsonObject;
+                        updateTutFragment.targetJsonObject = jsonObject;
                         URL url = new URL(jsonObject.getString("img"));
                         final Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                        //updateStudyFragment.targetBitmap = bitmap;
+                        updateTutFragment.targetBitmap = bitmap;
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
