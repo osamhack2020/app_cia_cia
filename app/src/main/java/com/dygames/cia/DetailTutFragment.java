@@ -38,7 +38,7 @@ public class DetailTutFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_detail_tut, container, false);
 
-        rootView.findViewById(R.id.detail_study_delete_button).setOnClickListener(new View.OnClickListener() {
+        rootView.findViewById(R.id.detail_tut_delete_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new Thread() {
@@ -46,7 +46,7 @@ public class DetailTutFragment extends Fragment {
                         OkHttpClient client = new OkHttpClient();
 
                         Request request = new Request.Builder()
-                                .url(String.format("%s/api/study/%d", getResources().getString(R.string.server_address), tutIdx))
+                                .url(String.format("%s/api/class/%d", getResources().getString(R.string.server_address), tutIdx))
                                 .addHeader("Authorization", Util.userHSID)
                                 .delete()
                                 .build();
@@ -69,73 +69,8 @@ public class DetailTutFragment extends Fragment {
             }
         });
 
-        rootView.findViewById(R.id.detail_study_quit_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new Thread() {
-                    public void run() {
-                        OkHttpClient client = new OkHttpClient();
 
-                        Request request = new Request.Builder()
-                                .url(String.format("%s/api/study/%d/students", getResources().getString(R.string.server_address), tutIdx))
-                                .addHeader("Authorization", Util.userHSID)
-                                .delete()
-                                .build();
-                        try {
-                            Response response = client.newCall(request).execute();
-                            if (response.code() == 200) {
-                                getActivity().runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        rootView.findViewById(R.id.detail_study_quit_button).setVisibility(View.GONE);
-                                    }
-                                });
-                            } else {
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }.start();
-            }
-        });
-
-        rootView.findViewById(R.id.detail_study_sign_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new Thread() {
-                    public void run() {
-                        OkHttpClient client = new OkHttpClient();
-                        RequestBody req = new MultipartBody.Builder()
-                                .setType(MultipartBody.FORM)
-                                .addFormDataPart("", "")
-                                .build();
-
-                        Request request = new Request.Builder()
-                                .url(String.format("%s/api/study/%d/students", getResources().getString(R.string.server_address), tutIdx))
-                                .addHeader("Authorization", Util.userHSID)
-                                .post(req)
-                                .build();
-                        try {
-                            Response response = client.newCall(request).execute();
-                            if (response.code() == 200) {
-                                getActivity().runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        rootView.findViewById(R.id.detail_study_sign_button).setVisibility(View.GONE);
-                                    }
-                                });
-                            } else {
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }.start();
-            }
-        });
-
-        rootView.findViewById(R.id.detail_study_update_button).setOnClickListener(new View.OnClickListener() {
+        rootView.findViewById(R.id.detail_tut_update_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //updateStudyFragment.studyIdx = studyIdx;
@@ -147,12 +82,12 @@ public class DetailTutFragment extends Fragment {
             public void run() {
                 OkHttpClient client = new OkHttpClient();
                 try {
-                    client.newCall(new Request.Builder().url(String.format("%s/api/study/%d/views", getResources().getString(R.string.server_address), tutIdx)).put(new MultipartBody.Builder().addFormDataPart("", "").build()).build()).execute();
+                    client.newCall(new Request.Builder().url(String.format("%s/api/class/%d/views", getResources().getString(R.string.server_address), tutIdx)).put(new MultipartBody.Builder().addFormDataPart("", "").build()).build()).execute();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-                Request request = new Request.Builder().url(String.format("%s/api/study/%d", getResources().getString(R.string.server_address), tutIdx)).build();
+                Request request = new Request.Builder().url(String.format("%s/api/class/%d", getResources().getString(R.string.server_address), tutIdx)).build();
                 try {
                     Response response = client.newCall(request).execute();
                     if (response.code() == 200) {
@@ -164,13 +99,11 @@ public class DetailTutFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                ((ImageView) rootView.findViewById(R.id.detail_study_thumbnail)).setImageBitmap(bitmap);
+                                ((ImageView) rootView.findViewById(R.id.detail_tut_thumbnail)).setImageBitmap(bitmap);
                                 try {
-                                    ((TextView) rootView.findViewById(R.id.detail_study_headText)).setText(jsonObject.getString("title"));
-                                    ((TextView) rootView.findViewById(R.id.detail_study_detail_text)).setText(jsonObject.getString("note"));
-                                    ((TextView) rootView.findViewById(R.id.detail_study_date_text)).setText(jsonObject.getString("signdate"));
-                                    ((TextView) rootView.findViewById(R.id.detail_study_location_text)).setText(jsonObject.getString("station"));
-                                    ((TextView) rootView.findViewById(R.id.detail_study_category_text)).setText(Util.categorys[jsonObject.getInt("catIdx") - 1]);
+                                    ((TextView) rootView.findViewById(R.id.detail_tut_headText)).setText(jsonObject.getString("title"));
+                                    ((TextView) rootView.findViewById(R.id.detail_tut_detail_text)).setText(jsonObject.getString("note"));
+                                    ((TextView) rootView.findViewById(R.id.detail_tut_category_text)).setText(Util.categorys[jsonObject.getInt("catIdx") - 1]);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -191,7 +124,7 @@ public class DetailTutFragment extends Fragment {
         new Thread() {
             public void run() {
                 OkHttpClient client = new OkHttpClient();
-                Request request = new Request.Builder().url(String.format("%s/api/study/%d/students", getResources().getString(R.string.server_address), tutIdx)).build();
+                Request request = new Request.Builder().url(String.format("%s/api/class/%d/curriculum", getResources().getString(R.string.server_address), tutIdx)).build();
                 try {
                     Response response = client.newCall(request).execute();
                     if (response.code() == 200) {
@@ -201,18 +134,14 @@ public class DetailTutFragment extends Fragment {
 
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
-
-                            data[i] = new DetailMemberAdapter.Data(object.getString("name"), object.getString("img"));
+                            //data[i] = new DetailMemberAdapter.Data(object.getString("name"), object.getString("img"));
                         }
-
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                member_scroll.setAdapter(new DetailMemberAdapter(data));
+                                //member_scroll.setAdapter(new DetailMemberAdapter(data));
                             }
                         });
-
-
                     } else {
                     }
                 } catch (IOException | JSONException e) {
@@ -220,17 +149,6 @@ public class DetailTutFragment extends Fragment {
                 }
             }
         }.start();
-
-        final ConstraintLayout study_layout = (ConstraintLayout) rootView.findViewById(R.id.detail_study_layout);
-        study_layout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                study_layout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                ((FrameLayout.LayoutParams) study_layout.getLayoutParams()).setMargins(0, study_layout.getRootView().findViewById(R.id.detail_study_thumbnail).getHeight(), 0, 0);
-                study_layout.setPadding(Util.dpToPx(20), 0, Util.dpToPx(20), 400);
-            }
-        });
-
 
         final ConstraintLayout tut_layout = (ConstraintLayout) rootView.findViewById(R.id.detail_tut_layout);
         tut_layout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
