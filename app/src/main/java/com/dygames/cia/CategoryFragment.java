@@ -37,6 +37,9 @@ public class CategoryFragment extends Fragment {
         final RecyclerView tut_scroll = rootView.findViewById(R.id.category_tut_scroll);
         final RecyclerView study_scroll = rootView.findViewById(R.id.category_study_scroll);
 
+        tut_scroll.setAdapter(new CategoryAdapter(new ArrayList<CategoryAdapter.Data>()));
+        study_scroll.setAdapter(new CategoryAdapter(new ArrayList<CategoryAdapter.Data>()));
+
         study_scroll.setVisibility(View.VISIBLE);
         tut_scroll.setVisibility(View.INVISIBLE);
 
@@ -53,12 +56,14 @@ public class CategoryFragment extends Fragment {
                             JSONObject object = jsonArray.getJSONObject(i);
                             study_data.add(new CategoryAdapter.Data(object.getString("title"), object.getString("note"), BitmapFactory.decodeStream(new URL(object.getString("img")).openConnection().getInputStream()), object.getInt("idx"), false, object.getInt("catIdx")));
                         }
-                        study_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-                        study_scroll.setHasFixedSize(true);
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                study_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+                                study_scroll.setHasFixedSize(true);
                                 study_scroll.setAdapter(new CategoryAdapter(study_data));
+
+                                ((CategoryAdapter) study_scroll.getAdapter()).getFilter().filter(1 + "");
                             }
                         });
                     } else {
@@ -82,12 +87,13 @@ public class CategoryFragment extends Fragment {
                             JSONObject object = jsonArray.getJSONObject(i);
                             tut_data.add(new CategoryAdapter.Data(object.getString("title"), object.getString("note"), BitmapFactory.decodeStream(new URL(object.getString("img")).openConnection().getInputStream()), object.getInt("idx"), true, object.getInt("catIdx")));
                         }
-                        tut_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-                        tut_scroll.setHasFixedSize(true);
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                tut_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+                                tut_scroll.setHasFixedSize(true);
                                 tut_scroll.setAdapter(new CategoryAdapter(tut_data));
+                                ((CategoryAdapter) tut_scroll.getAdapter()).getFilter().filter(1 + "");
                             }
                         });
                     } else {
@@ -125,11 +131,18 @@ public class CategoryFragment extends Fragment {
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, Util.categorys);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         category_spinner.setAdapter(spinnerArrayAdapter);
-        category_spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((CategoryAdapter) study_scroll.getAdapter()).getFilter().filter(position + "");
-                ((CategoryAdapter) tut_scroll.getAdapter()).getFilter().filter(position + "");
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (study_scroll.getAdapter() != null)
+                    ((CategoryAdapter) study_scroll.getAdapter()).getFilter().filter((position + 1) + "");
+                if (tut_scroll.getAdapter() != null)
+                    ((CategoryAdapter) tut_scroll.getAdapter()).getFilter().filter((position + 1) + "");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 

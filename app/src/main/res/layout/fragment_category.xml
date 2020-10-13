@@ -65,20 +65,20 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/category_tut_scroll"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/category_scroll">
+        app:layout_constraintLeft_toLeftOf="parent">
 
     </androidx.recyclerview.widget.RecyclerView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/category_study_scroll"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/category_scroll">
+        app:layout_constraintLeft_toLeftOf="parent">
 
     </androidx.recyclerview.widget.RecyclerView>
 
