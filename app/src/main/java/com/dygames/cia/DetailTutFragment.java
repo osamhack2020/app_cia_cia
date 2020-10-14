@@ -119,9 +119,9 @@ public class DetailTutFragment extends Fragment {
             }
         }.start();
 
-        final RecyclerView member_scroll = rootView.findViewById(R.id.detail_tut_scroll);
-        member_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        member_scroll.setHasFixedSize(true);
+        final RecyclerView tut_scroll = rootView.findViewById(R.id.detail_tut_scroll);
+        tut_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        tut_scroll.setHasFixedSize(true);
 
         new Thread() {
             public void run() {
@@ -132,16 +132,16 @@ public class DetailTutFragment extends Fragment {
                     if (response.code() == 200) {
                         final JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("list");
 
-                        final DetailMemberAdapter.Data[] data = new DetailMemberAdapter.Data[jsonArray.length()];
+                        final DetailTutItemAdapter.Data[] data = new DetailTutItemAdapter.Data[jsonArray.length()];
 
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
-                            //data[i] = new DetailMemberAdapter.Data(object.getString("name"), object.getString("img"));
+                            data[i] = new DetailTutItemAdapter.Data(object.getString("title"), BitmapFactory.decodeStream(new URL(object.getString("img")).openConnection().getInputStream()));
                         }
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                //member_scroll.setAdapter(new DetailMemberAdapter(data));
+                                tut_scroll.setAdapter(new DetailTutItemAdapter(data));
                             }
                         });
                     } else {

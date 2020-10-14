@@ -53,6 +53,42 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/course_study_headText" />
 
+
+            <TextView
+                android:id="@+id/course_my_tut_headText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="내가 개설한 강의"
+                android:textSize="40dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/course_study_result" />
+
+            <LinearLayout
+                android:id="@+id/course_my_tut_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/course_my_tut_headText" />
+
+
+            <TextView
+                android:id="@+id/course_my_study_headText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="내가 개설한 스터디"
+                android:textSize="40dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/course_my_tut_result" />
+
+            <LinearLayout
+                android:id="@+id/course_my_study_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/course_my_study_headText" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

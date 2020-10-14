@@ -1,5 +1,6 @@
 package com.dygames.cia;
 
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,9 @@ public class DetailTutItemAdapter extends RecyclerView.Adapter<DetailTutItemAdap
 
     public static class Data {
         public String title;
-        public int thumbnailID;
+        public Bitmap thumbnailID;
 
-        public Data(String title, int thumbnailID) {
+        public Data(String title, Bitmap thumbnailID) {
             this.title = title;
             this.thumbnailID = thumbnailID;
         }
@@ -50,7 +51,7 @@ public class DetailTutItemAdapter extends RecyclerView.Adapter<DetailTutItemAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.title.setText(this.data[position].title);
-        holder.thumbnail.setBackgroundResource(this.data[position].thumbnailID);
+        holder.thumbnail.setImageBitmap(this.data[position].thumbnailID);
     }
 
     @Override

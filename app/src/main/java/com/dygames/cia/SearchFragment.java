@@ -29,11 +29,17 @@ public class SearchFragment extends Fragment {
 
         rootView.findViewById(R.id.search_layout).setPadding(Util.dpToPx(20), Util.dpToPx(20), Util.dpToPx(20), getActivity().findViewById(R.id.navigationView).getHeight());
 
+        final RecyclerView search_study_scroll = rootView.findViewById(R.id.main_search_study_scroll);
+        search_study_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        search_study_scroll.setHasFixedSize(true);
+        search_study_scroll.setNestedScrollingEnabled(false);
+        search_study_scroll.setAdapter(new CourseAdapter(new CourseAdapter.Data[0]));
 
-        final RecyclerView recommend_study = rootView.findViewById(R.id.main_search_study_scroll);
-        recommend_study.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        recommend_study.setHasFixedSize(true);
-        recommend_study.setAdapter(new CourseAdapter(new CourseAdapter.Data[0]));
+        final RecyclerView search_tut_scroll = rootView.findViewById(R.id.main_search_tut_scroll);
+        search_tut_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        search_tut_scroll.setHasFixedSize(true);
+        search_study_scroll.setNestedScrollingEnabled(false);
+        search_tut_scroll.setAdapter(new CourseAdapter(new CourseAdapter.Data[0]));
 
         ((SearchView) rootView.findViewById(R.id.main_search_view)).setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -63,9 +69,8 @@ public class SearchFragment extends Fragment {
                                                 courseAdapterData[i] = new CourseAdapter.Data(object.getString("title"), object.getString("note"), object.getString("img"), object.getInt("idx"), false);
                                             }
 
-                                            ((CourseAdapter) recommend_study.getAdapter()).data = courseAdapterData;
-                                            recommend_study.getAdapter().notifyDataSetChanged();
-                                            recommend_study.requestLayout();
+                                            ((CourseAdapter) search_study_scroll.getAdapter()).data = courseAdapterData;
+                                            search_study_scroll.getAdapter().notifyDataSetChanged();
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
