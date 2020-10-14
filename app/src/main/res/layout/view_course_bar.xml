@@ -13,8 +13,9 @@
 
     <ImageView
         android:id="@+id/course_bar_thumbnail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -24,7 +25,7 @@
         android:id="@+id/course_bar_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="dfasdf"
+        android:textSize="20sp"
         app:layout_constraintLeft_toRightOf="@id/course_bar_thumbnail"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,7 +33,7 @@
         android:id="@+id/course_bar_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="dfasddddddddasdf"
+        android:textSize="15sp"
         app:layout_constraintLeft_toRightOf="@id/course_bar_thumbnail"
         app:layout_constraintTop_toBottomOf="@id/course_bar_title" />
 

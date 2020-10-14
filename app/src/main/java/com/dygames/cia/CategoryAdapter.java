@@ -84,9 +84,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         public ViewHolder(View v) {
             super(v);
-            this.thumbnail = v.findViewById(R.id.view_tut_thumbnail);
-            this.title = v.findViewById(R.id.view_tut_title);
-            this.desc = v.findViewById(R.id.view_tut_desc);
+            this.thumbnail = v.findViewById(R.id.course_bar_thumbnail);
+            this.title = v.findViewById(R.id.course_bar_title);
+            this.desc = v.findViewById(R.id.course_bar_desc);
         }
     }
 
@@ -101,7 +101,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View holderView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_course_item, parent, false);
+        View holderView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_course_bar, parent, false);
         ViewHolder h = new ViewHolder(holderView);
         return h;
     }
@@ -111,6 +111,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         final int pos = position;
         holder.title.setText(this.filteredList.get(position).title);
         holder.desc.setText(this.filteredList.get(position).desc);
+        holder.thumbnail.setImageBitmap(this.filteredList.get(position).thumbnailID);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

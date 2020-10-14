@@ -58,7 +58,6 @@ public class MainFragment extends Fragment {
             });
         }
 
-
         new Thread() {
             public void run() {
                 OkHttpClient client = new OkHttpClient();
@@ -94,7 +93,6 @@ public class MainFragment extends Fragment {
                 }
             }
         }.start();
-
 
         new Thread() {
             public void run() {
@@ -132,29 +130,78 @@ public class MainFragment extends Fragment {
             }
         }.start();
 
-        RecyclerView trend_tut = rootView.findViewById(R.id.trend_tut_scroll);
-        trend_tut.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        trend_tut.setHasFixedSize(true);
-        trend_tut.setAdapter(new CourseAdapter(new CourseAdapter.Data[]
-                {new CourseAdapter.Data("타이틀 111", "설명 111", "", 0, true),
-                        new CourseAdapter.Data("타이틀 222", "설명 222", "", 0, true),
-                        new CourseAdapter.Data("타이틀 333", "설명 333", "", 0, true),
-                        new CourseAdapter.Data("타이틀 444", "설명 444", "", 0, true),
-                        new CourseAdapter.Data("타이틀 555", "설명 555", "", 0, true),
-                        new CourseAdapter.Data("타이틀 666", "설명 666", "", 0, true),
-                }));
 
-        RecyclerView trend_study = rootView.findViewById(R.id.trend_study_scroll);
-        trend_study.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        trend_study.setHasFixedSize(true);
-        trend_study.setAdapter(new CourseAdapter(new CourseAdapter.Data[]
-                {new CourseAdapter.Data("타이틀 1111", "설명 1111", "", 0, false),
-                        new CourseAdapter.Data("타이틀 2222", "설명 2222", "", 0, false),
-                        new CourseAdapter.Data("타이틀 3333", "설명 3333", "", 0, false),
-                        new CourseAdapter.Data("타이틀 4444", "설명 4444", "", 0, false),
-                        new CourseAdapter.Data("타이틀 5555", "설명 5555", "", 0, false),
-                        new CourseAdapter.Data("타이틀 6666", "설명 6666", "", 0, false),
-                }));
+        new Thread() {
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder().url(String.format("%s/api/class/recommend?limitCount=5", getResources().getString(R.string.server_address))).build();
+                try {
+                    Response response = client.newCall(request).execute();
+                    if (response.code() == 200) {
+                        final JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("list");
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                RecyclerView recommend_tut = rootView.findViewById(R.id.trend_tut_scroll);
+                                recommend_tut.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+                                recommend_tut.setHasFixedSize(true);
+                                try {
+                                    CourseAdapter.Data[] courseAdapterData = new CourseAdapter.Data[jsonArray.length()];
+
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject object = jsonArray.getJSONObject(i);
+                                        courseAdapterData[i] = new CourseAdapter.Data(object.getString("title"), object.getString("note"), object.getString("img"), object.getInt("idx"), true);
+                                    }
+
+                                    recommend_tut.setAdapter(new CourseAdapter(courseAdapterData));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    } else {
+                    }
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
+        new Thread() {
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder().url(String.format("%s/api/study/recommend?limitCount=5", getResources().getString(R.string.server_address))).build();
+                try {
+                    Response response = client.newCall(request).execute();
+                    if (response.code() == 200) {
+                        final JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("list");
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                RecyclerView recommend_study = rootView.findViewById(R.id.trend_study_scroll);
+                                recommend_study.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+                                recommend_study.setHasFixedSize(true);
+                                try {
+                                    CourseAdapter.Data[] courseAdapterData = new CourseAdapter.Data[jsonArray.length()];
+
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject object = jsonArray.getJSONObject(i);
+                                        courseAdapterData[i] = new CourseAdapter.Data(object.getString("title"), object.getString("note"), object.getString("img"), object.getInt("idx"), false);
+                                    }
+
+                                    recommend_study.setAdapter(new CourseAdapter(courseAdapterData));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    } else {
+                    }
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
 
         final View fab_study = rootView.findViewById(R.id.fab_study_upload);
         final View fab_tut = rootView.findViewById(R.id.fab_tut_upload);
@@ -203,10 +250,12 @@ public class MainFragment extends Fragment {
                                         chip.setTextAppearance(R.style.TextStyle);
                                         chip.setClickable(true);
                                         chip.setFocusable(true);
+                                        final int finalI = i;
                                         chip.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
                                                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                                                categoryFragment.catIdx = finalI;
                                                 transaction.replace(R.id.frameLayout, categoryFragment).addToBackStack(null).commitAllowingStateLoss();
                                             }
                                         });

@@ -32,10 +32,13 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class CategoryFragment extends Fragment {
+    public int catIdx;
+
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_category, container, false);
         final RecyclerView tut_scroll = rootView.findViewById(R.id.category_tut_scroll);
         final RecyclerView study_scroll = rootView.findViewById(R.id.category_study_scroll);
+        final Spinner category_spinner = rootView.findViewById(R.id.category_spinner);
 
         tut_scroll.setAdapter(new CategoryAdapter(new ArrayList<CategoryAdapter.Data>()));
         study_scroll.setAdapter(new CategoryAdapter(new ArrayList<CategoryAdapter.Data>()));
@@ -59,11 +62,10 @@ public class CategoryFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                study_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+                                study_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
                                 study_scroll.setHasFixedSize(true);
                                 study_scroll.setAdapter(new CategoryAdapter(study_data));
-
-                                ((CategoryAdapter) study_scroll.getAdapter()).getFilter().filter(1 + "");
+                                ((CategoryAdapter) study_scroll.getAdapter()).getFilter().filter((catIdx + 1) + "");
                             }
                         });
                     } else {
@@ -90,10 +92,11 @@ public class CategoryFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                tut_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+                                tut_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
                                 tut_scroll.setHasFixedSize(true);
                                 tut_scroll.setAdapter(new CategoryAdapter(tut_data));
-                                ((CategoryAdapter) tut_scroll.getAdapter()).getFilter().filter(1 + "");
+                                ((CategoryAdapter) tut_scroll.getAdapter()).getFilter().filter((catIdx + 1) + "");
+                                category_spinner.setSelection(catIdx);
                             }
                         });
                     } else {
@@ -127,7 +130,6 @@ public class CategoryFragment extends Fragment {
             }
         });
 
-        Spinner category_spinner = rootView.findViewById(R.id.category_spinner);
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, Util.categorys);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         category_spinner.setAdapter(spinnerArrayAdapter);
