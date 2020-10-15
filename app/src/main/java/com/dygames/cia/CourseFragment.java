@@ -36,6 +36,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class CourseFragment extends Fragment {
+    View rootView;
 
     public static class Data {
         public String title;
@@ -52,8 +53,11 @@ public class CourseFragment extends Fragment {
     }
 
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_course, container, false);
+        if (rootView != null)
+            return rootView;
 
+        rootView = inflater.inflate(R.layout.fragment_course, container, false);
+        Log.d("DDDD", "create");
         rootView.findViewById(R.id.course_layout).setPadding(Util.dpToPx(20), Util.dpToPx(20), Util.dpToPx(20), getActivity().findViewById(R.id.navigationView).getHeight());
 
         final ArrayList<Data> tut_data = new ArrayList<>();
@@ -74,7 +78,6 @@ public class CourseFragment extends Fragment {
                         JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("list");
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
-                            Log.d("DDDD", object.toString());
                             tut_data.add(new Data(object.getString("title"), object.getString("note"), BitmapFactory.decodeStream(new URL(object.getString("img")).openConnection().getInputStream()), object.getInt("idx")));
                         }
 

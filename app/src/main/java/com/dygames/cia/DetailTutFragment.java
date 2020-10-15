@@ -10,6 +10,7 @@ import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,7 +30,6 @@ import java.net.URL;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class DetailTutFragment extends Fragment {
@@ -105,7 +105,7 @@ public class DetailTutFragment extends Fragment {
                                 try {
                                     ((TextView) rootView.findViewById(R.id.detail_tut_headText)).setText(jsonObject.getString("title"));
                                     ((TextView) rootView.findViewById(R.id.detail_tut_detail_text)).setText(jsonObject.getString("note"));
-                                    ((TextView) rootView.findViewById(R.id.detail_tut_category_text)).setText(Util.categorys[jsonObject.getInt("catIdx") - 1]);
+                                    ((TextView) rootView.findViewById(R.id.detail_tut_category_text)).setText(Util.categories[jsonObject.getInt("catIdx") - 1]);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -136,7 +136,7 @@ public class DetailTutFragment extends Fragment {
 
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
-                            data[i] = new DetailTutItemAdapter.Data(object.getString("title"), BitmapFactory.decodeStream(new URL(object.getString("img")).openConnection().getInputStream()));
+                            data[i] = new DetailTutItemAdapter.Data(object.getString("title"), BitmapFactory.decodeStream(new URL(object.getString("img")).openConnection().getInputStream()), object.getInt("idx"));
                         }
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
@@ -151,6 +151,69 @@ public class DetailTutFragment extends Fragment {
                 }
             }
         }.start();
+
+
+        rootView.findViewById(R.id.detail_tut_sign_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread() {
+                    public void run() {
+                        OkHttpClient client = new OkHttpClient();
+
+                        Request request = new Request.Builder()
+                                .url(String.format("%s/api/class/%d/students", getResources().getString(R.string.server_address), tutIdx))
+                                .addHeader("Authorization", Util.userHSID)
+                                .post(new MultipartBody.Builder().addFormDataPart("","").build())
+                                .build();
+                        try {
+                            Response response = client.newCall(request).execute();
+                            if (response.code() == 200) {
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getContext(), "강의 가입에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } else {
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();
+            }
+        });
+
+        rootView.findViewById(R.id.detail_tut_quit_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread() {
+                    public void run() {
+                        OkHttpClient client = new OkHttpClient();
+
+                        Request request = new Request.Builder()
+                                .url(String.format("%s/api/class/%d/students", getResources().getString(R.string.server_address), tutIdx))
+                                .addHeader("Authorization", Util.userHSID)
+                                .delete()
+                                .build();
+                        try {
+                            Response response = client.newCall(request).execute();
+                            if (response.code() == 200) {
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getContext(), "강의 탈퇴에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } else {
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();
+            }
+        });
 
         final ConstraintLayout tut_layout = (ConstraintLayout) rootView.findViewById(R.id.detail_tut_layout);
         tut_layout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {

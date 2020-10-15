@@ -35,8 +35,11 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class InfoFragment extends Fragment {
+    View rootView;
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.fragment_info, container, false);
+        if (rootView != null)
+            return rootView;
+        rootView = inflater.inflate(R.layout.fragment_info, container, false);
         LinearLayout info_list = rootView.findViewById(R.id.info_list);
         for (int i = 0; i < info_list.getChildCount(); i++) {
             ((ConstraintLayout) info_list.getChildAt(i)).setOnTouchListener(new View.OnTouchListener() {

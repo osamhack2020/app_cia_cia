@@ -24,8 +24,12 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class SearchFragment extends Fragment {
+    View rootView;
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.fragment_search, container, false);
+        if (rootView != null)
+            return rootView;
+        rootView = inflater.inflate(R.layout.fragment_search, container, false);
 
         rootView.findViewById(R.id.search_layout).setPadding(Util.dpToPx(20), Util.dpToPx(20), Util.dpToPx(20), getActivity().findViewById(R.id.navigationView).getHeight());
 

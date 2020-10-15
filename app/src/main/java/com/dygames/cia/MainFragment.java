@@ -2,13 +2,11 @@ package com.dygames.cia;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,13 +29,16 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class MainFragment extends Fragment {
+    View rootView = null;
 
     private com.dygames.cia.CategoryFragment categoryFragment = new com.dygames.cia.CategoryFragment();
     private com.dygames.cia.UploadStudyFragment uploadStudyFragment = new com.dygames.cia.UploadStudyFragment();
     private com.dygames.cia.UploadTutFragment uploadTutFragment = new com.dygames.cia.UploadTutFragment();
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        if (rootView != null)
+            return rootView;
+        rootView = inflater.inflate(R.layout.fragment_main, container, false);
         rootView.findViewById(R.id.main_layout).setPadding(Util.dpToPx(20), Util.dpToPx(100), Util.dpToPx(20), getActivity().findViewById(R.id.navigationView).getHeight());
         final CustomActionBar actionBar = rootView.findViewById(R.id.main_actionbar);
         final ScrollView main_scrollView = (ScrollView) rootView.findViewById(R.id.main_layout).getParent();
@@ -241,10 +242,10 @@ public class MainFragment extends Fragment {
                             @Override
                             public void run() {
                                 try {
-                                    Util.categorys = new String[jsonArray.length()];
+                                    Util.categories = new String[jsonArray.length()];
                                     for (int i = 0; i < jsonArray.length(); i++) {
                                         JSONObject object = jsonArray.getJSONObject(i);
-                                        Util.categorys[i] = object.getString("name");
+                                        Util.categories[i] = object.getString("name");
                                         Chip chip = new Chip(getContext(), null, R.style.Widget_MaterialComponents_Chip_Action);
                                         chip.setText(object.getString("name"));
                                         chip.setTextAppearance(R.style.TextStyle);

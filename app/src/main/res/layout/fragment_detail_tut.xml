@@ -63,13 +63,43 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detail_tut_headText" />
 
+            <Button
+                android:id="@+id/detail_tut_sign_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="강의 가입하기"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/detail_tut_quit_button"
+                app:layout_constraintTop_toBottomOf="@id/detail_tut_update_button" />
+
+            <Button
+                android:id="@+id/detail_tut_quit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="강의 탈퇴하기"
+                app:layout_constraintLeft_toRightOf="@id/detail_tut_sign_button"
+                app:layout_constraintRight_toLeftOf="@id/detail_tut_upload_cur_button"
+                app:layout_constraintTop_toBottomOf="@id/detail_tut_update_button" />
+
+            <Button
+                android:id="@+id/detail_tut_upload_cur_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="회차 등록하기"
+                app:layout_constraintLeft_toRightOf="@id/detail_tut_quit_button"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_tut_update_button" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/detail_tut_scroll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detail_tut_update_button" />
+                app:layout_constraintTop_toBottomOf="@id/detail_tut_sign_button" />
 
 
             <TextView

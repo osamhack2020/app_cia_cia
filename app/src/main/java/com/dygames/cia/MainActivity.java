@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-
                 ((BottomNavigationView) findViewById(R.id.navigationView)).getMenu().setGroupCheckable(0, true, true);
                 switch (menuItem.getItemId()) {
                     case R.id.bottom_main:
@@ -58,7 +57,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //@Override
-    //public void onBackPressed() {
-    //}
+    @Override
+    public void onBackPressed() {
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+        if (count == 0) {
+            super.onBackPressed();
+        } else {
+            getSupportFragmentManager().popBackStack();
+        }
+    }
 }

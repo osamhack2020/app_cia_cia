@@ -11,6 +11,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
 
-    <!-- <string name="server_address">http://10.0.2.2:8080</string> -->
-    <string name="server_address">http://cia777.cafe24.com</string>
+    <string name="server_address">http://10.0.2.2:8080</string>
+    <!-- <string name="server_address">http://cia777.cafe24.com</string> -->
 </resources>

@@ -7,11 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,9 +25,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.concurrent.ExecutionException;
 
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -177,7 +172,7 @@ public class DetailStudyFragment extends Fragment {
                                     ((TextView) rootView.findViewById(R.id.detail_study_detail_text)).setText(jsonObject.getString("note"));
                                     ((TextView) rootView.findViewById(R.id.detail_study_date_text)).setText(jsonObject.getString("signdate"));
                                     ((TextView) rootView.findViewById(R.id.detail_study_location_text)).setText(jsonObject.getString("station"));
-                                    ((TextView) rootView.findViewById(R.id.detail_study_category_text)).setText(Util.categorys[jsonObject.getInt("catIdx") - 1]);
+                                    ((TextView) rootView.findViewById(R.id.detail_study_category_text)).setText(Util.categories[jsonObject.getInt("catIdx") - 1]);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

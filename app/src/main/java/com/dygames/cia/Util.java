@@ -4,7 +4,7 @@ import android.content.res.Resources;
 
 public class Util {
 
-    public static String[] categorys;
+    public static String[] categories;
     public static String userHSID = "";
 
     public static int dpToPx(int dp) {

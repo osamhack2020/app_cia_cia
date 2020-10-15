@@ -21,10 +21,12 @@
 
             <TextView
                 android:id="@+id/recommend_tut_headText"
-                android:layout_width="125dp"
-                android:layout_height="48dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="추천 강의"
-                android:textSize="30dp"
+                android:textColor="#333333"
+                android:textSize="28dp"
+                android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,15 +34,19 @@
                 android:id="@+id/recommend_tut_subText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:paddingBottom="2dp"
                 android:text="빅데이터를 활용한 맞춤 강의 추천"
-                android:textSize="15dp"
-                app:layout_constraintLeft_toLeftOf="@id/recommend_tut_headText"
-                app:layout_constraintTop_toBottomOf="@id/recommend_tut_headText" />
+                android:textColor="#717171"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="@id/recommend_tut_headText"
+                app:layout_constraintLeft_toRightOf="@id/recommend_tut_headText" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recommend_tut_scroll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recommend_tut_subText"></androidx.recyclerview.widget.RecyclerView>
 
@@ -50,7 +56,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text="추천 스터디"
-                android:textSize="30dp"
+                android:textColor="#333333"
+                android:textSize="28dp"
+                android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recommend_tut_scroll" />
 
@@ -58,15 +66,19 @@
                 android:id="@+id/recommend_study_subText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:paddingBottom="2dp"
                 android:text="빅데이터를 활용한 맞춤 스터디 추천"
-                android:textSize="15dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recommend_study_headText" />
+                android:textColor="#717171"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="@id/recommend_study_headText"
+                app:layout_constraintLeft_toRightOf="@id/recommend_study_headText" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recommend_study_scroll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recommend_study_subText" />
 
@@ -76,7 +88,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text="카테고리"
-                android:textSize="30dp"
+                android:textColor="#333333"
+                android:textSize="28dp"
+                android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recommend_study_scroll" />
 
@@ -84,6 +98,7 @@
                 android:id="@+id/category_chipgroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/category_headText" />
 
@@ -93,7 +108,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text="인기 강의"
-                android:textSize="30dp"
+                android:textColor="#333333"
+                android:textSize="28dp"
+                android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/category_chipgroup" />
 
@@ -101,15 +118,19 @@
                 android:id="@+id/trend_tut_subText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:paddingBottom="2dp"
                 android:text="현재 가장 많이 수강중인 강의 추천"
-                android:textSize="15dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/trend_tut_headText" />
+                android:textColor="#717171"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="@+id/trend_tut_headText"
+                app:layout_constraintLeft_toRightOf="@+id/trend_tut_headText" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/trend_tut_scroll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/trend_tut_subText" />
 
@@ -119,7 +140,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text="인기 스터디"
-                android:textSize="30dp"
+                android:textColor="#333333"
+                android:textSize="28dp"
+                android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/trend_tut_scroll" />
 
@@ -127,15 +150,19 @@
                 android:id="@+id/trend_study_subText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:paddingBottom="2dp"
                 android:text="현재 가장 많이 수강중인 스터디 추천"
-                android:textSize="15dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/trend_study_headText" />
+                android:textColor="#717171"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="@id/trend_study_headText"
+                app:layout_constraintLeft_toRightOf="@id/trend_study_headText" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/trend_study_scroll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/trend_study_subText" />
 
