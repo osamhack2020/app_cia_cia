@@ -95,14 +95,4 @@
         android:textSize="11sp"
         app:layout_constraintLeft_toRightOf="@id/view_course_date_image"
         app:layout_constraintTop_toBottomOf="@id/view_tut_title" />
-
-    <TextView
-        android:id="@+id/view_tut_desc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="8dp"
-        android:visibility="gone"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_tut_title" />
 </androidx.constraintlayout.widget.ConstraintLayout>

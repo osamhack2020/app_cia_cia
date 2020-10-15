@@ -70,7 +70,7 @@ public class SearchFragment extends Fragment {
 
                                             for (int i = 0; i < jsonArray.length(); i++) {
                                                 JSONObject object = jsonArray.getJSONObject(i);
-                                                courseAdapterData[i] = new CourseAdapter.Data(object.getString("title"), object.getString("note"), object.getString("img"), object.getInt("idx"), false);
+                                                courseAdapterData[i] = new CourseAdapter.Data(object.getString("title"), object.getInt("catIdx"), object.getString("userName"), object.getInt("viewCount"), object.getString("regdate"), object.getString("img"), object.getInt("idx"), true);
                                             }
 
                                             ((CourseAdapter) search_study_scroll.getAdapter()).data = courseAdapterData;

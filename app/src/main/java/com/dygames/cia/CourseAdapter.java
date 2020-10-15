@@ -28,14 +28,20 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     public static class Data {
         public String title;
-        public String desc;
+        public int categoryIdx;
+        public String userName;
+        public int viewCount;
+        public String date;
         public String thumbnailID;
         public int idx;
         public boolean isTut;
 
-        public Data(String title, String desc, String thumbnailID, int idx, boolean isTut) {
+        public Data(String title, int categoryIdx, String userName, int viewCount, String date, String thumbnailID, int idx, boolean isTut) {
             this.title = title;
-            this.desc = desc;
+            this.categoryIdx = categoryIdx;
+            this.userName = userName;
+            this.viewCount = viewCount;
+            this.date = date;
             this.thumbnailID = thumbnailID;
             this.idx = idx;
             this.isTut = isTut;
@@ -44,14 +50,18 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView thumbnail;
+        public TextView info;
         public TextView title;
-        public TextView desc;
+        public TextView viewCount;
+        public TextView date;
 
         public ViewHolder(View v) {
             super(v);
             this.thumbnail = v.findViewById(R.id.view_tut_thumbnail);
+            this.info = v.findViewById(R.id.view_tut_info);
             this.title = v.findViewById(R.id.view_tut_title);
-            this.desc = v.findViewById(R.id.view_tut_desc);
+            this.viewCount = v.findViewById(R.id.view_course_view_text);
+            this.date = v.findViewById(R.id.view_course_date_text);
         }
     }
 
@@ -95,7 +105,9 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             }
         }.start();
         holder.title.setText(this.data[position].title);
-        holder.desc.setText(this.data[position].desc);
+        holder.info.setText(Util.categories[this.data[position].categoryIdx] + " · " + this.data[position].userName);
+        holder.viewCount.setText(this.data[position].viewCount + "");
+        holder.date.setText(this.data[position].date.split(" ")[0]);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

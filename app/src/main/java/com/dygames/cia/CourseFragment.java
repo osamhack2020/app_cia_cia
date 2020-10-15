@@ -36,7 +36,6 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class CourseFragment extends Fragment {
-    View rootView;
 
     public static class Data {
         public String title;
@@ -53,11 +52,8 @@ public class CourseFragment extends Fragment {
     }
 
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (rootView != null)
-            return rootView;
+        View rootView = inflater.inflate(R.layout.fragment_course, container, false);
 
-        rootView = inflater.inflate(R.layout.fragment_course, container, false);
-        Log.d("DDDD", "create");
         rootView.findViewById(R.id.course_layout).setPadding(Util.dpToPx(20), Util.dpToPx(20), Util.dpToPx(20), getActivity().findViewById(R.id.navigationView).getHeight());
 
         final ArrayList<Data> tut_data = new ArrayList<>();
