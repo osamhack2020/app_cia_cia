@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -201,6 +202,129 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/trend_study_subText" />
 
+            <View
+                android:id="@+id/main_separator"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="40dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/trend_study_scroll" />
+
+            <TextView
+                android:id="@+id/main_about_title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingTop="30dp"
+                android:paddingRight="10dp"
+                android:text="Collective Intelligence in Army"
+                android:textColor="#555"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_separator" />
+
+            <TextView
+                android:id="@+id/main_about_desc_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingTop="15dp"
+                android:paddingRight="10dp"
+                android:text="CIA는 위생적인 조리 및 급식 여건 확인 / 감독 강화\n식당, 취사장, 잔반 처리장 청력 / 주기적인 소독\n부식류 수령 즉시 류별 손질 / 저장"
+                android:textColor="#919191"
+                android:textSize="12sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_about_title_text" />
+
+            <TextView
+                android:id="@+id/main_about_member_title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingTop="15dp"
+                android:paddingRight="10dp"
+                android:text="Developers"
+                android:textColor="#555"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_about_desc_text" />
+
+            <TextView
+                android:id="@+id/main_about_member_desc_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingTop="15dp"
+                android:paddingRight="10dp"
+                android:text="ㆍ육군 정체단 운영지원과 대위 정동훈\nㆍ육군 정체단 개발과 8급 이유연\nㆍ육군 정체단 운영지원과 정희성\nㆍ육군 정체단 개발과 상병 김도엽"
+                android:textColor="#919191"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_about_member_title_text" />
+
+            <ImageView
+                android:id="@+id/main_logo_0"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="35dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/bn2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/main_logo_1"
+                app:layout_constraintTop_toBottomOf="@id/main_about_member_desc_text" />
+
+            <ImageView
+                android:id="@+id/main_logo_1"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="35dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/bn2"
+                app:layout_constraintLeft_toRightOf="@id/main_logo_0"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_about_member_desc_text" />
+
+            <ImageView
+                android:id="@+id/main_logo_2"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/bn3"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/main_logo_3"
+                app:layout_constraintTop_toBottomOf="@id/main_logo_0" />
+
+            <ImageView
+                android:id="@+id/main_logo_3"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/bn4"
+                app:layout_constraintLeft_toRightOf="@id/main_logo_2"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_logo_0" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingLeft="10dp"
+                android:paddingTop="15dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="50dp"
+                android:text="Copyright 2020 dygames all right reserved"
+                android:textAlignment="center"
+                android:textColor="#919191"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_logo_3" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
@@ -213,12 +337,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:adjustViewBounds="true"
-        android:src="@mipmap/ic_launcher"
+        android:scaleX="2.7"
+        android:scaleY="2.7"
+        android:src="@drawable/vlogo"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

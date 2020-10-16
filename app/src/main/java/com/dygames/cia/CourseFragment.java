@@ -1,5 +1,6 @@
 package com.dygames.cia;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -37,6 +38,8 @@ import okhttp3.Response;
 
 public class CourseFragment extends Fragment {
 
+    View rootView;
+
     public static class Data {
         public String title;
         public String desc;
@@ -52,7 +55,9 @@ public class CourseFragment extends Fragment {
     }
 
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_course, container, false);
+        if (rootView != null)
+            return rootView;
+        rootView = inflater.inflate(R.layout.fragment_course, container, false);
 
         rootView.findViewById(R.id.course_layout).setPadding(Util.dpToPx(20), Util.dpToPx(20), Util.dpToPx(20), getActivity().findViewById(R.id.navigationView).getHeight());
 
@@ -61,6 +66,8 @@ public class CourseFragment extends Fragment {
 
         final LinearLayout tut_result = rootView.findViewById(R.id.course_tut_result);
         final LinearLayout study_result = rootView.findViewById(R.id.course_study_result);
+
+        final Activity activity = getActivity();
 
         new Thread() {
             public void run() {
@@ -77,7 +84,7 @@ public class CourseFragment extends Fragment {
                             tut_data.add(new Data(object.getString("title"), object.getString("note"), BitmapFactory.decodeStream(new URL(object.getString("img")).openConnection().getInputStream()), object.getInt("idx")));
                         }
 
-                        getActivity().runOnUiThread(new Runnable() {
+                        activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 for (int i = 0; i < tut_data.size(); i++) {
@@ -113,7 +120,7 @@ public class CourseFragment extends Fragment {
                             study_data.add(new Data(object.getString("title"), object.getString("note"), BitmapFactory.decodeStream(new URL(object.getString("img")).openConnection().getInputStream()), object.getInt("idx")));
                         }
 
-                        getActivity().runOnUiThread(new Runnable() {
+                        activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 for (int i = 0; i < study_data.size(); i++) {

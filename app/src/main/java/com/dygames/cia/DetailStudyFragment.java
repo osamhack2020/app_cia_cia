@@ -229,7 +229,7 @@ public class DetailStudyFragment extends Fragment {
             public void onGlobalLayout() {
                 study_layout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 ((FrameLayout.LayoutParams) study_layout.getLayoutParams()).setMargins(0, study_layout.getRootView().findViewById(R.id.detail_study_thumbnail).getHeight(), 0, 0);
-                study_layout.setPadding(Util.dpToPx(20), 0, Util.dpToPx(20), 400);
+                study_layout.setPadding(Util.dpToPx(20), 0, Util.dpToPx(20), study_layout.getRootView().findViewById(R.id.detail_study_thumbnail).getHeight());
             }
         });
         return rootView;

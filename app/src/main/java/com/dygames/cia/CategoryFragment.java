@@ -1,5 +1,6 @@
 package com.dygames.cia;
 
+import android.app.Activity;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -43,6 +44,8 @@ public class CategoryFragment extends Fragment {
         study_scroll.setVisibility(View.VISIBLE);
         tut_scroll.setVisibility(View.INVISIBLE);
 
+        final Activity activity = getActivity();
+
         new Thread() {
             public void run() {
                 OkHttpClient client = new OkHttpClient();
@@ -56,7 +59,7 @@ public class CategoryFragment extends Fragment {
                             JSONObject object = jsonArray.getJSONObject(i);
                             study_data.add(new CategoryAdapter.Data(object.getString("title"), object.getString("note"), BitmapFactory.decodeStream(new URL(object.getString("img")).openConnection().getInputStream()), object.getInt("idx"), false, object.getInt("catIdx")));
                         }
-                        getActivity().runOnUiThread(new Runnable() {
+                        activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 study_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));

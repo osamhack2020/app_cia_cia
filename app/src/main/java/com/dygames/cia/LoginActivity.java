@@ -1,10 +1,12 @@
 package com.dygames.cia;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +24,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
+    SignUpFragment signUpFragment = new SignUpFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
@@ -30,6 +34,15 @@ public class LoginActivity extends AppCompatActivity {
 
         final EditText email = findViewById(R.id.login_id_editText);
         final EditText pw = findViewById(R.id.login_pw_editText);
+
+        TextView signup_text = findViewById(R.id.login_signup_text);
+        signup_text.setPaintFlags(signup_text.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        signup_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.login_frameLayout, signUpFragment).addToBackStack(null).commitAllowingStateLoss();
+            }
+        });
 
         findViewById(R.id.login_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,15 +89,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        final SignUpFragment signUpFragment = new SignUpFragment();
 
-        findViewById(R.id.login_signup_button).
-
-                setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getSupportFragmentManager().beginTransaction().replace(R.id.login_frameLayout, signUpFragment).addToBackStack(null).commitAllowingStateLoss();
-                    }
-                });
     }
 }

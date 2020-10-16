@@ -1,5 +1,6 @@
 package com.dygames.cia;
 
+import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -58,6 +59,7 @@ public class MainFragment extends Fragment {
                 }
             });
         }
+        final Activity activity = getActivity();
 
         new Thread() {
             public void run() {
@@ -67,7 +69,7 @@ public class MainFragment extends Fragment {
                     Response response = client.newCall(request).execute();
                     if (response.code() == 200) {
                         final JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("list");
-                        getActivity().runOnUiThread(new Runnable() {
+                        activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 RecyclerView recommend_tut = rootView.findViewById(R.id.recommend_tut_scroll);
@@ -103,7 +105,7 @@ public class MainFragment extends Fragment {
                     Response response = client.newCall(request).execute();
                     if (response.code() == 200) {
                         final JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("list");
-                        getActivity().runOnUiThread(new Runnable() {
+                        activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 RecyclerView recommend_study = rootView.findViewById(R.id.recommend_study_scroll);
@@ -140,7 +142,7 @@ public class MainFragment extends Fragment {
                     Response response = client.newCall(request).execute();
                     if (response.code() == 200) {
                         final JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("list");
-                        getActivity().runOnUiThread(new Runnable() {
+                        activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 RecyclerView recommend_tut = rootView.findViewById(R.id.trend_tut_scroll);
@@ -176,7 +178,7 @@ public class MainFragment extends Fragment {
                     Response response = client.newCall(request).execute();
                     if (response.code() == 200) {
                         final JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("list");
-                        getActivity().runOnUiThread(new Runnable() {
+                        activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 RecyclerView recommend_study = rootView.findViewById(R.id.trend_study_scroll);
@@ -238,7 +240,7 @@ public class MainFragment extends Fragment {
                     Response response = client.newCall(request).execute();
                     if (response.code() == 200) {
                         final JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("list");
-                        getActivity().runOnUiThread(new Runnable() {
+                        activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 try {

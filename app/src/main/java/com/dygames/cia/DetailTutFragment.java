@@ -7,8 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +38,7 @@ public class DetailTutFragment extends Fragment {
     public int tutIdx;
 
     UpdateTutFragment updateTutFragment = new UpdateTutFragment();
+    UploadCurFragment uploadCurFragment = new UploadCurFragment();
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_detail_tut, container, false);
@@ -80,6 +83,7 @@ public class DetailTutFragment extends Fragment {
             }
         });
 
+
         new Thread() {
             public void run() {
                 OkHttpClient client = new OkHttpClient();
@@ -103,9 +107,19 @@ public class DetailTutFragment extends Fragment {
                             public void run() {
                                 ((ImageView) rootView.findViewById(R.id.detail_tut_thumbnail)).setImageBitmap(bitmap);
                                 try {
-                                    ((TextView) rootView.findViewById(R.id.detail_tut_headText)).setText(jsonObject.getString("title"));
+                                    ((TextView) rootView.findViewById(R.id.detail_tut_headText)).setText(String.format("%s·%s\n%s", Util.categories[jsonObject.getInt("catIdx")], jsonObject.getString("userName"), jsonObject.getString("title")));
                                     ((TextView) rootView.findViewById(R.id.detail_tut_detail_text)).setText(jsonObject.getString("note"));
                                     ((TextView) rootView.findViewById(R.id.detail_tut_category_text)).setText(Util.categories[jsonObject.getInt("catIdx") - 1]);
+
+                                    String[] tags = jsonObject.getString("tags").split(",");
+                                    for (int i = 0; i < tags.length; i++) {
+                                        Button button = new Button(getContext());
+                                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                        layoutParams.setMargins(0, Util.dpToPx(15), 0, 0);
+                                        button.setText(tags[i]);
+                                        ((LinearLayout) rootView.findViewById(R.id.detail_tag_parent)).addView(button);
+                                    }
+
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -163,7 +177,7 @@ public class DetailTutFragment extends Fragment {
                         Request request = new Request.Builder()
                                 .url(String.format("%s/api/class/%d/students", getResources().getString(R.string.server_address), tutIdx))
                                 .addHeader("Authorization", Util.userHSID)
-                                .post(new MultipartBody.Builder().addFormDataPart("","").build())
+                                .post(new MultipartBody.Builder().addFormDataPart("", "").build())
                                 .build();
                         try {
                             Response response = client.newCall(request).execute();
@@ -215,13 +229,21 @@ public class DetailTutFragment extends Fragment {
             }
         });
 
+        rootView.findViewById(R.id.detail_tut_upload_cur_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uploadCurFragment.idx = tutIdx;
+                ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, uploadCurFragment).addToBackStack(null).commitAllowingStateLoss();
+            }
+        });
+
         final ConstraintLayout tut_layout = (ConstraintLayout) rootView.findViewById(R.id.detail_tut_layout);
         tut_layout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 tut_layout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 ((FrameLayout.LayoutParams) tut_layout.getLayoutParams()).setMargins(0, tut_layout.getRootView().findViewById(R.id.detail_tut_thumbnail).getHeight(), 0, 0);
-                tut_layout.setPadding(Util.dpToPx(20), 0, Util.dpToPx(20), 400);
+                tut_layout.setPadding(Util.dpToPx(20), 0, Util.dpToPx(20), tut_layout.getRootView().findViewById(R.id.detail_tut_thumbnail).getHeight());
             }
         });
         return rootView;

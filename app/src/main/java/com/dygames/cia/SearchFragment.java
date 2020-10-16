@@ -1,5 +1,6 @@
 package com.dygames.cia;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,6 +45,7 @@ public class SearchFragment extends Fragment {
         search_tut_scroll.setHasFixedSize(true);
         search_study_scroll.setNestedScrollingEnabled(false);
         search_tut_scroll.setAdapter(new CourseAdapter(new CourseAdapter.Data[0]));
+        final Activity activity = getActivity();
 
         ((SearchView) rootView.findViewById(R.id.main_search_view)).setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -61,7 +63,7 @@ public class SearchFragment extends Fragment {
                             Response response = client.newCall(request).execute();
                             if (response.code() == 200) {
                                 final JSONObject jsonObject = new JSONObject(response.body().string());
-                                getActivity().runOnUiThread(new Runnable() {
+                                activity.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         try {

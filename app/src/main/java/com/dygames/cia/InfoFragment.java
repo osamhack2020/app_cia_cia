@@ -36,6 +36,7 @@ import okhttp3.Response;
 
 public class InfoFragment extends Fragment {
     View rootView;
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (rootView != null)
             return rootView;
@@ -50,6 +51,8 @@ public class InfoFragment extends Fragment {
             });
         }
 
+        final Activity activity = getActivity();
+
         new Thread() {
             public void run() {
                 OkHttpClient client = new OkHttpClient();
@@ -61,34 +64,15 @@ public class InfoFragment extends Fragment {
                     Response response = client.newCall(request).execute();
                     if (response.code() == 200) {
                         final JSONObject jsonObject = new JSONObject(response.body().string()).getJSONObject("user");
-                        getActivity().runOnUiThread(new Runnable() {
+                        final Bitmap bitmap = BitmapFactory.decodeStream(new URL(jsonObject.getString("img")).openConnection().getInputStream());
+
+                        activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 try {
                                     ((TextView) rootView.findViewById(R.id.info_name)).setText(jsonObject.getString("name"));
                                     ((TextView) rootView.findViewById(R.id.info_desc)).setText(jsonObject.getString("phonenm"));
-
-                                    new Thread() {
-                                        public void run() {
-                                            URL url = null;
-                                            try {
-                                                url = new URL(jsonObject.getString("img"));
-                                                final Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                                                ((Activity) getActivity()).runOnUiThread(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        ((ImageView) rootView.findViewById(R.id.info_profile_image)).setImageBitmap(bitmap);
-                                                    }
-                                                });
-                                            } catch (MalformedURLException e) {
-                                                e.printStackTrace();
-                                            } catch (IOException e) {
-                                                e.printStackTrace();
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-                                    }.start();
+                                    ((ImageView) rootView.findViewById(R.id.info_profile_image)).setImageBitmap(bitmap);
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();

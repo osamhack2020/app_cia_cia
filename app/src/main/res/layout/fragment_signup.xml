@@ -17,62 +17,86 @@
             android:id="@+id/signup_headText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="회원 가입"
+            android:text="회원가입"
+            android:textColor="#181829"
             android:textSize="25sp"
+            android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/signup_name_editText"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
+            android:layout_width="260dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="10dp"
+            android:background="#e1e1e1"
             android:hint="Full Name"
+            android:paddingLeft="10dp"
+            android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/signup_headText" />
 
         <EditText
             android:id="@+id/signup_email_editText"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
+            android:layout_width="260dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="10dp"
+            android:background="#e1e1e1"
             android:hint="Email"
+            android:paddingLeft="10dp"
+            android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/signup_name_editText" />
 
         <EditText
             android:id="@+id/signup_phone_editText"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
+            android:layout_width="260dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="10dp"
+            android:background="#e1e1e1"
             android:hint="Phone Number"
+            android:paddingLeft="10dp"
+            android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/signup_email_editText" />
 
         <EditText
             android:id="@+id/signup_pw_editText"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:hint="PassWord"
+            android:layout_width="260dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="10dp"
+            android:background="#e1e1e1"
+            android:hint="Password"
+            android:paddingLeft="10dp"
+            android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/signup_phone_editText" />
 
         <EditText
             android:id="@+id/signup_pw_check_editText"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:hint="PassWord Check"
+            android:layout_width="260dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="10dp"
+            android:background="#e1e1e1"
+            android:hint="Password Check"
+            android:paddingLeft="10dp"
+            android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/signup_pw_editText" />
 
         <Button
             android:id="@+id/signup_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="OK"
+            android:layout_width="260dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="17dp"
+            android:text="회원가입"
+            android:textSize="16sp"
             app:layout_constraintRight_toRightOf="@id/signup_pw_check_editText"
             app:layout_constraintTop_toBottomOf="@id/signup_pw_check_editText" />
 

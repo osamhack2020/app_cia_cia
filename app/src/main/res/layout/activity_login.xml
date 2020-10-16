@@ -13,74 +13,83 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/login_headText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="로그인"
-            android:textSize="25sp"
+        <ImageView
+            android:id="@+id/login_head_image"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:adjustViewBounds="true"
+            android:scaleX="3"
+            android:scaleY="3"
+            android:src="@drawable/vlogo"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/login_id_editText"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:text="d0@naver.com"
+            android:layout_width="260dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="40dp"
+            android:background="#e1e1e1"
             android:hint="Email"
+            android:paddingLeft="10dp"
+            android:text="d0@naver.com"
+            android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_headText" />
+            app:layout_constraintTop_toBottomOf="@id/login_head_image" />
 
         <EditText
             android:id="@+id/login_pw_editText"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:text="ddd"
+            android:layout_width="260dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="10dp"
+            android:background="#e1e1e1"
             android:hint="Password"
+            android:paddingLeft="10dp"
+            android:text="ddd"
+            android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/login_id_editText" />
 
         <Button
             android:id="@+id/login_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="OK"
+            android:layout_width="260dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="17dp"
+            android:text="로그인"
+            android:textSize="16sp"
             app:layout_constraintRight_toRightOf="@id/login_pw_editText"
             app:layout_constraintTop_toBottomOf="@id/login_pw_editText" />
 
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="?android:attr/listDivider"
+        <TextView
+            android:id="@+id/login_signup_headText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="아직 CIA 회원이 아니신가요?"
+            android:textColor="#a1a1a1"
+            android:textSize="12sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/login_button" />
 
-        <Button
-            android:id="@+id/login_kakao_button"
+        <TextView
+            android:id="@+id/login_signup_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="카카오 로그인"
+            android:background="?android:selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="가입하기"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="#181829"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider" />
-
-        <Button
-            android:id="@+id/login_signup_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="회원가입"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_kakao_button" />
-
+            app:layout_constraintTop_toBottomOf="@id/login_signup_headText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
