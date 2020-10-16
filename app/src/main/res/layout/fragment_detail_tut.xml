@@ -34,25 +34,212 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/detail_tut_headText"
+                android:id="@+id/detail_tut_info_headText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="0dp"
                 android:layout_marginTop="15dp"
-                android:text="강의 타이틀\n강의 한줄 소개"
-                android:textSize="25dp"
+                android:text="SkillupLive · Americano"
+                android:textColor="#888"
+                android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
+            <ImageView
+                android:id="@+id/detail_tut_view_icon"
+                android:layout_width="11dp"
+                android:layout_height="11dp"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintBottom_toBottomOf="@id/detail_tut_info_headText"
+                app:layout_constraintRight_toLeftOf="@id/detail_tut_view_text"
+                app:layout_constraintTop_toTopOf="@id/detail_tut_info_headText" />
+
+            <TextView
+                android:id="@+id/detail_tut_view_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="78"
+                android:textColor="#aaa"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/detail_tut_info_headText"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/detail_tut_info_headText" />
+
+            <TextView
+                android:id="@+id/detail_tut_headText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="강의 타이틀\n강의 한줄 소개"
+                android:textColor="#333"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_tut_info_headText" />
+
+            <com.google.android.material.chip.ChipGroup
                 android:id="@+id/detail_tag_parent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="15dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detail_tut_headText">
 
-            </LinearLayout>
+            </com.google.android.material.chip.ChipGroup>
+
+
+            <ImageView
+                android:id="@+id/detail_tut_date_icon"
+                android:layout_width="11dp"
+                android:layout_height="11dp"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintBottom_toBottomOf="@id/detail_tag_parent"
+                app:layout_constraintRight_toLeftOf="@id/detail_tut_date_text"
+                app:layout_constraintTop_toTopOf="@id/detail_tag_parent" />
+
+            <TextView
+                android:id="@+id/detail_tut_date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="2021.08.07"
+                android:textAlignment="center"
+                android:textColor="#aaa"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/detail_tag_parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/detail_tag_parent" />
+
+            <View
+                android:id="@+id/detail_tut_separator_0"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="25dp"
+                android:background="#eee"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_tut_date_text" />
+
+            <ImageView
+                android:id="@+id/detail_tut_location_icon"
+                android:layout_width="11dp"
+                android:layout_height="11dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_tut_separator_0" />
+
+            <TextView
+                android:id="@+id/detail_tut_location_headText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="장소"
+                android:textColor="#aaa"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/detail_tut_location_icon"
+                app:layout_constraintLeft_toRightOf="@id/detail_tut_location_icon"
+                app:layout_constraintTop_toTopOf="@id/detail_tut_location_icon" />
+
+            <TextView
+                android:id="@+id/detail_tut_location_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="서울시 강남구 가로수길 18 HS빌딩 1201호"
+                android:textColor="#444"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/detail_tut_location_icon"
+                app:layout_constraintLeft_toRightOf="@id/detail_tut_location_headText"
+                app:layout_constraintTop_toTopOf="@id/detail_tut_location_icon" />
+
+            <ImageView
+                android:id="@+id/detail_tut_info_date_icon"
+                android:layout_width="11dp"
+                android:layout_height="11dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_tut_location_icon" />
+
+            <TextView
+                android:id="@+id/detail_tut_info_date_headText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="날짜"
+                android:textColor="#aaa"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/detail_tut_info_date_icon"
+                app:layout_constraintLeft_toRightOf="@id/detail_tut_info_date_icon"
+                app:layout_constraintTop_toTopOf="@id/detail_tut_info_date_icon" />
+
+            <TextView
+                android:id="@+id/detail_tut_info_date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="2020년 10월 16일 (금)"
+                android:textColor="#444"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/detail_tut_info_date_icon"
+                app:layout_constraintLeft_toRightOf="@id/detail_tut_info_date_headText"
+                app:layout_constraintTop_toTopOf="@id/detail_tut_info_date_icon" />
+
+            <ImageView
+                android:id="@+id/detail_tut_member_icon"
+                android:layout_width="11dp"
+                android:layout_height="11dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_tut_info_date_icon" />
+
+            <TextView
+                android:id="@+id/detail_tut_member_headText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="인원"
+                android:textColor="#aaa"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/detail_tut_member_icon"
+                app:layout_constraintLeft_toRightOf="@id/detail_tut_member_icon"
+                app:layout_constraintTop_toTopOf="@id/detail_tut_member_icon" />
+
+            <TextView
+                android:id="@+id/detail_tut_member_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="최소 10명"
+                android:textColor="#444"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/detail_tut_member_icon"
+                app:layout_constraintLeft_toRightOf="@id/detail_tut_member_headText"
+                app:layout_constraintTop_toTopOf="@id/detail_tut_member_icon" />
+
+            <View
+                android:id="@+id/detail_tut_separator_1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="25dp"
+                android:background="#eee"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_tut_member_icon" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/detail_tut_scroll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_tut_separator_1" />
 
             <Button
                 android:id="@+id/detail_tut_delete_button"
@@ -62,7 +249,7 @@
                 android:text="강의 삭제하기"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/detail_tut_update_button"
-                app:layout_constraintTop_toBottomOf="@id/detail_tut_headText" />
+                app:layout_constraintTop_toBottomOf="@id/detail_tut_scroll" />
 
             <Button
                 android:id="@+id/detail_tut_update_button"
@@ -72,7 +259,7 @@
                 android:text="강의 수정하기"
                 app:layout_constraintLeft_toRightOf="@id/detail_tut_delete_button"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detail_tut_headText" />
+                app:layout_constraintTop_toBottomOf="@id/detail_tut_scroll" />
 
             <Button
                 android:id="@+id/detail_tut_sign_button"
@@ -103,52 +290,6 @@
                 app:layout_constraintLeft_toRightOf="@id/detail_tut_quit_button"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detail_tut_update_button" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/detail_tut_scroll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detail_tut_sign_button" />
-
-
-            <TextView
-                android:id="@+id/detail_tut_category_headText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="카테고리"
-                android:textSize="30dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detail_tut_scroll" />
-
-            <TextView
-                android:id="@+id/detail_tut_category_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detail_tut_category_headText" />
-
-
-            <TextView
-                android:id="@+id/detail_tut_detail_headText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="세부 설명"
-                android:textSize="30dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detail_tut_category_text" />
-
-            <TextView
-                android:id="@+id/detail_tut_detail_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Disclaimer This project is directly inspired by the BLOKK font. The idea is simple and brilliant, but I wasn't happy with functional aspects of that implementation of the idea, and it isn't an open source project, so I created my own. Credit where credit is due. FAQ Q: What's different about this compared to BLOKK? A: BLOKK has unusually large character widths, which adds much length to  bits of dummy text, and also creates unecessarily ragged rags in my copy. Redacted solves this by using sane character widths; averaging character widths of narrow, regular, and wide characters of standard fonts. This gives a more realistic look to the text and helps it fit into narrow columns like real text would. Redacted Font also comes with script versions in three weights, regular, bold and light."
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detail_tut_detail_headText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

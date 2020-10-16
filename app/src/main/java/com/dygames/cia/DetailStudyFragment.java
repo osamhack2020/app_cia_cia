@@ -19,9 +19,13 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -169,10 +173,25 @@ public class DetailStudyFragment extends Fragment {
                                 ((ImageView) rootView.findViewById(R.id.detail_study_thumbnail)).setImageBitmap(bitmap);
                                 try {
                                     ((TextView) rootView.findViewById(R.id.detail_study_headText)).setText(jsonObject.getString("title"));
-                                    ((TextView) rootView.findViewById(R.id.detail_study_detail_text)).setText(jsonObject.getString("note"));
-                                    ((TextView) rootView.findViewById(R.id.detail_study_date_text)).setText(jsonObject.getString("signdate"));
+                                    ((TextView) rootView.findViewById(R.id.detail_study_view_text)).setText(jsonObject.getString("viewCount"));
+                                    ((TextView) rootView.findViewById(R.id.detail_study_date_text)).setText(jsonObject.getString("regdate").split(" ")[0]);
+                                    ((TextView) rootView.findViewById(R.id.detail_study_member_text)).setText("최대 " + jsonObject.getString("maxPeople") + "명");
+                                    ((TextView) rootView.findViewById(R.id.detail_study_desc_text)).setText(jsonObject.getString("note"));
+                                    ((TextView) rootView.findViewById(R.id.detail_study_info_date_text)).setText(jsonObject.getString("signdate").split(" ")[0]);
                                     ((TextView) rootView.findViewById(R.id.detail_study_location_text)).setText(jsonObject.getString("station"));
-                                    ((TextView) rootView.findViewById(R.id.detail_study_category_text)).setText(Util.categories[jsonObject.getInt("catIdx") - 1]);
+                                    ((TextView) rootView.findViewById(R.id.detail_study_info_headText)).setText(String.format("%s · %s", Util.categories[jsonObject.getInt("catIdx") - 1], jsonObject.getString("userName")));
+
+                                    String[] tags = jsonObject.getString("tags").split(",");
+                                    for (int i = 0; i < tags.length; i++) {
+                                        Chip chip = new Chip(getContext(), null, R.style.AppTheme);
+                                        chip.setTextSize(12);
+                                        chip.setText(tags[i].trim());
+                                        chip.setClickable(true);
+                                        chip.setFocusable(true);
+                                        chip.setChipCornerRadius(10);
+                                        ((ChipGroup) rootView.findViewById(R.id.detail_tag_parent)).addView(chip);
+                                    }
+
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

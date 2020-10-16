@@ -22,6 +22,9 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -107,17 +110,19 @@ public class DetailTutFragment extends Fragment {
                             public void run() {
                                 ((ImageView) rootView.findViewById(R.id.detail_tut_thumbnail)).setImageBitmap(bitmap);
                                 try {
-                                    ((TextView) rootView.findViewById(R.id.detail_tut_headText)).setText(String.format("%s·%s\n%s", Util.categories[jsonObject.getInt("catIdx")], jsonObject.getString("userName"), jsonObject.getString("title")));
-                                    ((TextView) rootView.findViewById(R.id.detail_tut_detail_text)).setText(jsonObject.getString("note"));
-                                    ((TextView) rootView.findViewById(R.id.detail_tut_category_text)).setText(Util.categories[jsonObject.getInt("catIdx") - 1]);
+                                    ((TextView) rootView.findViewById(R.id.detail_tut_info_headText)).setText(String.format("%s·%s", Util.categories[jsonObject.getInt("catIdx") - 1], jsonObject.getString("userName")));
+                                    ((TextView) rootView.findViewById(R.id.detail_tut_headText)).setText(String.format("%s", jsonObject.getString("title")));
+                                   // ((TextView) rootView.findViewById(R.id.detail_tut_detail_text)).setText(jsonObject.getString("note"));
 
                                     String[] tags = jsonObject.getString("tags").split(",");
                                     for (int i = 0; i < tags.length; i++) {
-                                        Button button = new Button(getContext());
-                                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                        layoutParams.setMargins(0, Util.dpToPx(15), 0, 0);
-                                        button.setText(tags[i]);
-                                        ((LinearLayout) rootView.findViewById(R.id.detail_tag_parent)).addView(button);
+                                        Chip chip = new Chip(getContext(), null, R.style.AppTheme);
+                                        chip.setTextSize(12);
+                                        chip.setText(tags[i].trim());
+                                        chip.setClickable(true);
+                                        chip.setFocusable(true);
+                                        chip.setChipCornerRadius(10);
+                                        ((ChipGroup) rootView.findViewById(R.id.detail_tag_parent)).addView(chip);
                                     }
 
                                 } catch (JSONException e) {
