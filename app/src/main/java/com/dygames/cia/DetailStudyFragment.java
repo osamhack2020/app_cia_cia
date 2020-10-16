@@ -44,7 +44,22 @@ public class DetailStudyFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_detail_study, container, false);
 
-        rootView.findViewById(R.id.detail_study_delete_button).setOnClickListener(new View.OnClickListener() {
+        final View fab_delete = rootView.findViewById(R.id.detail_study_fab_delete);
+        final View fab_quit = rootView.findViewById(R.id.detail_study_fab_quit);
+        final View fab_sign = rootView.findViewById(R.id.detail_study_fab_sign);
+        final View fab_update = rootView.findViewById(R.id.detail_study_fab_update);
+
+        rootView.findViewById(R.id.detail_study_fab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fab_delete.setVisibility(fab_delete.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
+                fab_quit.setVisibility(fab_quit.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
+                fab_sign.setVisibility(fab_sign.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
+                fab_update.setVisibility(fab_update.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
+            }
+        });
+
+        fab_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new Thread() {
@@ -75,7 +90,7 @@ public class DetailStudyFragment extends Fragment {
             }
         });
 
-        rootView.findViewById(R.id.detail_study_quit_button).setOnClickListener(new View.OnClickListener() {
+        fab_quit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new Thread() {
@@ -93,7 +108,6 @@ public class DetailStudyFragment extends Fragment {
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        rootView.findViewById(R.id.detail_study_quit_button).setVisibility(View.GONE);
                                     }
                                 });
                             } else {
@@ -106,7 +120,7 @@ public class DetailStudyFragment extends Fragment {
             }
         });
 
-        rootView.findViewById(R.id.detail_study_sign_button).setOnClickListener(new View.OnClickListener() {
+        fab_sign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new Thread() {
@@ -128,7 +142,6 @@ public class DetailStudyFragment extends Fragment {
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        rootView.findViewById(R.id.detail_study_sign_button).setVisibility(View.GONE);
                                     }
                                 });
                             } else {
@@ -141,7 +154,7 @@ public class DetailStudyFragment extends Fragment {
             }
         });
 
-        rootView.findViewById(R.id.detail_study_update_button).setOnClickListener(new View.OnClickListener() {
+        fab_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateStudyFragment.studyIdx = studyIdx;

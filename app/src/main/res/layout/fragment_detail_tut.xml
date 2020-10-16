@@ -73,7 +73,7 @@
                 android:layout_marginTop="5dp"
                 android:text="강의 타이틀\n강의 한줄 소개"
                 android:textColor="#333"
-                android:textSize="25dp"
+                android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detail_tut_info_headText" />
@@ -121,117 +121,17 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detail_tut_date_text" />
 
-            <ImageView
-                android:id="@+id/detail_tut_location_icon"
-                android:layout_width="11dp"
-                android:layout_height="11dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginRight="5dp"
-                android:src="@mipmap/ic_launcher"
+            <TextView
+                android:id="@+id/detail_tut_scroll_headText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="커리큘럼"
+                android:textColor="#333"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detail_tut_separator_0" />
-
-            <TextView
-                android:id="@+id/detail_tut_location_headText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="장소"
-                android:textColor="#aaa"
-                android:textSize="13sp"
-                app:layout_constraintBottom_toBottomOf="@id/detail_tut_location_icon"
-                app:layout_constraintLeft_toRightOf="@id/detail_tut_location_icon"
-                app:layout_constraintTop_toTopOf="@id/detail_tut_location_icon" />
-
-            <TextView
-                android:id="@+id/detail_tut_location_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:text="서울시 강남구 가로수길 18 HS빌딩 1201호"
-                android:textColor="#444"
-                android:textSize="13sp"
-                app:layout_constraintBottom_toBottomOf="@id/detail_tut_location_icon"
-                app:layout_constraintLeft_toRightOf="@id/detail_tut_location_headText"
-                app:layout_constraintTop_toTopOf="@id/detail_tut_location_icon" />
-
-            <ImageView
-                android:id="@+id/detail_tut_info_date_icon"
-                android:layout_width="11dp"
-                android:layout_height="11dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="5dp"
-                android:src="@mipmap/ic_launcher"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detail_tut_location_icon" />
-
-            <TextView
-                android:id="@+id/detail_tut_info_date_headText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="날짜"
-                android:textColor="#aaa"
-                android:textSize="13sp"
-                app:layout_constraintBottom_toBottomOf="@id/detail_tut_info_date_icon"
-                app:layout_constraintLeft_toRightOf="@id/detail_tut_info_date_icon"
-                app:layout_constraintTop_toTopOf="@id/detail_tut_info_date_icon" />
-
-            <TextView
-                android:id="@+id/detail_tut_info_date_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:text="2020년 10월 16일 (금)"
-                android:textColor="#444"
-                android:textSize="13sp"
-                app:layout_constraintBottom_toBottomOf="@id/detail_tut_info_date_icon"
-                app:layout_constraintLeft_toRightOf="@id/detail_tut_info_date_headText"
-                app:layout_constraintTop_toTopOf="@id/detail_tut_info_date_icon" />
-
-            <ImageView
-                android:id="@+id/detail_tut_member_icon"
-                android:layout_width="11dp"
-                android:layout_height="11dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="5dp"
-                android:src="@mipmap/ic_launcher"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detail_tut_info_date_icon" />
-
-            <TextView
-                android:id="@+id/detail_tut_member_headText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="인원"
-                android:textColor="#aaa"
-                android:textSize="13sp"
-                app:layout_constraintBottom_toBottomOf="@id/detail_tut_member_icon"
-                app:layout_constraintLeft_toRightOf="@id/detail_tut_member_icon"
-                app:layout_constraintTop_toTopOf="@id/detail_tut_member_icon" />
-
-            <TextView
-                android:id="@+id/detail_tut_member_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:text="최소 10명"
-                android:textColor="#444"
-                android:textSize="13sp"
-                app:layout_constraintBottom_toBottomOf="@id/detail_tut_member_icon"
-                app:layout_constraintLeft_toRightOf="@id/detail_tut_member_headText"
-                app:layout_constraintTop_toTopOf="@id/detail_tut_member_icon" />
-
-            <View
-                android:id="@+id/detail_tut_separator_1"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="25dp"
-                android:background="#eee"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detail_tut_member_icon" />
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/detail_tut_scroll"
@@ -239,59 +139,130 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_tut_scroll_headText" />
+
+            <View
+                android:id="@+id/detail_tut_separator_1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="15dp"
+                android:background="#eee"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_tut_scroll" />
+
+            <Button
+                android:id="@+id/detail_tut_like_button"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="128"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/detail_tut_share_button"
                 app:layout_constraintTop_toBottomOf="@id/detail_tut_separator_1" />
 
             <Button
-                android:id="@+id/detail_tut_delete_button"
-                android:layout_width="wrap_content"
+                android:id="@+id/detail_tut_share_button"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="강의 삭제하기"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/detail_tut_update_button"
-                app:layout_constraintTop_toBottomOf="@id/detail_tut_scroll" />
-
-            <Button
-                android:id="@+id/detail_tut_update_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="강의 수정하기"
-                app:layout_constraintLeft_toRightOf="@id/detail_tut_delete_button"
+                android:text="공유하기"
+                app:layout_constraintLeft_toRightOf="@id/detail_tut_like_button"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detail_tut_scroll" />
+                app:layout_constraintTop_toBottomOf="@id/detail_tut_separator_1" />
 
-            <Button
-                android:id="@+id/detail_tut_sign_button"
+            <TextView
+                android:id="@+id/detail_tut_desc_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="강의 가입하기"
+                android:paddingBottom="30dp"
+                android:text="상세 설명"
+                android:textColor="#444"
+                android:textSize="15sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/detail_tut_quit_button"
-                app:layout_constraintTop_toBottomOf="@id/detail_tut_update_button" />
+                app:layout_constraintTop_toBottomOf="@id/detail_tut_share_button" />
 
-            <Button
-                android:id="@+id/detail_tut_quit_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="강의 탈퇴하기"
-                app:layout_constraintLeft_toRightOf="@id/detail_tut_sign_button"
-                app:layout_constraintRight_toLeftOf="@id/detail_tut_upload_cur_button"
-                app:layout_constraintTop_toBottomOf="@id/detail_tut_update_button" />
-
-            <Button
-                android:id="@+id/detail_tut_upload_cur_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="회차 등록하기"
-                app:layout_constraintLeft_toRightOf="@id/detail_tut_quit_button"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detail_tut_update_button" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/detail_tut_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@android:drawable/stat_sys_upload" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/detail_tut_fab_sign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/detail_tut_fab"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@android:drawable/stat_sys_vp_phone_call" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/detail_tut_fab_quit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/detail_tut_fab_sign"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@android:drawable/btn_default" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/detail_tut_fab_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/detail_tut_fab_quit"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@android:drawable/btn_default" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/detail_tut_fab_update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/detail_tut_fab_delete"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@android:drawable/btn_default" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/detail_tut_fab_upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/detail_tut_fab_update"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@android:drawable/btn_default" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

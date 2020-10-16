@@ -73,8 +73,8 @@
                 android:layout_marginLeft="6dp"
                 android:paddingBottom="2dp"
                 android:text="빅데이터를 활용한 맞춤 강의 추천"
-                android:textColor="#717171"
-                android:textSize="14dp"
+                android:textColor="#aaa"
+                android:textSize="13dp"
                 app:layout_constraintBottom_toBottomOf="@id/recommend_tut_headText"
                 app:layout_constraintLeft_toRightOf="@id/recommend_tut_headText" />
 
@@ -105,8 +105,8 @@
                 android:layout_marginLeft="6dp"
                 android:paddingBottom="2dp"
                 android:text="빅데이터를 활용한 맞춤 스터디 추천"
-                android:textColor="#717171"
-                android:textSize="14dp"
+                android:textColor="#aaa"
+                android:textSize="13dp"
                 app:layout_constraintBottom_toBottomOf="@id/recommend_study_headText"
                 app:layout_constraintLeft_toRightOf="@id/recommend_study_headText" />
 
@@ -157,8 +157,8 @@
                 android:layout_marginLeft="6dp"
                 android:paddingBottom="2dp"
                 android:text="현재 가장 많이 수강중인 강의 추천"
-                android:textColor="#717171"
-                android:textSize="14dp"
+                android:textColor="#aaa"
+                android:textSize="13dp"
                 app:layout_constraintBottom_toBottomOf="@+id/trend_tut_headText"
                 app:layout_constraintLeft_toRightOf="@+id/trend_tut_headText" />
 
@@ -189,8 +189,8 @@
                 android:layout_marginLeft="6dp"
                 android:paddingBottom="2dp"
                 android:text="현재 가장 많이 수강중인 스터디 추천"
-                android:textColor="#717171"
-                android:textSize="14dp"
+                android:textColor="#aaa"
+                android:textSize="13dp"
                 app:layout_constraintBottom_toBottomOf="@id/trend_study_headText"
                 app:layout_constraintLeft_toRightOf="@id/trend_study_headText" />
 

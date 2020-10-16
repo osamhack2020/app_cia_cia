@@ -46,7 +46,26 @@ public class DetailTutFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_detail_tut, container, false);
 
-        rootView.findViewById(R.id.detail_tut_delete_button).setOnClickListener(new View.OnClickListener() {
+
+        final View fab_delete = rootView.findViewById(R.id.detail_tut_fab_delete);
+        final View fab_quit = rootView.findViewById(R.id.detail_tut_fab_quit);
+        final View fab_sign = rootView.findViewById(R.id.detail_tut_fab_sign);
+        final View fab_update = rootView.findViewById(R.id.detail_tut_fab_update);
+        final View fab_upload = rootView.findViewById(R.id.detail_tut_fab_upload);
+
+        rootView.findViewById(R.id.detail_tut_fab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fab_delete.setVisibility(fab_delete.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
+                fab_quit.setVisibility(fab_quit.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
+                fab_sign.setVisibility(fab_sign.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
+                fab_update.setVisibility(fab_update.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
+                fab_upload.setVisibility(fab_upload.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
+            }
+        });
+
+
+        fab_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new Thread() {
@@ -77,8 +96,7 @@ public class DetailTutFragment extends Fragment {
             }
         });
 
-
-        rootView.findViewById(R.id.detail_tut_update_button).setOnClickListener(new View.OnClickListener() {
+        fab_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateTutFragment.tutIdx = tutIdx;
@@ -86,6 +104,75 @@ public class DetailTutFragment extends Fragment {
             }
         });
 
+        fab_sign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread() {
+                    public void run() {
+                        OkHttpClient client = new OkHttpClient();
+
+                        Request request = new Request.Builder()
+                                .url(String.format("%s/api/class/%d/students", getResources().getString(R.string.server_address), tutIdx))
+                                .addHeader("Authorization", Util.userHSID)
+                                .post(new MultipartBody.Builder().addFormDataPart("", "").build())
+                                .build();
+                        try {
+                            Response response = client.newCall(request).execute();
+                            if (response.code() == 200) {
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getContext(), "강의 가입에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } else {
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();
+            }
+        });
+
+        fab_quit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread() {
+                    public void run() {
+                        OkHttpClient client = new OkHttpClient();
+
+                        Request request = new Request.Builder()
+                                .url(String.format("%s/api/class/%d/students", getResources().getString(R.string.server_address), tutIdx))
+                                .addHeader("Authorization", Util.userHSID)
+                                .delete()
+                                .build();
+                        try {
+                            Response response = client.newCall(request).execute();
+                            if (response.code() == 200) {
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getContext(), "강의 탈퇴에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } else {
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();
+            }
+        });
+
+        fab_upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uploadCurFragment.idx = tutIdx;
+                ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, uploadCurFragment).addToBackStack(null).commitAllowingStateLoss();
+            }
+        });
 
         new Thread() {
             public void run() {
@@ -112,7 +199,9 @@ public class DetailTutFragment extends Fragment {
                                 try {
                                     ((TextView) rootView.findViewById(R.id.detail_tut_info_headText)).setText(String.format("%s·%s", Util.categories[jsonObject.getInt("catIdx") - 1], jsonObject.getString("userName")));
                                     ((TextView) rootView.findViewById(R.id.detail_tut_headText)).setText(String.format("%s", jsonObject.getString("title")));
-                                   // ((TextView) rootView.findViewById(R.id.detail_tut_detail_text)).setText(jsonObject.getString("note"));
+                                    ((TextView) rootView.findViewById(R.id.detail_tut_desc_text)).setText(jsonObject.getString("note"));
+                                    ((TextView) rootView.findViewById(R.id.detail_tut_view_text)).setText(jsonObject.getString("viewCount"));
+                                    ((TextView) rootView.findViewById(R.id.detail_tut_date_text)).setText(jsonObject.getString("regdate").split(" ")[0]);
 
                                     String[] tags = jsonObject.getString("tags").split(",");
                                     for (int i = 0; i < tags.length; i++) {
@@ -170,77 +259,6 @@ public class DetailTutFragment extends Fragment {
                 }
             }
         }.start();
-
-
-        rootView.findViewById(R.id.detail_tut_sign_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new Thread() {
-                    public void run() {
-                        OkHttpClient client = new OkHttpClient();
-
-                        Request request = new Request.Builder()
-                                .url(String.format("%s/api/class/%d/students", getResources().getString(R.string.server_address), tutIdx))
-                                .addHeader("Authorization", Util.userHSID)
-                                .post(new MultipartBody.Builder().addFormDataPart("", "").build())
-                                .build();
-                        try {
-                            Response response = client.newCall(request).execute();
-                            if (response.code() == 200) {
-                                getActivity().runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(getContext(), "강의 가입에 성공하였습니다.", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            } else {
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }.start();
-            }
-        });
-
-        rootView.findViewById(R.id.detail_tut_quit_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new Thread() {
-                    public void run() {
-                        OkHttpClient client = new OkHttpClient();
-
-                        Request request = new Request.Builder()
-                                .url(String.format("%s/api/class/%d/students", getResources().getString(R.string.server_address), tutIdx))
-                                .addHeader("Authorization", Util.userHSID)
-                                .delete()
-                                .build();
-                        try {
-                            Response response = client.newCall(request).execute();
-                            if (response.code() == 200) {
-                                getActivity().runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(getContext(), "강의 탈퇴에 성공하였습니다.", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            } else {
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }.start();
-            }
-        });
-
-        rootView.findViewById(R.id.detail_tut_upload_cur_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uploadCurFragment.idx = tutIdx;
-                ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, uploadCurFragment).addToBackStack(null).commitAllowingStateLoss();
-            }
-        });
 
         final ConstraintLayout tut_layout = (ConstraintLayout) rootView.findViewById(R.id.detail_tut_layout);
         tut_layout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
