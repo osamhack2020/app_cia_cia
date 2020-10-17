@@ -16,7 +16,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp">
 
             <ImageView
                 android:id="@+id/upload_cur_thumbnail"
@@ -38,7 +39,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:text="강의 회차 제목"
-                android:textSize="30sp"
+                android:textColor="#333"
+                android:textSize="18sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/upload_cur_thumbnail" />
 
@@ -47,7 +49,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:background="@drawable/view_border"
                 android:hint="강의 회차 제목"
+                android:padding="15dp"
                 android:textSize="20sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/upload_cur_title_headText" />
@@ -58,7 +62,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:text="세부 설명"
-                android:textSize="30sp"
+                android:textColor="#333"
+                android:textSize="18sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/upload_cur_title_editText" />
 
@@ -67,7 +72,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:background="@drawable/view_border"
                 android:hint="세부 설명"
+                android:padding="15dp"
                 android:textSize="20sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/upload_cur_desc_headText" />
@@ -75,9 +82,11 @@
 
             <Button
                 android:id="@+id/upload_cur_upload_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="20dp"
                 android:text="등록하기"
+                android:textSize="20sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/upload_cur_desc_editText" />
