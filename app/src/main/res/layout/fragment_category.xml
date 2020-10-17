@@ -4,63 +4,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="20dp"
-    android:paddingTop="20dp"
-    android:paddingRight="20dp">
+    android:paddingRight="20dp"
+    android:paddingTop="20dp">
 
-    <HorizontalScrollView
-        android:id="@+id/category_scroll"
-        android:layout_width="match_parent"
+    <Spinner
+        android:id="@+id/category_spinner"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/category_study_headText"
+        app:layout_constraintLeft_toRightOf="@id/category_tut_headText" />
+
+    <TextView
+        android:id="@+id/category_study_headText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="스터디"
+        android:textColor="#000000"
+        android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/category_study_headText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:text="스터디"
-                android:textColor="#000000"
-                android:textSize="30sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/category_tut_headText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:text="강의"
-                android:textColor="#909090"
-                android:textSize="30sp"
-                app:layout_constraintLeft_toRightOf="@id/category_study_headText"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Spinner
-                android:id="@+id/category_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                app:layout_constraintBottom_toBottomOf="@id/category_study_headText"
-                app:layout_constraintLeft_toRightOf="@id/category_tut_headText" />
-
-            <Spinner
-                android:id="@+id/sort_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                app:layout_constraintBottom_toBottomOf="@id/category_study_headText"
-                app:layout_constraintLeft_toRightOf="@id/category_spinner" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </HorizontalScrollView>
+    <TextView
+        android:id="@+id/category_tut_headText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="강의"
+        android:textColor="#909090"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toRightOf="@id/category_study_headText"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/category_tut_scroll"

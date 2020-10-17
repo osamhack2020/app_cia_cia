@@ -106,7 +106,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         }.start();
         holder.title.setText(this.data[position].title);
         if (Util.categories != null)
-            holder.info.setText(Util.categories[this.data[position].categoryIdx] + " · " + this.data[position].userName);
+            holder.info.setText(Util.categories[this.data[position].categoryIdx - 1] + " · " + this.data[position].userName);
         holder.viewCount.setText(this.data[position].viewCount + "");
         holder.date.setText(this.data[position].date.split(" ")[0]);
         holder.itemView.setOnClickListener(new View.OnClickListener() {

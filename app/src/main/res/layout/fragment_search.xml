@@ -5,19 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/main_search_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:iconifiedByDefault="false"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:queryHint="검색어를 입력하세요." />
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_search_view">
 
         <LinearLayout
@@ -30,32 +22,79 @@
                 android:id="@+id/search_tut_text_result"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:text="강의 검색 결과"
                 android:textSize="30dp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/main_search_tut_scroll"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/search_tut_text_result" />
 
             <TextView
                 android:id="@+id/search_study_text_result"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:paddingTop="10dp"
                 android:text="스터디 검색 결과"
                 android:textSize="30dp" />
 
+            <View
+                android:id="@+id/main_separator"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:background="#ededed" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/main_search_tut_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/search_tut_text_result" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/main_search_study_scroll"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/search_study_text_result" />
         </LinearLayout>
     </ScrollView>
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/main_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:iconifiedByDefault="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryHint="검색어를 입력하세요." />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_search_view">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

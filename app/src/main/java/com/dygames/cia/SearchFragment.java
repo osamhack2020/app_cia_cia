@@ -1,6 +1,8 @@
 package com.dygames.cia;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +21,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -32,19 +37,19 @@ public class SearchFragment extends Fragment {
             return rootView;
         rootView = inflater.inflate(R.layout.fragment_search, container, false);
 
-        rootView.findViewById(R.id.search_layout).setPadding(Util.dpToPx(20), Util.dpToPx(20), Util.dpToPx(20), getActivity().findViewById(R.id.navigationView).getHeight());
+        rootView.findViewById(R.id.search_layout).setPadding(0, 0, 0, getActivity().findViewById(R.id.navigationView).getHeight());
 
         final RecyclerView search_study_scroll = rootView.findViewById(R.id.main_search_study_scroll);
-        search_study_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        search_study_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         search_study_scroll.setHasFixedSize(true);
         search_study_scroll.setNestedScrollingEnabled(false);
-        search_study_scroll.setAdapter(new CourseAdapter(new CourseAdapter.Data[0]));
+        search_study_scroll.setAdapter(new CategoryAdapter(new ArrayList<CategoryAdapter.Data>()));
 
         final RecyclerView search_tut_scroll = rootView.findViewById(R.id.main_search_tut_scroll);
-        search_tut_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        search_tut_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         search_tut_scroll.setHasFixedSize(true);
         search_study_scroll.setNestedScrollingEnabled(false);
-        search_tut_scroll.setAdapter(new CourseAdapter(new CourseAdapter.Data[0]));
+        search_tut_scroll.setAdapter(new CategoryAdapter(new ArrayList<CategoryAdapter.Data>()));
         final Activity activity = getActivity();
 
         ((SearchView) rootView.findViewById(R.id.main_search_view)).setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -62,24 +67,49 @@ public class SearchFragment extends Fragment {
                         try {
                             Response response = client.newCall(request).execute();
                             if (response.code() == 200) {
-                                final JSONObject jsonObject = new JSONObject(response.body().string());
+                                JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("list");
+                                final ArrayList<CategoryAdapter.Data> categoryAdapterData = new ArrayList<>();
+
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject object = jsonArray.getJSONObject(i);
+                                    categoryAdapterData.add(new CategoryAdapter.Data(object.getString("title"), object.getString("note"), BitmapFactory.decodeStream(new URL(object.getString("img")).openConnection().getInputStream()), object.getInt("idx"), false, object.getInt("catIdx"), object.getInt("viewCount"), object.getString("tags"), object.getString("userName")));
+                                }
+
                                 activity.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        try {
-                                            JSONArray jsonArray = jsonObject.getJSONArray("list");
-                                            CourseAdapter.Data[] courseAdapterData = new CourseAdapter.Data[jsonArray.length()];
+                                        ((CategoryAdapter) search_study_scroll.getAdapter()).Init(categoryAdapterData);
+                                        search_study_scroll.getAdapter().notifyDataSetChanged();
+                                    }
+                                });
+                            } else {
+                            }
+                        } catch (IOException | JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();
 
-                                            for (int i = 0; i < jsonArray.length(); i++) {
-                                                JSONObject object = jsonArray.getJSONObject(i);
-                                                courseAdapterData[i] = new CourseAdapter.Data(object.getString("title"), object.getInt("catIdx"), object.getString("userName"), object.getInt("viewCount"), object.getString("regdate"), object.getString("img"), object.getInt("idx"), true);
-                                            }
+                new Thread() {
+                    public void run() {
+                        OkHttpClient client = new OkHttpClient();
+                        Request request = new Request.Builder().url(String.format("%s/api/class?q=%s", getResources().getString(R.string.server_address), newText.trim())).build();
+                        try {
+                            Response response = client.newCall(request).execute();
+                            if (response.code() == 200) {
+                                JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("list");
+                                final ArrayList<CategoryAdapter.Data> categoryAdapterData = new ArrayList<>();
 
-                                            ((CourseAdapter) search_study_scroll.getAdapter()).data = courseAdapterData;
-                                            search_study_scroll.getAdapter().notifyDataSetChanged();
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject object = jsonArray.getJSONObject(i);
+                                    categoryAdapterData.add(new CategoryAdapter.Data(object.getString("title"), object.getString("note"), BitmapFactory.decodeStream(new URL(object.getString("img")).openConnection().getInputStream()), object.getInt("idx"), false, object.getInt("catIdx"), object.getInt("viewCount"), object.getString("tags"), object.getString("userName")));
+                                }
+
+                                activity.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        ((CategoryAdapter) search_tut_scroll.getAdapter()).Init(categoryAdapterData);
+                                        search_tut_scroll.getAdapter().notifyDataSetChanged();
                                     }
                                 });
                             } else {

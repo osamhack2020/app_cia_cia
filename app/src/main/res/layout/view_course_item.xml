@@ -56,7 +56,7 @@
         android:layout_width="11dp"
         android:layout_height="11dp"
         android:layout_marginTop="5dp"
-        android:src="@mipmap/ic_launcher_round"
+        android:src="@drawable/ic_visibility_24px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_tut_title" />
@@ -79,7 +79,7 @@
         android:layout_height="11dp"
         android:layout_marginLeft="6dp"
         android:layout_marginTop="5dp"
-        android:src="@mipmap/ic_launcher_round"
+        android:src="@drawable/ic_schedule_24px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/view_course_view_text"
         app:layout_constraintTop_toBottomOf="@id/view_tut_title" />

@@ -49,7 +49,7 @@
                 android:layout_width="11dp"
                 android:layout_height="11dp"
                 android:layout_marginRight="5dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/ic_visibility_24px"
                 app:layout_constraintBottom_toBottomOf="@id/detail_study_info_headText"
                 app:layout_constraintRight_toLeftOf="@id/detail_study_view_text"
                 app:layout_constraintTop_toTopOf="@id/detail_study_info_headText" />
@@ -112,7 +112,7 @@
                 android:layout_width="11dp"
                 android:layout_height="11dp"
                 android:layout_marginRight="5dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/ic_schedule_24px"
                 app:layout_constraintBottom_toBottomOf="@id/detail_tag_parent"
                 app:layout_constraintRight_toLeftOf="@id/detail_study_date_text"
                 app:layout_constraintTop_toTopOf="@id/detail_tag_parent" />
@@ -145,7 +145,7 @@
                 android:layout_height="11dp"
                 android:layout_marginTop="25dp"
                 android:layout_marginRight="5dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/ic_place_24px"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detail_study_separator_0" />
 
@@ -179,7 +179,7 @@
                 android:layout_height="11dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="5dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/ic_schedule_24px"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detail_study_location_icon" />
 
@@ -213,7 +213,7 @@
                 android:layout_height="11dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="5dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/ic_person_24px"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detail_study_info_date_icon" />
 

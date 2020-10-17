@@ -1,49 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
     android:layout_marginLeft="5dp"
-    android:layout_marginTop="5dp"
     android:layout_marginRight="5dp"
-    android:layout_marginBottom="5dp"
+    android:layout_marginTop="10dp"
     android:background="?android:selectableItemBackground"
     android:clickable="true"
     android:focusable="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/course_bar_thumbnail"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.42" />
+
+    <ImageView
+        android:id="@+id/course_bar_name_image"
+        android:layout_width="11dp"
+        android:layout_height="11dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/ic_person_24px"
+        app:layout_constraintBottom_toBottomOf="@id/course_bar_view_text"
+        app:layout_constraintLeft_toRightOf="@id/course_bar_thumbnail"
+        app:layout_constraintTop_toTopOf="@id/course_bar_view_text" />
+
+    <ImageView
+        android:id="@+id/course_bar_view_image"
+        android:layout_width="11dp"
+        android:layout_height="11dp"
+        android:layout_marginLeft="6dp"
+        android:src="@drawable/ic_visibility_24px"
+        app:layout_constraintBottom_toBottomOf="@id/course_bar_view_text"
+        app:layout_constraintLeft_toRightOf="@id/course_bar_name_text"
+        app:layout_constraintTop_toTopOf="@id/course_bar_view_text" />
+
+    <TextView
+        android:id="@+id/course_bar_info"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:paddingLeft="10dp"
+        android:text="카테고리 · 2020.10.01"
+        android:textColor="#999"
+        android:textSize="14sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toRightOf="@id/course_bar_thumbnail"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/course_bar_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp">
+        android:text="홍길동"
+        android:textColor="#aaa"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toRightOf="@id/course_bar_name_image"
+        app:layout_constraintTop_toBottomOf="@id/course_bar_title" />
+
+    <TextView
+        android:id="@+id/course_bar_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingLeft="10dp"
+        android:text="건강 그리고 맛 어느것도 놓치지 않는 글로벌 비건집밥 클래스"
+        android:textColor="#222"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        app:layout_constraintLeft_toRightOf="@id/course_bar_thumbnail"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/course_bar_info" />
+
+    <TextView
+        android:id="@+id/course_bar_view_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="5dp"
+        android:text="78"
+        android:textColor="#aaa"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toRightOf="@id/course_bar_view_image"
+        app:layout_constraintTop_toBottomOf="@id/course_bar_title" />
 
 
-        <ImageView
-            android:id="@+id/course_bar_thumbnail"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/course_tag_parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintLeft_toRightOf="@id/course_bar_thumbnail"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/course_bar_name_image" />
 
-        <TextView
-            android:id="@+id/course_bar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toRightOf="@id/course_bar_thumbnail"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/course_bar_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            app:layout_constraintLeft_toRightOf="@id/course_bar_thumbnail"
-            app:layout_constraintTop_toBottomOf="@id/course_bar_title" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
