@@ -37,7 +37,11 @@ public class SearchFragment extends Fragment {
             return rootView;
         rootView = inflater.inflate(R.layout.fragment_search, container, false);
 
-        rootView.findViewById(R.id.search_layout).setPadding(0, 0, 0, getActivity().findViewById(R.id.navigationView).getHeight());
+
+        final SearchView searchView = rootView.findViewById(R.id.main_search_view);
+        final View searchLayout = rootView.findViewById(R.id.search_layout);
+        final View waitView = rootView.findViewById(R.id.search_wait_layout);
+        searchLayout.setPadding(0, 0, 0, getActivity().findViewById(R.id.navigationView).getHeight());
 
         final RecyclerView search_study_scroll = rootView.findViewById(R.id.main_search_study_scroll);
         search_study_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -52,7 +56,10 @@ public class SearchFragment extends Fragment {
         search_tut_scroll.setAdapter(new CategoryAdapter(new ArrayList<CategoryAdapter.Data>()));
         final Activity activity = getActivity();
 
-        ((SearchView) rootView.findViewById(R.id.main_search_view)).setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchLayout.setVisibility(View.GONE);
+        waitView.setVisibility(View.VISIBLE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(final String query) {
                 return false;
@@ -60,6 +67,13 @@ public class SearchFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(final String newText) {
+                if (newText.trim().length() == 0) {
+                    searchLayout.setVisibility(View.GONE);
+                    waitView.setVisibility(View.VISIBLE);
+                } else {
+                    searchLayout.setVisibility(View.VISIBLE);
+                    waitView.setVisibility(View.GONE);
+                }
                 new Thread() {
                     public void run() {
                         OkHttpClient client = new OkHttpClient();

@@ -34,9 +34,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="40dp"
                 android:text="군생활 1년 6개월,\n보람차게 보내야 하지 않나요?"
-                android:textColor="#444444"
+                android:textColor="#181829"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -48,8 +48,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
-                android:text="위생적인 조리 및 급식 여건 확인 / 감독 강화\n식당, 취사장, 잔반 처리장 청결 / 주기적인 소독\n부식류 수령 즉시 류별 손질 / 저장"
-                android:textColor="#999999"
+                android:text="CIA는 비대면 모임, 강의 플랫폼입니다.\n온라인 상에서 부대 근방의\n장병들과 비대면 모임을\n갖거나 온라인 강의를\n수강할 수 있습니다."
+                android:textColor="#aaa"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -59,6 +59,7 @@
                 android:id="@+id/recommend_tut_headText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:text="추천 강의"
                 android:textColor="#333333"
                 android:textSize="28dp"
@@ -118,6 +119,15 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recommend_study_subText" />
 
+            <View
+                android:id="@+id/main_separator_cat_0"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="40dp"
+                android:background="#ededed"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recommend_study_scroll" />
+
             <TextView
                 android:id="@+id/category_headText"
                 android:layout_width="wrap_content"
@@ -128,7 +138,7 @@
                 android:textSize="28dp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recommend_study_scroll" />
+                app:layout_constraintTop_toBottomOf="@id/main_separator_cat_0" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/category_chipgroup"
@@ -137,6 +147,15 @@
                 android:layout_marginTop="15dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/category_headText" />
+
+            <View
+                android:id="@+id/main_separator_cat_1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="40dp"
+                android:background="#ededed"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/category_chipgroup" />
 
             <TextView
                 android:id="@+id/trend_tut_headText"
@@ -148,7 +167,7 @@
                 android:textSize="28dp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/category_chipgroup" />
+                app:layout_constraintTop_toBottomOf="@id/main_separator_cat_1" />
 
             <TextView
                 android:id="@+id/trend_tut_subText"
