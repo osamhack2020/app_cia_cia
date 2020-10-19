@@ -41,15 +41,6 @@ public class InfoFragment extends Fragment {
         if (rootView != null)
             return rootView;
         rootView = inflater.inflate(R.layout.fragment_info, container, false);
-        LinearLayout info_list = rootView.findViewById(R.id.info_list);
-        for (int i = 0; i < info_list.getChildCount(); i++) {
-            ((ConstraintLayout) info_list.getChildAt(i)).setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    return false;
-                }
-            });
-        }
 
         final Activity activity = getActivity();
 
@@ -74,6 +65,187 @@ public class InfoFragment extends Fragment {
                                     ((TextView) rootView.findViewById(R.id.info_desc)).setText(jsonObject.getString("phonenm"));
                                     ((ImageView) rootView.findViewById(R.id.info_profile_image)).setImageBitmap(bitmap);
 
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    } else {
+                    }
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
+
+        new Thread() {
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+                RequestBody req = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("", "")
+                        .build();
+
+                Request request = new Request.Builder()
+                        .url(String.format("%s/api/study/manage", getResources().getString(R.string.server_address)))
+                        .addHeader("Authorization", Util.userHSID)
+                        .post(req)
+                        .build();
+                try {
+                    Response response = client.newCall(request).execute();
+                    if (response.code() == 200) {
+                        final JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("list");
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                RecyclerView study_created_scroll = rootView.findViewById(R.id.info_study_created_scroll);
+                                study_created_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+                                study_created_scroll.setHasFixedSize(true);
+                                try {
+                                    CourseAdapter.Data[] courseAdapterData = new CourseAdapter.Data[jsonArray.length()];
+
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject object = jsonArray.getJSONObject(i);
+                                        courseAdapterData[i] = new CourseAdapter.Data(object.getString("title"), object.getInt("catIdx"), object.getString("userName"), object.getInt("viewCount"), object.getString("regdate"), object.getString("img"), object.getInt("idx"), true);
+                                    }
+
+                                    study_created_scroll.setAdapter(new CourseAdapter(courseAdapterData));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    } else {
+                    }
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
+        new Thread() {
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+                RequestBody req = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("", "")
+                        .build();
+
+                Request request = new Request.Builder()
+                        .url(String.format("%s/api/study/me", getResources().getString(R.string.server_address)))
+                        .addHeader("Authorization", Util.userHSID)
+                        .post(req)
+                        .build();
+                try {
+                    Response response = client.newCall(request).execute();
+                    if (response.code() == 200) {
+                        final JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("list");
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                RecyclerView study_my_scroll = rootView.findViewById(R.id.info_study_my_scroll);
+                                study_my_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+                                study_my_scroll.setHasFixedSize(true);
+                                try {
+                                    CourseAdapter.Data[] courseAdapterData = new CourseAdapter.Data[jsonArray.length()];
+
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject object = jsonArray.getJSONObject(i);
+                                        courseAdapterData[i] = new CourseAdapter.Data(object.getString("title"), object.getInt("catIdx"), object.getString("userName"), object.getInt("viewCount"), object.getString("regdate"), object.getString("img"), object.getInt("idx"), true);
+                                    }
+
+                                    study_my_scroll.setAdapter(new CourseAdapter(courseAdapterData));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    } else {
+                    }
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
+        new Thread() {
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+                RequestBody req = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("", "")
+                        .build();
+
+                Request request = new Request.Builder()
+                        .url(String.format("%s/api/class/manage", getResources().getString(R.string.server_address)))
+                        .addHeader("Authorization", Util.userHSID)
+                        .post(req)
+                        .build();
+                try {
+                    Response response = client.newCall(request).execute();
+                    if (response.code() == 200) {
+                        final JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("list");
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                RecyclerView tut_created_scroll = rootView.findViewById(R.id.info_tut_created_scroll);
+                                tut_created_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+                                tut_created_scroll.setHasFixedSize(true);
+                                try {
+                                    CourseAdapter.Data[] courseAdapterData = new CourseAdapter.Data[jsonArray.length()];
+
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject object = jsonArray.getJSONObject(i);
+                                        courseAdapterData[i] = new CourseAdapter.Data(object.getString("title"), object.getInt("catIdx"), object.getString("userName"), object.getInt("viewCount"), object.getString("regdate"), object.getString("img"), object.getInt("idx"), true);
+                                    }
+
+                                    tut_created_scroll.setAdapter(new CourseAdapter(courseAdapterData));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    } else {
+                    }
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
+        new Thread() {
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+                RequestBody req = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("", "")
+                        .build();
+
+                Request request = new Request.Builder()
+                        .url(String.format("%s/api/class/me", getResources().getString(R.string.server_address)))
+                        .addHeader("Authorization", Util.userHSID)
+                        .post(req)
+                        .build();
+                try {
+                    Response response = client.newCall(request).execute();
+                    if (response.code() == 200) {
+                        final JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("list");
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                RecyclerView tut_my_scroll = rootView.findViewById(R.id.info_tut_my_scroll);
+                                tut_my_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+                                tut_my_scroll.setHasFixedSize(true);
+                                try {
+                                    CourseAdapter.Data[] courseAdapterData = new CourseAdapter.Data[jsonArray.length()];
+
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject object = jsonArray.getJSONObject(i);
+                                        courseAdapterData[i] = new CourseAdapter.Data(object.getString("title"), object.getInt("catIdx"), object.getString("userName"), object.getInt("viewCount"), object.getString("regdate"), object.getString("img"), object.getInt("idx"), true);
+                                    }
+
+                                    tut_my_scroll.setAdapter(new CourseAdapter(courseAdapterData));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

@@ -1,107 +1,310 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/info_profile_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="50dp"
-        android:adjustViewBounds="true"
-        android:src="@mipmap/ic_launcher_round"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/info_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="김도엽"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/info_profile_image" />
-
-    <TextView
-        android:id="@+id/info_desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="dygames@naver.com"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/info_name" />
-
-    <LinearLayout
-        android:id="@+id/info_list"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:orientation="vertical"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/info_desc">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <TextView
+            android:id="@+id/info_headText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="내 정보"
+            android:textColor="#333333"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/info_profile_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/ic_launcher_round"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_headText" />
+
+        <TextView
+            android:id="@+id/info_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="김도엽"
+            app:layout_constraintLeft_toRightOf="@+id/info_profile_image"
+            app:layout_constraintTop_toTopOf="@+id/info_profile_image" />
+
+        <TextView
+            android:id="@+id/info_mail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="dygames@naver.com"
+            app:layout_constraintLeft_toLeftOf="@id/info_name"
+            app:layout_constraintTop_toBottomOf="@id/info_name" />
+
+        <TextView
+            android:id="@+id/info_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="2020.01.01 · 01089881837"
+            app:layout_constraintLeft_toLeftOf="@id/info_mail"
+            app:layout_constraintTop_toBottomOf="@id/info_mail" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/info_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="강의를 개설하여 장병들과 공유해보세요!"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toLeftOf="@id/info_desc"
+            app:layout_constraintTop_toBottomOf="@id/info_desc" />
+
+        <View
+            android:id="@+id/info_separator_0"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="20dp"
+            android:background="#ededed"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_chip" />
+
+        <TextView
+            android:id="@+id/info_value_my_tut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="0"
+            app:layout_constraintLeft_toLeftOf="@id/info_headText_my_tut"
+            app:layout_constraintRight_toRightOf="@id/info_headText_my_tut"
+            app:layout_constraintTop_toBottomOf="@id/info_separator_0" />
+
+        <TextView
+            android:id="@+id/info_value_created_tut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="0"
+            app:layout_constraintLeft_toLeftOf="@id/info_headText_created_tut"
+            app:layout_constraintRight_toRightOf="@id/info_headText_created_tut"
+            app:layout_constraintTop_toBottomOf="@id/info_separator_0" />
+
+        <TextView
+            android:id="@+id/info_value_my_study"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="0"
+            app:layout_constraintLeft_toLeftOf="@id/info_headText_my_study"
+            app:layout_constraintRight_toRightOf="@id/info_headText_my_study"
+            app:layout_constraintTop_toBottomOf="@id/info_separator_0" />
+
+        <TextView
+            android:id="@+id/info_value_created_study"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="0"
+            app:layout_constraintLeft_toLeftOf="@id/info_headText_created_study"
+            app:layout_constraintRight_toRightOf="@id/info_headText_created_study"
+            app:layout_constraintTop_toBottomOf="@id/info_separator_0" />
+
+        <TextView
+            android:id="@+id/info_headText_my_tut"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_horizontal"
+            android:text="수강중인 강의"
+            android:textAlignment="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/info_headText_created_tut"
+            app:layout_constraintTop_toBottomOf="@id/info_value_my_tut"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <TextView
+            android:id="@+id/info_headText_created_tut"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_horizontal"
+            android:text="개설한 강의"
+            android:textAlignment="center"
+            app:layout_constraintLeft_toRightOf="@id/info_headText_my_tut"
+            app:layout_constraintRight_toLeftOf="@id/info_headText_my_study"
+            app:layout_constraintTop_toBottomOf="@id/info_value_created_tut"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <TextView
+            android:id="@+id/info_headText_my_study"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_horizontal"
+            android:text="참여한 스터디"
+            android:textAlignment="center"
+            app:layout_constraintLeft_toRightOf="@id/info_headText_created_tut"
+            app:layout_constraintRight_toLeftOf="@id/info_headText_created_study"
+            app:layout_constraintTop_toBottomOf="@id/info_value_my_study"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <TextView
+            android:id="@+id/info_headText_created_study"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_horizontal"
+            android:text="개설한 스터디"
+            android:textAlignment="center"
+            app:layout_constraintLeft_toRightOf="@id/info_headText_my_study"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_value_created_study"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <View
+            android:id="@+id/info_separator_1"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="#ededed"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_headText_my_tut" />
+
+        <TextView
+            android:id="@+id/info_tut_headText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="강의"
+            android:textColor="#333333"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_separator_1" />
+
+        <TextView
+            android:id="@+id/info_tut_created_headText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="내가 개설한 강의 >"
+            android:textColor="#aaa"
+            android:textSize="14dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_tut_headText" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/info_tut_created_scroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true">
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_tut_created_headText" />
 
-            <ImageView
-                android:id="@+id/info_list_2_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:src="@android:drawable/ic_dialog_info"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/info_tut_my_headText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="내가 수강중인 강의 >"
+            android:textColor="#aaa"
+            android:textSize="14dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_tut_created_scroll" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="CIA 소개"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/info_list_2_icon"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/info_tut_my_scroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true">
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_tut_my_headText" />
 
-            <ImageView
-                android:id="@+id/info_list_3_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:src="@android:drawable/ic_dialog_dialer"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <View
+            android:id="@+id/info_separator_2"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="#ededed"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_tut_my_scroll" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="고객 센터"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/info_list_3_icon"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+        <TextView
+            android:id="@+id/info_study_headText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="스터디"
+            android:textColor="#333333"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_separator_2" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/info_study_created_headText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="내가 개설한 스터디 >"
+            android:textColor="#aaa"
+            android:textSize="14dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_study_headText" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/info_study_created_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_study_created_headText" />
+
+        <TextView
+            android:id="@+id/info_study_my_headText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="내가 참여중인 스터디 >"
+            android:textColor="#aaa"
+            android:textSize="14dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_study_created_scroll" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/info_study_my_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_study_my_headText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

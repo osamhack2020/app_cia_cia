@@ -12,6 +12,7 @@ import android.widget.ScrollView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,6 +36,9 @@ public class MainFragment extends Fragment {
     private com.dygames.cia.CategoryFragment categoryFragment = new com.dygames.cia.CategoryFragment();
     private com.dygames.cia.UploadStudyFragment uploadStudyFragment = new com.dygames.cia.UploadStudyFragment();
     private com.dygames.cia.UploadTutFragment uploadTutFragment = new com.dygames.cia.UploadTutFragment();
+
+    private com.dygames.cia.SearchFragment fragmentSearch = new com.dygames.cia.SearchFragment();
+    private com.dygames.cia.InfoFragment fragmentInfo = new com.dygames.cia.InfoFragment();
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (rootView != null)
@@ -60,6 +64,19 @@ public class MainFragment extends Fragment {
             });
         }
         final Activity activity = getActivity();
+
+        rootView.findViewById(R.id.main_search_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((FragmentActivity) activity).getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragmentSearch).addToBackStack(null).commitAllowingStateLoss();
+            }
+        });
+        rootView.findViewById(R.id.main_info_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((FragmentActivity) activity).getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragmentInfo).addToBackStack(null).commitAllowingStateLoss();
+            }
+        });
 
         new Thread() {
             public void run() {
