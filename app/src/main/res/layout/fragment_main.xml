@@ -417,7 +417,7 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/fab"
         app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@android:drawable/stat_sys_vp_phone_call" />
+        android:src="@drawable/ic_place_24px" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_study_upload"
@@ -430,7 +430,7 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/fab_tut_upload"
         app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@android:drawable/btn_default" />
+        android:src="@drawable/ic_article_24px" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

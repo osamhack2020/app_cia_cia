@@ -61,7 +61,6 @@ public class LoginActivity extends AppCompatActivity {
                                 for (int i = 0; i < cookies.size(); i++) {
                                     if (cookies.get(i).contains("HSID")) {
                                         Util.userHSID = cookies.get(i).replace("HSID=", "").replace("; Path=/", "");
-                                        Log.d("DDDD", Util.userHSID);
                                     }
                                 }
                                 success = true;

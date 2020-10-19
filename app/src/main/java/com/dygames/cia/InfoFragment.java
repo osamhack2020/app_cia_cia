@@ -62,7 +62,8 @@ public class InfoFragment extends Fragment {
                             public void run() {
                                 try {
                                     ((TextView) rootView.findViewById(R.id.info_name)).setText(jsonObject.getString("name"));
-                                    ((TextView) rootView.findViewById(R.id.info_desc)).setText(jsonObject.getString("phonenm"));
+                                    ((TextView) rootView.findViewById(R.id.info_mail)).setText(jsonObject.getString("email"));
+                                    ((TextView) rootView.findViewById(R.id.info_desc)).setText(jsonObject.getString("regdate").split(" ")[0] + " · " + jsonObject.getString("phonenm"));
                                     ((ImageView) rootView.findViewById(R.id.info_profile_image)).setImageBitmap(bitmap);
 
                                 } catch (JSONException e) {
@@ -104,10 +105,10 @@ public class InfoFragment extends Fragment {
                                 study_created_scroll.setHasFixedSize(true);
                                 try {
                                     CourseAdapter.Data[] courseAdapterData = new CourseAdapter.Data[jsonArray.length()];
-
+                                    ((TextView) rootView.findViewById(R.id.info_value_created_study)).setText(jsonArray.length() + "");
                                     for (int i = 0; i < jsonArray.length(); i++) {
                                         JSONObject object = jsonArray.getJSONObject(i);
-                                        courseAdapterData[i] = new CourseAdapter.Data(object.getString("title"), object.getInt("catIdx"), object.getString("userName"), object.getInt("viewCount"), object.getString("regdate"), object.getString("img"), object.getInt("idx"), true);
+                                        courseAdapterData[i] = new CourseAdapter.Data(object.getString("title"), object.getInt("catIdx"), object.getString("userName"), object.getInt("viewCount"), object.getString("regdate"), object.getString("img"), object.getInt("idx"), false);
                                     }
 
                                     study_created_scroll.setAdapter(new CourseAdapter(courseAdapterData));
@@ -149,10 +150,11 @@ public class InfoFragment extends Fragment {
                                 study_my_scroll.setHasFixedSize(true);
                                 try {
                                     CourseAdapter.Data[] courseAdapterData = new CourseAdapter.Data[jsonArray.length()];
+                                    ((TextView) rootView.findViewById(R.id.info_value_my_study)).setText(jsonArray.length() + "");
 
                                     for (int i = 0; i < jsonArray.length(); i++) {
                                         JSONObject object = jsonArray.getJSONObject(i);
-                                        courseAdapterData[i] = new CourseAdapter.Data(object.getString("title"), object.getInt("catIdx"), object.getString("userName"), object.getInt("viewCount"), object.getString("regdate"), object.getString("img"), object.getInt("idx"), true);
+                                        courseAdapterData[i] = new CourseAdapter.Data(object.getString("title"), object.getInt("catIdx"), object.getString("userName"), object.getInt("viewCount"), object.getString("regdate"), object.getString("img"), object.getInt("idx"), false);
                                     }
 
                                     study_my_scroll.setAdapter(new CourseAdapter(courseAdapterData));
@@ -194,6 +196,7 @@ public class InfoFragment extends Fragment {
                                 tut_created_scroll.setHasFixedSize(true);
                                 try {
                                     CourseAdapter.Data[] courseAdapterData = new CourseAdapter.Data[jsonArray.length()];
+                                    ((TextView) rootView.findViewById(R.id.info_value_created_tut)).setText(jsonArray.length() + "");
 
                                     for (int i = 0; i < jsonArray.length(); i++) {
                                         JSONObject object = jsonArray.getJSONObject(i);
@@ -239,6 +242,7 @@ public class InfoFragment extends Fragment {
                                 tut_my_scroll.setHasFixedSize(true);
                                 try {
                                     CourseAdapter.Data[] courseAdapterData = new CourseAdapter.Data[jsonArray.length()];
+                                    ((TextView) rootView.findViewById(R.id.info_value_my_tut)).setText(jsonArray.length() + "");
 
                                     for (int i = 0; i < jsonArray.length(); i++) {
                                         JSONObject object = jsonArray.getJSONObject(i);

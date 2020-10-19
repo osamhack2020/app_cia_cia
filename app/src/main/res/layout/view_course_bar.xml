@@ -3,24 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
     android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
     android:layout_marginTop="10dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginBottom="10dp"
     android:background="?android:selectableItemBackground"
     android:clickable="true"
     android:focusable="true">
 
-    <ImageView
-        android:id="@+id/course_bar_thumbnail"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/course_bar_thumbnail_parent"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher"
+        android:elevation="10dp"
+        app:cardCornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.42" />
+        app:layout_constraintWidth_percent="0.42">
+
+        <ImageView
+            android:id="@+id/course_bar_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+    </androidx.cardview.widget.CardView>
 
     <ImageView
         android:id="@+id/course_bar_name_image"
@@ -29,7 +36,7 @@
         android:layout_marginLeft="10dp"
         android:src="@drawable/ic_person_24px"
         app:layout_constraintBottom_toBottomOf="@id/course_bar_view_text"
-        app:layout_constraintLeft_toRightOf="@id/course_bar_thumbnail"
+        app:layout_constraintLeft_toRightOf="@id/course_bar_thumbnail_parent"
         app:layout_constraintTop_toTopOf="@id/course_bar_view_text" />
 
     <ImageView
@@ -47,11 +54,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
-        android:text="카테고리 · 2020.10.01"
+        android:text=""
         android:textColor="#999"
         android:textSize="14sp"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toRightOf="@id/course_bar_thumbnail"
+        app:layout_constraintLeft_toRightOf="@id/course_bar_thumbnail_parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="3dp"
         android:layout_marginTop="5dp"
-        android:text="홍길동"
+        android:text=""
         android:textColor="#aaa"
         android:textSize="12sp"
         app:layout_constraintLeft_toRightOf="@id/course_bar_name_image"
@@ -71,15 +78,15 @@
         android:id="@+id/course_bar_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:ellipsize="end"
         android:maxLines="2"
         android:paddingLeft="10dp"
-        android:text="건강 그리고 맛 어느것도 놓치지 않는 글로벌 비건집밥 클래스"
+        android:text=""
         android:textColor="#222"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginTop="5dp"
-        app:layout_constraintLeft_toRightOf="@id/course_bar_thumbnail"
+        app:layout_constraintLeft_toRightOf="@id/course_bar_thumbnail_parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/course_bar_info" />
 
@@ -89,7 +96,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="3dp"
         android:layout_marginTop="5dp"
-        android:text="78"
+        android:text=""
         android:textColor="#aaa"
         android:textSize="12sp"
         app:layout_constraintLeft_toRightOf="@id/course_bar_view_image"
@@ -102,7 +109,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
-        app:layout_constraintLeft_toRightOf="@id/course_bar_thumbnail"
+        app:layout_constraintLeft_toRightOf="@id/course_bar_thumbnail_parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/course_bar_name_image" />
 
