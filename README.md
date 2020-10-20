@@ -17,7 +17,11 @@
 [![이미지 텍스트](스크린샷 이미지)](유투브링크)
 
 # 기능 설계 
-+ Android
++ 화면설계(AdobeXD) *별도 md 파일 생성예정
+```
+[링크 제목](https://theorydb.github.io "마우스를 올려놓으면 말풍선이 나옵니다.")
+```
++ Android  *별도 md 파일 생성예정
 ```
 메인 화면 - 인기 강의, 스터디, 카테고리, 추천 강의, 스터디 확인 
 검색 화면 - 제목과 내용으로 강의, 스터디 검색 
@@ -26,104 +30,12 @@
 카테고리 화면 - 카테고리 별로 강의, 스터디 탐색
 강의, 스터디 업로드 화면 - 강의, 스터디를 등록 
 ```
-+ API 문서
++ API 문서  *별도 md 파일 생성예정
 ```
-업로드 예정
+[링크 제목](https://theorydb.github.io "마우스를 올려놓으면 말풍선이 나옵니다.")
 ```
 
-+ DB 설계
-```
-회원 정보		
-create table hs_user_info (
-	idx int(11) unsigned not null auto_increment primary key,
-	password text not null,
-	name varchar(15) not null unique,
-	email varchar(50) not null unique,
-	phonenm varchar(15) not null,
-	regdate datetime not null,
-	img varchar(255) null,
-	enabled tinyint(1) not null default false
-);
-
-회원 권한
-create table hs_user_auth (
-	idx int(11) unsigned not null auto_increment primary key,
-	userIdx int(11) unsigned not null,
-	authority varchar(50) not null
-);
-
-스터디 정보
-create table hs_study_info (
-	idx int(11) unsigned not null auto_increment primary key,
-	userIdx int(11) unsigned not null,
-	regdate datetime not null,
-	img text null,
-	title varchar(255) not null,
-	note text null,
-	viewCount int(11) unsigned not null default 0,
-	station text null,
-	signdate datetime not null,
-	maxPeople int(11) unsigned not null,
-	enabled tinyint(1) not null default false
-);
-
-스터디 수강(참여) 
-create table hs_study_regist (
-	idx int(11) unsigned not null auto_increment primary key,
-	studyIdx int(11) unsigned not null,
-	userIdx int(11) unsigned not null,
-	regdate datetime not null
-);
-
-클래스 정보
-create table hs_class_info (
-idx int(11) unsigned not null auto_increment primary key,
-userIdx int(11) unsigned not null comment 'user idx',
-regdate datetime not null,
-thumbnail text null comment 'thumbnail image',
-openFlag tinyint(1) not null default false,
-title text null,
-note text null,
-viewCount int(11) unsigned not null default 0,
-catIdx int(11) unsigned not null comment 'category idx'
-);
-
-클래스 카테고리
-create table hs_class_category (
-idx int(11) unsigned not null auto_increment primary key,
-name varchar(30) not null,
-regdate datetime not null
-);
-
-클래스 회차정보 
-create table hs_class_curriculum (
-idx int(11) unsigned not null auto_increment primary key,
-classIdx int(11) unsigned not null,
-regdate datetime not null,
-numb int(11) unsigned not null comment 'class ordering number',
-title varchar(100) not null,
-note text null,
-viewCount int(11) unsigned not null default 0,
-videoPath text null,,
-videoSeconds int(11) unsigned not null,
-thumbnail text null comment 'thumbnail image'
-);
-
-클래스 좋아요
-create table hs_class_like (
-idx int(11) unsigned not null auto_increment primary key,
-userIdx int(11) unsigned not null comment 'user idx',
-regdate datetime not null
-);
-
-클래스 수강정보
-create table hs_class_user_record (
-idx int(11) unsigned not null auto_increment primary key,
-curriculumIdx int(11) unsigned not null,
-userIdx int(11) unsigned not null comment 'user idx',
-regdate datetime not null
-);
-```
++ DB 설계   *별도 md 파일 생성예정
 
 
 # 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
@@ -220,3 +132,5 @@ CIA는공개SW의 취지와 비슷합니다.
 - 병장 정희성(API Server Development), 
 - 상병 김도엽(Android Application Development)
 ```
+
+# 저작권 및 사용권 정보 (Copyleft / End User License)
