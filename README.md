@@ -115,6 +115,7 @@ idx int(11) unsigned not null auto_increment primary key,
 userIdx int(11) unsigned not null comment 'user idx',
 regdate datetime not null
 );
+
 클래스 수강정보
 create table hs_class_user_record (
 idx int(11) unsigned not null auto_increment primary key,
