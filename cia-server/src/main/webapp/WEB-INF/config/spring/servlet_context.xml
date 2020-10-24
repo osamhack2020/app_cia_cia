@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:task="http://www.springframework.org/schema/task" 
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:security="http://www.springframework.org/schema/security" 
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd 
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd 
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
+    	http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+		http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
+	
+   	<security:global-method-security secured-annotations="enabled"/>
+	
+	<util:properties id="siteinfo" location="classpath:/siteinfo.xml"/>
+	
+	
+	<mvc:resources mapping="/robots.txt" location="/robots.txt" cache-period="31556926" order="0"/>
+	<mvc:resources mapping="/favicon.ico" location="/favicon.ico" cache-period="31556926" order="0"/>
+	<mvc:resources mapping="/sitemap.xml" location="/sitemap.xml" cache-period="31556926" order="0"/>
+	
+	
+	<mvc:resources mapping="/theme/**" 									location="/theme/" order="0"/>
+	<mvc:resources mapping="/resources/**" 								location="/resources/" order="0"/>
+	
+	<mvc:resources mapping="/common_#{siteinfo['app.resource.ver']}/**" location="/resources/" order="0"/>
+	
+	<mvc:resources mapping="/theme_#{siteinfo['app.resource.ver']}/**" 	location="/theme/#{siteinfo['theme.skin.basic']}/resources/" order="0"/>
+	<mvc:resources mapping="/theme_resources/**" 						location="/theme/#{siteinfo['theme.skin.basic']}/resources/" order="0"/>
+	
+	<mvc:resources mapping="/theme_admin/**" 							location="/theme/admin/resources/" order="0"/>
+	
+	<mvc:resources mapping="/jsp/**" 									location="/jsp/" order="0"/>
+	
+	  
+    
+	<context:component-scan base-package="com.hs" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	
+	
+	<mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
+		<mvc:argument-resolvers>
+	       	<bean class="org.springframework.mobile.device.DeviceWebArgumentResolver" />
+	   	</mvc:argument-resolvers>
+	</mvc:annotation-driven>
+	<bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+	     <property name="favorPathExtension" value="false" />
+	     <property name="favorParameter" value="true" />   
+	     <property name="mediaTypes" >
+	          <value>
+	               json=application/json
+	               xml=application/xml
+	          </value>
+	     </property>
+	</bean>
+	
+	<mvc:interceptors>
+	    <bean class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor" />
+	</mvc:interceptors>
+	
+	
+	 
+	<mvc:interceptors>   
+		<mvc:interceptor>      	          
+		           
+			<mvc:mapping path="/coldbrew/**"/>
+			<mvc:mapping path="/api/**"/> 
+		
+			<mvc:exclude-mapping path="/api/users/check/name"/>
+			<mvc:exclude-mapping path="/api/users/signup"/>
+			    
+			<bean id="JwtInterceptor" class="com.hs.app.jwt.interceptor.JwtInterceptor"></bean>          
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	
+	<mvc:interceptors>   
+		<mvc:interceptor>      	          
+		           
+			<mvc:mapping path="/coldbrew/**"/>
+			 
+			<bean id="RunInterceptor" class="com.hs.common.handler.RunInterceptor"></bean>          
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	 
+	<!-- 인터셉터 설정 -->    
+	<mvc:interceptors>   
+		
+        <mvc:interceptor>      	 
+               
+            <mvc:mapping path="/**"/>
+            
+            <mvc:exclude-mapping path="/theme/**"/>
+            <mvc:exclude-mapping path="/theme_admin/**"/>
+            <mvc:exclude-mapping path="/resources/**"/>
+            <mvc:exclude-mapping path="/static-#{siteinfo['app.resource.ver']}/**"/>
+			<mvc:exclude-mapping path="/common_#{siteinfo['app.resource.ver']}/**"/>
+            
+            <mvc:exclude-mapping path="/robots.txt"/>
+            <mvc:exclude-mapping path="/favicon.ico"/>
+            
+            <bean id="loggerInterceptor" class="com.hs.common.handler.LoggerInterceptor"></bean>          
+        </mvc:interceptor>    
+        
+    </mvc:interceptors>
+    
+
+  
+	 
+	<bean id="downloadViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver" >
+		<property name="order" value="0" />
+	</bean>
+
+	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+        <property name="order" value="1"/>
+    </bean>
+    
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">       
+        <property name="definitions">
+            <list><value>/WEB-INF/config/tiles/tiles-config.xml</value></list>
+        </property>      
+		<property name="preparerFactoryClass" value="org.springframework.web.servlet.view.tiles3.SimpleSpringPreparerFactory"/>
+    </bean>
+    
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/theme/"/>
+		<property name="suffix" value=".jsp"/>
+		<property name="order" value="2"/>
+	</bean>
+	
+	<bean id="downloadView" class="com.hs.common.view.DownloadView" />	
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="1050000000"/>
+	</bean>
+	
+	
+</beans>

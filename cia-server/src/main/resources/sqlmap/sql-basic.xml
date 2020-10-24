@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+<mapper namespace="basic">	
+	
+	<select id="getFaqList" resultType="java.util.Map">
+		select 
+			idx, regdate, cat, title, note, count
+		from
+			hs_faq
+		order by 
+			idx asc 
+	</select>
+	
+	
+</mapper>
+<!-- 
+
+insert into hs_faq (regdate, cat, title, note, count) 
+values(now(), 'normal', 
+'히든골퍼는 어떤 서비스입니까?', 
+'한국의 골프 인구는 2017년 통계청에 따르면 약 386만명이라고 합니다. 골프열기는 뜨겁지만 실제 플레이 만족도는 낮은 편에 속합니다. 국내 골프장은 4인 플레이 기준으로 예약을 받는데 이 과정에서 원치 않는 플레이어들과 조인을 하게 되기 때문입니다. 골프 특성상 동반자들과의 교감이 중요하나 비용 대비 불만족스러운 경우가 많습니다. <br/><br/>히든골퍼는 매너있고 매력있는 숨은 골퍼들을 발굴하여 고객들의 라운딩 즐거움을 극대화 하고자 합니다.'
+, 0);
+
+insert into hs_faq (regdate, cat, title, note, count) 
+values(now(), 'normal', 
+'누구나 이용 가능한가요?', 
+'네, 회원가입 후 프로필을 등록한 모든 고객이 이용 가능합니다.'
+, 0);
+
+
+insert into hs_faq (regdate, cat, title, note, count) 
+values(now(), 'normal', 
+'이용방법을 잘 모르겠어요', 
+'회원가입 -> 프로필 등록 -> 관리자 승인 -> 동반자 찾기 -> 함께하고자 하는 동반자에게 초대장 발송 -> 동반자 승인 시, 대화 시작'
+, 0);
+
+insert into hs_faq (regdate, cat, title, note, count) 
+values(now(), 'normal', 
+'골프공은 무엇이고, 어떻게 사용하나요?', 
+'골프공은 히든골퍼 서비스를 이용하기 위한 가상화폐입니다. 동반자들에게 초대장을 발송 시 필요하며 선물도 가능합니다.'
+, 0);
+
+insert into hs_faq (regdate, cat, title, note, count) 
+values(now(), 'normal', 
+'동반자게에 초대장을 보내고, 동반자가 승인하여 확정되었는데 상대방(동반자)이 약속을 지키지 않으면 어떻게 되죠?', 
+'골프공은 수수료 없이 환급되고, 동반자는 블랙리스트로 관리합니다.'
+, 0);
+
+insert into hs_faq (regdate, cat, title, note, count) 
+values(now(), 'normal', 
+'동반자에게 초대장을 보냈는데, 답변이 없거나 동반자가 거절하면 어떻게 되죠?', 
+'1주일 내에 답변이 없거나 동반자가 거절하면 수수료(골프공 10개)를 제외하고 환급됩니다.'
+, 0);
+
+insert into hs_faq (regdate, cat, title, note, count) 
+values(now(), 'normal', 
+'동반자와 라운드 시 고객이 지켜야 할 사항은 무엇인가요?', 
+'골프의 기본인 매너!'
+, 0);
+
+insert into hs_faq (regdate, cat, title, note, count) 
+values(now(), 'normal', 
+'국내 라운딩 외 스크린, 해외 라운딩도 가능하나요?', 
+'서비스 준비 중입니다.'
+, 0);
+
+
+
+insert into hs_faq (regdate, cat, title, note, count) 
+values(now(), 'partner', 
+'히든골퍼에서 동반자는 무엇인가요?', 
+'일반(고객)과 라운딩을 즐기면서 수익도 낼 수 있습니다.'
+, 0);
+
+insert into hs_faq (regdate, cat, title, note, count) 
+values(now(), 'partner', 
+'동반자가 되려면 어떻게 해야하나요?', 
+'일반 회원가입 -> 프로필 완성 -> 관리자 승인 -> 이메일 인증 -> 동반자 등록 -> 관리자 승인 이후 동반자 리스트에 등록됩니다.<br/><br/>일반(고객)이 초대장을 발송하면 일정을 고려하여 승인 후, 대화를 시작하시면 됩니다.'
+, 0);
+
+insert into hs_faq (regdate, cat, title, note, count) 
+values(now(), 'partner', 
+'초대장을 받고 수락하여 라운딩이 확정되었는데 약속한 날 피치못할 사정이 생기면 어떻게 되죠?', 
+'가능한 빠르게 동반자에게 알려주고 일정을 다시 잡아야 합니다. 사전에 동반자에게 알려주지 않고 약속을 어기면 히든골퍼에서 블랙리스트로 관리됩니다.'
+, 0);
+
+insert into hs_faq (regdate, cat, title, note, count) 
+values(now(), 'partner', 
+'골프공은 언제 입금되나요?', 
+'라운딩 종료 후 1주일 뒤 입금됩니다.'
+, 0);
+
+insert into hs_faq (regdate, cat, title, note, count) 
+values(now(), 'partner', 
+'골프공은 현금으로 인출 가능한가요?', 
+'네, 가능합니다. 최소 환전단위는 골프공 1,000개이며, 골프공 1,000개에 10만원으로 환전됩니다.'
+, 0);
+    				
+    		
+	    		
+create table hs_faq (
+	idx int(11) unsigned not null auto_increment primary key,
+	regdate datetime not null,
+	cat varchar(20) null,
+	title text null,
+	note text null,
+	count int(11) unsigned not null default 0
+);
+
+ -->

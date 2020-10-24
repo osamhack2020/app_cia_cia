@@ -1,0 +1,861 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+<mapper namespace="user">	
+
+	
+	<select id="loadClassRateByCat" resultType="java.util.Map">
+		select
+			b.catIdx as catIdx,
+			(select name from hs_class_cat where idx = b.catIdx) as catName,
+			count(*) as count,
+			(select count(*) as count from hs_class_regist as a, hs_class_info as b where a.classIdx = b.idx) as sum
+		from
+			hs_class_regist as a,
+			hs_class_info as b
+		where 
+			a.classIdx = b.idx 
+		group by
+			catIdx
+		order by 
+			catIdx asc
+	</select>
+	
+	<select id="loadStudyRateByCat" resultType="java.util.Map">
+		select
+			b.catIdx as catIdx,
+			(select name from hs_study_cat where idx = b.catIdx) as catName,
+			count(*) as count,
+			(select count(*) as count from hs_study_regist as a, hs_study_info as b where a.studyIdx = b.idx) as sum
+		from
+			hs_study_regist as a,
+			hs_study_info as b
+		where 
+			a.studyIdx = b.idx 
+		group by
+			catIdx
+		order by 
+			catIdx asc
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+	<!-- 특정 클래스를 수강하고 있는 회원 목록 쿼리 -->
+	<select id="getClassStudents" parameterType="java.lang.Integer" resultType="com.hs.app.user.vo.ClassStudent">
+		select 
+			a.idx as idx,
+			a.classIdx as classIdx,
+			a.userIdx as userIdx,
+			a.regdate as regdate,
+			b.img as img,
+			b.name as name,
+			b.email as email
+		from
+			hs_class_regist a,
+			hs_user_info b
+		where
+			a.userIdx = b.idx
+		and 
+			a.classIdx = #{classIdx} 
+		order by
+			a.regdate desc 
+	</select>
+	
+	<!-- 클래스 수강 탈퇴 -->
+	<delete id="deleteClassStudent" parameterType="java.util.Map">
+		delete from hs_class_regist where classIdx = #{classIdx} and userIdx = #{userIdx}
+	</delete>
+	
+	<!-- 클래스 수강 등록/가입 -->
+	<insert id="insertClassStudent" parameterType="java.util.Map">
+		insert into hs_class_regist 
+			(classIdx, userIdx, regdate)
+		values
+			(#{classIdx}, #{userIdx}, now())
+	</insert>
+
+
+
+
+
+
+
+
+
+
+
+	<delete id="deleteCur" parameterType="java.lang.Integer">
+		delete from hs_class_cur where idx = #{idx}
+	</delete>
+	
+	<insert id="insertCur" parameterType="com.hs.app.user.vo.CurInfo">
+		insert into hs_class_cur 
+			(classIdx, regdate, numb, title, note, videoPath, videoSeconds, img)
+		values
+			(#{classIdx}, now(), #{numb}, #{title}, #{note}, #{videoPath}, #{videoSeconds}, #{img})
+	</insert>
+	
+	<select id="loadClassCurriculum" parameterType="java.lang.Integer" resultType="com.hs.app.user.vo.CurInfo">
+		select 
+			b.idx as idx,
+			b.classIdx as classIdx,
+			b.regdate as regdate,
+			b.numb as numb,
+			b.title as title,
+			b.note as note,
+			b.viewCount as viewCount,
+			b.videoPath as videoPath,
+			b.videoSeconds as videoSeconds,
+			b.img as img
+		from 
+			hs_class_info as a,
+			hs_class_cur as b
+		where 
+			a.idx = b.classIdx and b.classIdx = #{classIdx}
+		order by 
+			b.numb asc, b.idx asc 	
+			 
+	</select>
+	
+	
+
+	
+	<update id="increaseViewOfClass" parameterType="java.lang.Integer">
+		update hs_class_info set viewCount = viewCount + 1 where idx = #{idx}
+	</update>
+	<!-- 클래스 삭제 -->
+	<delete id="deleteClass" parameterType="java.lang.Integer">
+		delete from hs_class_info where idx = #{idx}   
+	</delete>   
+	
+	<!-- 클래스 수정 -->
+	<update id="updateClass" parameterType="com.hs.app.user.vo.ClassInfo">
+		update 
+			hs_class_info
+		set
+			img = #{img},
+			title = #{title},
+			note = #{note},
+			tags = #{tags},
+			catIdx = #{catIdx}
+		where
+			idx = #{idx}
+	</update>
+	
+	<!-- 클래스 등록 -->
+	<insert id="insertClass" parameterType="com.hs.app.user.vo.ClassInfo">
+		insert into hs_class_info 
+			(userIdx, regdate, img, enabled, title, note, viewCount, catIdx, tags)
+		values
+			(#{userIdx}, now(), #{img}, true, #{title}, #{note}, #{viewCount}, #{catIdx}, #{tags})
+	</insert>
+	<!-- 방금 등록한 클래스 고유번호 쿼리 -->
+	<select id="getInsertedClassIdx" parameterType="com.hs.app.user.vo.ClassInfo" resultType="java.lang.Integer">
+		select idx from hs_class_info where title = #{title} and userIdx = #{userIdx} order by idx desc limit 1 
+	</select>
+	
+	<select id="getClassInfo" parameterType="java.lang.Integer" resultType="com.hs.app.user.vo.ClassInfo">
+		select 
+			idx, userIdx, regdate, img, enabled, title, note, viewCount, catIdx, tags,
+			(select name from hs_user_info where idx = a.userIdx) as userName,
+			(select name from hs_study_cat where idx = a.catidx) as catName
+		from 
+			hs_class_info where idx = #{idx}
+	</select> 
+
+	<select id="getClassCatList" resultType="com.hs.app.user.vo.ClassCat">
+		select * from hs_class_cat order by idx asc
+	</select>
+	
+	<select id="getRecoClassList" parameterType="java.util.Map" resultType="com.hs.app.user.vo.ClassInfo">
+		select 
+			idx, userIdx, regdate, img, enabled, title, note, viewCount, catIdx, tags,
+			(select name from hs_user_info where idx = a.userIdx) as userName,
+			(select name from hs_study_cat where idx = a.catidx) as catName
+		from
+			hs_class_info as a
+		where
+			enabled = true
+		order by
+			rand()
+		<if test="limitCount == null">
+			limit 30
+		</if>
+		<if test="limitCount != null">
+			limit #{limitCount}
+		</if>
+		
+	</select>
+	<select id="getClassSize" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from hs_class_info where enabled = true
+		<if test="q != null">
+            and ( 
+	            	title LIKE CONCAT('%', #{q}, '%')  or 
+	            	note LIKE CONCAT('%', #{q}, '%') or 
+	            	tags LIKE CONCAT('%', #{q}, '%') 
+            	)
+        </if>
+	</select>
+	<select id="loadClass" parameterType="java.util.Map" resultType="com.hs.app.user.vo.ClassInfo">
+		select 
+			idx, userIdx, regdate, img, enabled, title, note, viewCount, catIdx, tags,
+			(select name from hs_user_info where idx = hs_class_info.userIdx) as userName,
+			(select name from hs_class_cat where idx = hs_class_info.catIdx) as catName
+		from
+			hs_class_info 
+		where 
+			enabled = true
+		<if test="q != null">
+            and ( 
+	            	title LIKE CONCAT('%', #{q}, '%')  or 
+	            	note LIKE CONCAT('%', #{q}, '%') or 
+	            	tags LIKE CONCAT('%', #{q}, '%') 
+            	)
+        </if>	
+		order by
+            idx desc 
+        limit 
+            #{startRow}, #{rowBlockCount}
+	</select>
+	
+	
+	
+	<select id="loadMyClass" parameterType="java.lang.Integer" resultType="com.hs.app.user.vo.ClassInfo">
+		select 
+			idx, userIdx, regdate, img, enabled, title, note, viewCount, catIdx, tags,
+			(select name from hs_user_info where idx = hs_class_info.userIdx) as userName,
+			(select name from hs_class_cat where idx = hs_class_info.catIdx) as catName
+		from
+			hs_class_info 
+		where 
+			userIdx = #{userIdx}
+		order by
+            idx desc 
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<select id="getStudyCatList" resultType="com.hs.app.user.vo.StudyCat">
+		select * from hs_study_cat order by idx asc
+	</select>
+	
+	
+	<select id="getStudy" parameterType="java.lang.Integer" resultType="com.hs.app.user.vo.StudyInfo">
+		select 
+			idx,
+			userIdx,
+			(select name from hs_user_info where idx = a.userIdx) as userName,
+			regdate,
+			img,
+			title,
+			note,
+			viewCount,
+			station,
+			signdate,
+			maxPeople,
+			enabled,
+			tags,
+			catIdx,
+			(select name from hs_study_cat where idx = a.catidx) as catName
+		from 
+			hs_study_info where idx = #{idx}
+	</select>
+	
+	<!-- 스터디 삭제 -->
+	<delete id="deleteStudy" parameterType="java.lang.Integer">
+		delete from hs_study_info where idx = #{idx}   
+	</delete>   
+	
+	<!-- 스터디 수정 -->
+	<update id="updateStudy" parameterType="com.hs.app.user.vo.StudyInfo">
+		update 
+			hs_study_info
+		set
+			img = #{img},
+			title = #{title},
+			note = #{note},
+			station = #{station},
+			signdate = #{signdate},
+			maxPeople = #{maxPeople}
+		where
+			idx = #{idx}
+	</update>
+	
+	<!-- 스터디 등록 -->
+	<insert id="insertStudy" parameterType="com.hs.app.user.vo.StudyInfo">
+		insert into hs_study_info 
+			(userIdx, regdate, img, title, note, viewCount, station, signdate, maxPeople, enabled, catIdx)
+		values(#{userIdx}, now(), #{img}, #{title}, #{note}, 0, #{station}, #{signdate}, #{maxPeople}, true, #{catIdx})	
+	</insert>
+	<!-- 방금 등록한 스터디 고유번호 쿼리 -->
+	<select id="getInsertedStudyIdx" parameterType="com.hs.app.user.vo.StudyInfo" resultType="java.lang.Integer">
+		select idx from hs_study_info where title = #{title} and userIdx = #{userIdx} order by idx desc limit 1 
+	</select>
+	
+	<update id="increaseViewOfStudy" parameterType="java.lang.Integer">
+		update hs_study_info set viewCount = viewCount + 1 where idx = #{idx}
+	</update>
+	
+	<!-- 스터리 목록 쿼리 -->
+	<select id="getStudySize" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from hs_study_info where enabled = true
+		<if test="q != null">
+            and ( 
+	            	title LIKE CONCAT('%', #{q}, '%')  or 
+	            	note LIKE CONCAT('%', #{q}, '%') or 
+	            	tags LIKE CONCAT('%', #{q}, '%') 
+            	)
+        </if>
+	</select>
+	<select id="getRecoStudyList" parameterType="java.util.Map" resultType="com.hs.app.user.vo.StudyInfo">
+		select 
+			idx,
+			userIdx,
+			(select name from hs_user_info where idx = a.userIdx) as userName,
+			regdate,
+			img,
+			title,
+			note,
+			viewCount,
+			station,
+			signdate,
+			maxPeople,
+			enabled,
+			tags,
+			catIdx,
+			(select name from hs_study_cat where idx = a.catidx) as catName
+		from
+			hs_study_info as a
+		where
+			enabled = true
+		order by
+			rand()
+		<if test="limitCount == null">
+			limit 30
+		</if>
+		<if test="limitCount != null">
+			limit #{limitCount}
+		</if>
+		
+	</select>
+	<select id="loadStudy" parameterType="java.util.Map" resultType="com.hs.app.user.vo.StudyInfo">
+		select 
+			idx,
+			userIdx,
+			(select name from hs_user_info where idx = a.userIdx) as userName,
+			regdate,
+			img,
+			title,
+			note,
+			viewCount,
+			station,
+			signdate,
+			maxPeople,
+			enabled,
+			tags,
+			catIdx,
+			(select name from hs_study_cat where idx = a.catIdx) as catName
+		from 
+			hs_study_info as a
+		where
+			enabled = true
+		<if test="q != null">
+            and ( 
+	            	title LIKE CONCAT('%', #{q}, '%')  or 
+	            	note LIKE CONCAT('%', #{q}, '%') or 
+	            	tags LIKE CONCAT('%', #{q}, '%') 
+            	)
+        </if>	
+		order by
+            idx desc 
+        limit 
+            #{startRow}, #{rowBlockCount}
+	</select>
+	
+	<select id="loadMyStudy" parameterType="java.lang.Integer" resultType="com.hs.app.user.vo.StudyInfo">
+		select 
+			idx,
+			userIdx,
+			(select name from hs_user_info where idx = a.userIdx) as userName,
+			regdate,
+			img,
+			title,
+			note,
+			viewCount,
+			station,
+			signdate,
+			maxPeople,
+			enabled,
+			tags,
+			catIdx,
+			(select name from hs_study_cat where idx = a.catIdx) as catName
+		from 
+			hs_study_info as a
+		where
+			userIdx = #{userIdx}	
+		order by
+            idx desc 
+	</select>
+	
+	
+	<!-- 내가 수강중인 클래스 목록 로드 -->
+	<select id="loadRegistClassByUserIdx" parameterType="java.lang.Integer" resultType="com.hs.app.user.vo.ClassInfo">
+		select 
+			b.idx as idx,
+			b.userIdx as userIdx,
+			a.regdate as regdate,
+			b.img as img,
+			b.title as title,
+			b.note as note,
+			b.viewCount as viewCount,
+			b.tags as tags,
+			b.catIdx as catIdx,
+			(select name from hs_user_info where idx = b.userIdx) as userName,
+			(select name from hs_class_cat where idx = b.catIdx) as catName
+		from
+			hs_class_regist a,
+			hs_class_info b
+		where
+			a.classIdx = b.idx
+		and 
+			a.userIdx = #{userIdx} 
+		order by
+			a.regdate desc 
+	</select>
+	<!-- 내가 수강중인 스터디 목록 로드 -->
+	<select id="loadRegistStudyByUserIdx" parameterType="java.lang.Integer" resultType="com.hs.app.user.vo.StudyInfo">
+		select 
+			b.idx as idx,
+			b.userIdx as userIdx,
+			a.regdate as regdate,
+			b.img as img,
+			b.title as title,
+			b.note as note,
+			b.viewCount as viewCount,
+			b.station as station,
+			b.signdate as signdate,
+			b.maxPeople as maxPeople,
+			b.tags as tags,
+			b.catIdx as catIdx,
+			(select name from hs_user_info where idx = b.userIdx) as userName,
+			(select name from hs_study_cat where idx = b.catIdx) as catName
+		from
+			hs_study_regist a,
+			hs_study_info b
+		where
+			a.studyIdx = b.idx
+		and 
+			a.userIdx = #{userIdx} 
+		order by
+			a.regdate desc 
+	</select>
+
+	<!-- 특정 스터디를 수강하고 있는 회원 목록 쿼리 -->
+	<select id="getStudyStudents" parameterType="java.lang.Integer" resultType="com.hs.app.user.vo.StudyStudent">
+		select 
+			a.idx as idx,
+			a.studyIdx as studyIdx,
+			a.userIdx as userIdx,
+			a.regdate as regdate,
+			b.img as img,
+			b.name as name,
+			b.email as email
+		from
+			hs_study_regist a,
+			hs_user_info b
+		where
+			a.userIdx = b.idx
+		and 
+			a.studyIdx = #{studyIdx} 
+		order by
+			a.regdate desc 
+	</select>
+	
+	<!-- 스터디 탈퇴 -->
+	<delete id="deleteStudent" parameterType="java.util.Map">
+		delete from hs_study_regist where studyIdx = #{studyIdx} and userIdx = #{userIdx}
+	</delete>
+	
+	<!-- 스터디 가입 -->
+	<insert id="insertStudent" parameterType="java.util.Map">
+		insert into hs_study_regist 
+			(studyIdx, userIdx, regdate)
+		values
+			(#{studyIdx}, #{userIdx}, now())
+	</insert>
+	
+	
+	<select id="getUser" parameterType="java.lang.Integer" resultType="com.hs.app.user.vo.UserInfo">
+		select 
+			idx,
+			password,
+			name,
+			email,
+			phonenm,
+			regdate,
+			img,
+			enabled,
+			(select count(*) from hs_class_info where userIdx = a.idx) as myClassCount,
+			(select count(*) from hs_study_info where userIdx = a.idx) as myStudyCount,
+			(select count(*) from hs_class_regist where userIdx = a.idx) as regClassCount,
+			(select count(*) from hs_study_regist where userIdx = a.idx) as regStudyCount
+		from 
+			hs_user_info as a
+		where 
+			idx = #{idx}
+	</select>
+	
+	
+
+<!-- idx int(11) unsigned not null auto_increment primary key,
+	studyIdx int(11) unsigned not null,
+	userIdx int(11) unsigned not null,
+	regdate datetime not null -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+    
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 가입인증메일정보 등록 -->
+
+	 <update id="updateEnableCheckEmail" parameterType="java.lang.Integer">
+	 	update hs_user_check_email 
+	 	set enabled = false 
+	 	where idx = #{idx}
+	 </update>
+	 <select id="hasCheckEmail" parameterType="java.util.Map" resultType="java.lang.Integer">
+	 	select idx from hs_user_check_email 
+	 	where enabled = true and userIdx = #{userIdx} and signkey = #{signKey} and lastdate >= now()  
+	 </select>
+	 <insert id="insertCheckEmail" parameterType="java.util.Map">
+	 	insert into hs_user_check_email  
+	 		(userIdx, signKey, enabled, signdate, lastdate)
+	 	values
+	 		(#{userIdx}, #{signKey}, true, now(), DATE_ADD(now(), INTERVAL 1 DAY))
+	 </insert>
+	
+	
+	
+	
+	
+	
+	<!-- 회원 기본정보 수정 -->
+	<update id="updateUserInfo" parameterType="java.util.Map">
+		update hs_user_info
+		set
+			phonenm = #{phonenm},
+			name = #{name},
+			img = #{img}
+		where
+			idx = #{userIdx}
+	</update>
+
+	
+	<select id="getUserIdxByEmail" parameterType="java.lang.String" resultType="com.hs.app.user.vo.UserInfo">
+		select
+			idx, name, email, phonenm, password, img,
+            DATE_FORMAT(regdate, '%Y-%m-%d') as regdate, enabled,
+            (select group_concat(authority) from hs_user_auth where userIdx = a.idx) as authList       
+		from 
+			hs_user_info as a
+		where 
+			email = #{email}
+	</select>
+	
+	<!-- Insert User Infomation -->
+	<insert id="insertUserInfo" parameterType="com.hs.app.user.vo.UserInfo">
+		insert into hs_user_info 
+			(password, name, email, phonenm, regdate, img, enabled)
+		values 
+			(#{password}, #{name}, #{email}, #{phonenm}, now(), null, true)
+	</insert>
+	
+
+
+	
+	<update id="updateUserPassword" parameterType="java.util.Map">
+		update hs_user_info set password = #{password} where idx = #{idx}
+	</update>
+	
+	<update id="updateUserEnable" parameterType="java.util.Map">
+		update hs_user_info set enabled = #{eFlag} where idx = #{idx}
+	</update>
+	
+	<delete id="deleteAuth" parameterType="java.util.Map">
+		delete from hs_user_auth where userIdx = #{userIdx} and authority = #{authName}
+	</delete>
+	<insert id="insertAuth" parameterType="java.util.Map">
+		insert into hs_user_auth (userIdx, authority) values(#{userIdx}, #{authName})
+	</insert>
+	
+	
+	
+
+    
+    
+  
+	
+	
+<!-- 
+
+# 회원 정보		
+create table hs_user_info (
+	idx int(11) unsigned not null auto_increment primary key,
+	password text not null,
+	name varchar(15) not null unique,
+	email varchar(50) not null unique,
+	phonenm varchar(15) not null,
+	regdate datetime not null,
+	img varchar(255) null,
+	enabled tinyint(1) not null default false
+);
+
+insert into hs_user_info (id, password, name, email, phonenm, regdate, moddate, findate) values('root','root','관리자','root@test.com','01099998888',now(),now(),now());
+
+
+
+# 회원 권한
+create table hs_user_auth (
+	idx int(11) unsigned not null auto_increment primary key,
+	userIdx int(11) unsigned not null,
+	authority varchar(50) not null
+);
+
+insert into hs_user_auth (userIdx, authority) values(1,'ROLE_USER');
+insert into hs_user_auth (userIdx, authority) values(1,'ROLE_MASTER');
+
+
+
+
+# 회원 가입인증 
+create table hs_user_secure_join (
+	idx int(11) unsigned not null auto_increment primary key,
+	userIdx int(11) unsigned not null,
+	signkey varchar(50) not null, 
+	enabled tinyint(1) not null default true,
+	signdate datetime not null,
+	lastdate datetime not null 
+);
+# 회원 비번찾기
+create table hs_user_secure_pw (
+	idx int(11) unsigned not null auto_increment primary key,
+	userIdx int(11) unsigned not null,
+	signkey varchar(50) not null,
+	enabled tinyint(1) not null default true,
+	signdate datetime not null,
+	lastdate datetime not null
+);
+
+
+
+
+
+
+
+
+
+
+
+.......................................
+
+
+
+scp -r ./ngle tongchun@10.10.0.56:/home/tongchun
+
+# Theme
+scp -r ./src/main/webapp/backup/hdgf/theme golfdate24@golfdate.co.kr:/home/hosting_users/golfdate24/tomcat/webapps/ROOT/
+
+# Resources
+scp -r ./src/main/webapp/backup/hdgf/resources golfdate24@golfdate.co.kr:/home/hosting_users/golfdate24/tomcat/webapps/ROOT/
+
+# Config
+scp -r ./src/main/webapp/backup/hdgf/WEB-INF/config golfdate24@golfdate.co.kr:/home/hosting_users/golfdate24/tomcat/webapps/ROOT/WEB-INF/
+
+# Classes
+scp -r ./src/main/webapp/backup/hdgf/WEB-INF/classes/com golfdate24@golfdate.co.kr:/home/hosting_users/golfdate24/tomcat/webapps/ROOT/WEB-INF/classes
+
+# SqlMap
+scp -r ./src/main/webapp/backup/hdgf/WEB-INF/classes/sqlmap golfdate24@golfdate.co.kr:/home/hosting_users/golfdate24/tomcat/webapps/ROOT/WEB-INF/classes
+
+# Velocity
+scp -r ./src/main/webapp/backup/hdgf/WEB-INF/classes/velocity golfdate24@golfdate.co.kr:/home/hosting_users/golfdate24/tomcat/webapps/ROOT/WEB-INF/classes
+
+
+
+
+# Lib
+scp -r ./src/main/webapp/backup/hdgf/WEB-INF/lib golfdate24@golfdate.co.kr:/home/hosting_users/golfdate24/tomcat/webapps/ROOT/WEB-INF
+
+
+
+scp -r ./src/main/webapp/backup/img cia777@cia777.cafe24.com:/home/hosting_users/cia777/tomcat/webapps/ROOT/resources/
+
+
+scp -r ./src/main/webapp/backup/cia777/resources cia777@cia777.cafe24.com:/home/hosting_users/cia777/tomcat/webapps/ROOT/
+
+
+scp -r ./src/main/webapp/backup/cia777/WEB-INF/config cia777@cia777.cafe24.com:/home/hosting_users/cia777/tomcat/webapps/ROOT/WEB-INF/
+
+scp -r ./src/main/webapp/backup/cia777/WEB-INF/classes/com cia777@cia777.cafe24.com:/home/hosting_users/cia777/tomcat/webapps/ROOT/WEB-INF/classes
+
+scp -r ./src/main/webapp/backup/cia777/WEB-INF/classes/sqlmap cia777@cia777.cafe24.com:/home/hosting_users/cia777/tomcat/webapps/ROOT/WEB-INF/classes
+
+
+
+scp -r ./src/main/webapp/backup/cia777/WEB-INF/lib cia777@cia777.cafe24.com:/home/hosting_users/cia777/tomcat/webapps/ROOT/WEB-INF
+
+scp -r ./src/main/webapp/backup/cia777/theme cia777@cia777.cafe24.com:/home/hosting_users/cia777/tomcat/webapps/ROOT/
+
+scp -r ./src/main/webapp/backup/cia777/WEB-INF/web.xml cia777@cia777.cafe24.com:/home/hosting_users/cia777/tomcat/webapps/ROOT/WEB-INF/
+
+scp -r ./src/main/webapp/backup/cia777/WEB-INF/classes/log4j.xml cia777@cia777.cafe24.com:/home/hosting_users/cia777/tomcat/webapps/ROOT/WEB-INF/classes
+
+
+
+insert into hs_study_info (userIdx, regdate, img, title, note, station, signdate, maxPeople, tags)
+values(1,now(), 
+'http://cia777.cafe24.com/resources/img/1.jfif', 
+'협상과 계약을 위한 고급 영어! Classy한 법률 영어 클래스', 
+'협상/계약/컨퍼런스 등을 담당하는 직장인 및 비즈니스 오너들을 위한 클래스입니다.', 
+'대전 서구 둔산동', 
+now(), 12, '법률,협상,계약');
+
+insert into hs_study_info (userIdx, regdate, img, title, note, station, signdate, maxPeople, tags)
+values(1,now(), 
+'http://cia777.cafe24.com/resources/img/2.png', 
+'바닥부터 시작하는 디자인 UX/UI 전문가', 
+'서비스를 이용할 때 무엇을 필요로 하는지, 어떤 것을 경험하는지, 그 과정에서 불편함을 느끼지는 않는지 사용자 관점에서의 서비스 경험을 구상하고 고안, 개선하는 작업이 바로 UX 디자인이죠.', 
+'대전 서구 둔산동', 
+now(), 7, '디자인,UI,UX');
+
+
+insert into hs_study_info (userIdx, regdate, img, title, note, station, signdate, maxPeople, tags)
+values(1,now(), 
+'http://cia777.cafe24.com/resources/img/3.jfif', 
+'스마트스토어로 월 100만원 만들기, 평범한 사람이 돈을 만드는 비법', 
+'장사를 한번도 해본 적 없는 사람이, 월 1000만 원에 가까운 소득을 올렸습니다. 그 사람은 어떻게 성공할 수 있었을까요? 투자금이 많아서? SNS 유명인사여서? 아니면 단순히 운이 좋았기 때문에?', 
+'대전 서구 둔산동', 
+now(), 4, '창업,스마트스토어,IT');
+
+insert into hs_study_info (userIdx, regdate, img, title, note, station, signdate, maxPeople, tags)
+values(1,now(), 
+'http://cia777.cafe24.com/resources/img/4.jfif', 
+'NOMA와 함께하는 따뜻하고 짙은 불투명 수채화', 
+'한 작품을 만들어보는 데에 1~5시간 정도가 소요됩니다.', 
+'대전 서구 둔산동', 
+now(), 14, '미술,수채화,그림');
+
+insert into hs_study_info (userIdx, regdate, img, title, note, station, signdate, maxPeople, tags)
+values(1,now(), 
+'http://cia777.cafe24.com/resources/img/5.jfif', 
+'미술이 처음인 당신을 위해, 4개의 명화로 시작하는 컬러링 클래스', 
+'커다란 물통, 플라스틱 팔레트, 특수 세척통과 같은 도구의 세팅 없이 직관적으로 대상을 효율 있게 표현하도록 돕는 색연필은, 무지갯빛으로 나란히 놓여있는 모습만 보아도 누구든 쉽게 반가이 맞이할 수 있는 아주 친근한 재료이지요. 그만큼 쉽게 다가가서 무한대의 표현을 화폭에 담을 수 있는 고마운 친구입니다.', 
+'대전 서구 둔산동', 
+now(), 6, '미술,컬러링,그림');
+
+
+
+
+
+
+insert into hs_study_info (userIdx, regdate, img, title, note, station, signdate, maxPeople, tags)
+values(1,now(), 
+'http://cia777.cafe24.com/resources/img/6.jfif', 
+'220문장으로 토익부터 회화까지! 비즈니스 영어 완성', 
+'막연히 영어만 잘하면 인생이 탄탄대로일 것 같았어요. 하지만 어학연수를 갈 수는 없었고 한국에서 혼자 해보겠다고 온갖 학원 그리고 수많은 토익 교재, 쉐도잉 교재, 패턴 교재까지…. 모든 공부법을 다 해본 것 같아요.', 
+'대전 서구 둔산동', 
+now(), 6, '영어,토익,회화');
+
+insert into hs_study_info (userIdx, regdate, img, title, note, station, signdate, maxPeople, tags)
+values(1,now(), 
+'http://cia777.cafe24.com/resources/img/7.png', 
+'하루 10분 보이스 코칭! 전직 기상캐스터의 목소리 교정 클래스', 
+'목소리가 가진 힘은 대단합니다. 꼭 노래를 할 때만 주목을 받는 게 아니라, 좋은 목소리가 사람의 첫인상까지 좌우하기 때문입니다.', 
+'대전 서구 둔산동', 
+now(), 6, '보이스,녹음,성우');
+
+insert into hs_study_info (userIdx, regdate, img, title, note, station, signdate, maxPeople, tags)
+values(1,now(), 
+'http://cia777.cafe24.com/resources/img/8.png', 
+'달천의 왕초보 실전 경매 마스터!', 
+'힘들고, 어렵고, 돈이 많이 필요하지만 그에 비해 투자해야 되는 노력이 많을 거라고 생각하시나요? 법을 제대로 모르면 눈뜨고 코 베일 것만 같아 시도조차 못할 것 같나요?', 
+'대전 서구 둔산동', 
+now(), 6, '부동산,경매,매매');
+
+insert into hs_study_info (userIdx, regdate, img, title, note, station, signdate, maxPeople, tags)
+values(1,now(), 
+'http://cia777.cafe24.com/resources/img/.jfif', 
+'', 
+'', 
+'대전 서구 둔산동', 
+now(), 6, '');
+
+insert into hs_study_info (userIdx, regdate, img, title, note, station, signdate, maxPeople, tags)
+values(1,now(), 
+'http://cia777.cafe24.com/resources/img/.jfif', 
+'', 
+'', 
+'대전 서구 둔산동', 
+now(), 6, '');
+
+
+-->
+	
+
+
+
+</mapper>

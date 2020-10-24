@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>common_code</comment>    	             
+	<entry key="theme.skin.basic">basic</entry>   
+	<entry key="app.pay.kg.mid">hiddengolf</entry>  
+	<entry key="app.pay.kg.signkey">SWM5bmdCV2hvUzA2eEhlSjhwV2wydz09</entry>
+	<entry key="jdbc.driverClassName">com.mysql.cj.jdbc.Driver</entry>
+	<entry key="jdbc.url">jdbc:mysql://localhost:3306/hee?serverTimezone=UTC</entry>
+	<entry key="jdbc.username">root</entry>         
+	<entry key="jdbc.password">root</entry>     
+	<entry key="jdbc.defaultAutoCommit">false</entry>   
+	<entry key="sqlmap.location">/WEB-INF/config/spring/mybatis-config.xml</entry>
+	<entry key="mail.host">mw-002.cafe24.com</entry>
+	<entry key="mail.port">587</entry>
+	<entry key="mail.username">help@golfdate.co.kr</entry>
+	<entry key="mail.password">golfdate2486*</entry>
+	<entry key="mail.frommail">help@golfdate.co.kr</entry>
+	<entry key="app.sitename">히든골퍼</entry>
+	<entry key="app.siteid">golfdate</entry>
+	<entry key="app.siteurl">http://golfdate.co.kr</entry>
+	<entry key="app.domain">golfdate.co.kr</entry>
+	<entry key="app.domain-pure">golfdate.co.kr</entry>
+	<entry key="app.protocol">http</entry>
+	<entry key="app.resource.ver">2020</entry>
+	<entry key="app.google.analytics.id"></entry>
+	<entry key="app.meta.title"></entry>
+	<entry key="app.meta.description"></entry>
+	<entry key="app.meta.keywords"></entry>
+</properties>

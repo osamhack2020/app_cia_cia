@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+<mapper namespace="board">	
+    
+    <!-- 메뉴 삭제 -->
+    <delete id="deleteBoardMenu" parameterType="java.lang.Integer">
+    	delete from hs_board_menu where idx = #{idx}
+    </delete>
+    
+    <!-- 메뉴 수정 -->
+    <update id="updateBoardMenu" parameterType="com.hs.app.board.vo.BoardMenu">
+    	update hs_board_menu set nm = #{nm}, corder = #{corder}, type = #{type} where idx = #{idx}
+    </update>
+    
+    <!-- 메뉴 등록 -->
+    <insert id="insertBoardMenu" parameterType="com.hs.app.board.vo.BoardMenu">
+    	insert into hs_board_menu (nm, corder, type) values(#{nm}, #{corder}, #{type})
+    </insert>
+    
+    <!-- 게시물 삭제 -->
+    <delete id="deleteBoardInfo" parameterType="java.lang.Integer">
+    	delete from hs_board_info where idx = #{idx}
+    </delete>
+    
+    <!-- 방금 등록한 게시물 IDX 쿼리 -->
+    <select id="getInsertedBaordInfoIdx" parameterType="com.hs.app.board.vo.BoardInfo" resultType="java.lang.Integer">
+    	select idx from hs_board_info where menuIdx = #{menuIdx} and userIdx = #{userIdx}
+    	order by idx desc limit 1
+    </select>
+    
+    <!-- 게시물 등록하기 -->
+    <insert id="insertBoardInfo" parameterType="com.hs.app.board.vo.BoardInfo">
+        insert into hs_board_info 
+            (menuIdx, userIdx, regdate, moddate, writer, title, note, thumbImg, tags)
+        values
+            (#{menuIdx}, #{userIdx}, now(), now(), #{writer}, #{title}, #{note}, #{thumbImg}, #{tags})
+    </insert>
+    <!-- 게시물 수정하기 -->
+    <update id="updateBoardInfo" parameterType="com.hs.app.board.vo.BoardInfo">
+        update 
+            hs_board_info
+        set    
+            title = #{title},
+            note = #{note},
+            moddate = now(),
+            menuIdx = #{menuIdx},
+            thumbImg = #{thumbImg},
+            tags = #{tags}
+        where
+            userIdx = #{userIdx} and idx = #{idx}
+    </update>
+    
+    
+    <!-- 메뉴 목록 -->
+    <select id="getBoardMenuList" resultType="com.hs.app.board.vo.BoardMenu">
+        select 
+			idx, corder, nm, type 
+			<if test="addInfo != null and addInfo == true">
+				, (select count(*) from hs_board_info where menuIdx = hs_board_menu.idx) as dataPostCount
+				, (select sum(views) from hs_board_info where menuIdx = hs_board_menu.idx) as dataViewCount
+			</if>
+        from hs_board_menu 
+        order by corder asc  
+    </select>
+    
+    <!-- 메뉴 정보 -->
+    <select id="getBoardMenu" parameterType="java.lang.Integer" resultType="com.hs.app.board.vo.BoardMenu">
+        select * from hs_board_menu where idx = #{idx}
+    </select>
+    
+    <!-- 게시물수 가져오기-->
+    <select id="getBoardSize" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*) from hs_board_info 
+        where true 
+        <if test="menuIdx != null and menuIdx > 0">
+            and menuIdx = #{menuIdx} 
+        </if>
+        <if test="q != null">
+            and ( 
+	            	title LIKE CONCAT('%', #{q}, '%')  or 
+	            	note LIKE CONCAT('%', #{q}, '%') or 
+	            	writer LIKE CONCAT('%', #{q}, '%') or 
+	            	tags LIKE CONCAT('%', #{q}, '%') 
+            	)
+        </if>
+        
+    </select>
+    
+    <!-- 조회수 업데이트 -->
+    <update id="updateBoardViews" parameterType="java.lang.Integer">
+        update hs_board_info set views = views + 1 where idx = #{idx}
+    </update>
+    
+    <!-- 목록 가져오기 -->
+    <select id="getBoardList" parameterType="java.util.Map" resultType="com.hs.app.board.vo.BoardInfo">
+        select 
+            idx, menuIdx, userIdx,
+            DATE_FORMAT(regdate, '%Y-%m-%d') as regdate,
+            DATE_FORMAT(moddate, '%Y-%m-%d') as moddate,
+            writer,
+            title, 
+            note,
+            tags,
+            thumbImg,
+            views,
+            (select nm from hs_board_menu where idx = menuIdx) as menuName
+        from
+            hs_board_info 
+        where true 
+        <if test="menuIdx != null">
+            and menuIdx = #{menuIdx} 
+        </if>
+        <if test="q != null">
+            and ( 
+	            	title LIKE CONCAT('%', #{q}, '%')  or 
+	            	note LIKE CONCAT('%', #{q}, '%') or 
+	            	writer LIKE CONCAT('%', #{q}, '%') or 
+	            	tags LIKE CONCAT('%', #{q}, '%') 
+            	)
+        </if>
+        order by
+            idx desc 
+        limit 
+            #{startRow}, #{rowBlockCount}
+    </select>
+    
+    <!-- 게시물 가져오기 -->
+    <select id="getBoardInfo" parameterType="java.lang.Integer" resultType="com.hs.app.board.vo.BoardInfo">
+        select 
+            idx, menuIdx, userIdx,
+            DATE_FORMAT(regdate, '%Y-%m-%d') as regdate,
+            DATE_FORMAT(moddate, '%Y-%m-%d') as moddate,
+            writer,
+            title, 
+            note,
+            tags,
+            thumbImg,
+            views,
+            (select nm from hs_board_menu where idx = menuIdx) as menuName
+        from
+            hs_board_info        
+        where idx = #{idx}
+    </select>
+    
+<!--
+
+
+create table hs_board_menu (
+    idx int(11) unsigned not null auto_increment primary key,
+    nm varchar(255) not null,
+    corder int(11) unsigned not null default 1,
+    type varchar(100) null
+);
+
+
+create table hs_board_info ( 
+    idx int(11) unsigned not null auto_increment primary key,
+    menuIdx int(11) unsigned not null,
+    userIdx int(11) unsigned not null,
+    regdate datetime not null,
+    moddate datetime not null,
+    writer varchar(100) not null,
+    title varchar(255) not null,
+    note mediumtext null,
+    thumbImg text null,
+    views int(11) unsigned not null default 0
+);
+
+insert into hs_board_menu (nm) values('free');
+
+insert into hs_board_info (menuIdx, userIdx, regdate, moddate, writer, title, note)
+values(1,1,now(),now(),'Thrump','Title Summary','Description');
+
+
+-->
+        
+    
+    
+</mapper>

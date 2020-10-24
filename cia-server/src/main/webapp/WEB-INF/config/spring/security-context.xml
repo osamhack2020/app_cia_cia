@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+  xmlns:security="http://www.springframework.org/schema/security"
+  xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:context="http://www.springframework.org/schema/context" 
+  xsi:schemaLocation="
+ 		   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+           http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.2.xsd
+           http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd  
+           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd
+		   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+		   
+	<!-- ========================= RESOURCE DEFINITIONS ========================= -->
+	
+	<!-- 사이트정보 프로퍼티 -->
+	<util:properties id="siteinfo" location="classpath:/siteinfo.xml"/>		 
+    
+    <!-- 리소스폴더는 권한제거 -->
+    <security:http pattern="/resources/**" security="none"/>
+    <security:http pattern="/theme/**" security="none"/>
+  
+	<!-- <security:http auto-config="true" use-expressions="true" disable-url-rewriting="true">
+		<security:csrf disabled="true"/>
+		<security:intercept-url pattern="/**" access="permitAll" requires-channel="any"/> 
+		<security:session-management>
+			<security:concurrency-control max-sessions="1" expired-url="/account/login?error=expired"/>
+		</security:session-management>
+		<security:access-denied-handler error-page="/error/403" />
+		<security:form-login 
+			username-parameter="login_id" 
+			password-parameter="login_pw" 
+			login-page="/account/login" 
+			login-processing-url="/account/check"
+			default-target-url="/" 
+			authentication-failure-url="/account/login"
+			authentication-success-handler-ref="loginSuccessHandler" 
+	   		authentication-failure-handler-ref="loginFailureHandler" />
+		<security:logout 
+			invalidate-session="true"    
+			logout-url="/account/logout"
+			success-handler-ref="logoutSuccessHandler"/>         	
+	</security:http>  
+	
+	
+    <security:authentication-manager alias="authenticationManager">    
+    	<security:authentication-provider ref="accountService"/>
+	</security:authentication-manager>  -->
+	
+	
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+	<bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl"/>
+	
+</beans>

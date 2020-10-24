@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+# 회원 정보		
+create table hs_user_info (
+	idx int(11) unsigned not null auto_increment primary key,
+	password text not null,
+	name varchar(15) not null unique,
+	email varchar(50) not null unique,
+	phonenm varchar(15) not null,
+	regdate datetime not null,
+	img varchar(255) null,
+	enabled tinyint(1) not null default false
+);
+# 회원 권한
+create table hs_user_auth (
+	idx int(11) unsigned not null auto_increment primary key,
+	userIdx int(11) unsigned not null,
+	authority varchar(50) not null
+);
+# 회원 가입인증 
+create table hs_user_secure_join (
+	idx int(11) unsigned not null auto_increment primary key,
+	userIdx int(11) unsigned not null,
+	signkey varchar(50) not null, 
+	enabled tinyint(1) not null default true,
+	signdate datetime not null,
+	lastdate datetime not null 
+);
+# 회원 비번찾기
+create table hs_user_secure_pw (
+	idx int(11) unsigned not null auto_increment primary key,
+	userIdx int(11) unsigned not null,
+	signkey varchar(50) not null,
+	enabled tinyint(1) not null default true,
+	signdate datetime not null,
+	lastdate datetime not null
+);
+
+
+# 스터디 카테고리 정보
+create table hs_study_cat (
+	idx int(11) unsigned not null auto_increment primary key,
+	name varchar(100) not null
+);
+insert into hs_study_cat (name) values('IT/Programming');
+insert into hs_study_cat (name) values('Picture');
+insert into hs_study_cat (name) values('Guitar/Music');
+insert into hs_study_cat (name) values('Travel');
+insert into hs_study_cat (name) values('Mathmatics');
+insert into hs_study_cat (name) values('Space/Science');
+insert into hs_study_cat (name) values('Cars');
+insert into hs_study_cat (name) values('Videos');
+
+
+
+# 스터디 정보
+create table hs_study_info (
+	idx int(11) unsigned not null auto_increment primary key,
+	userIdx int(11) unsigned not null,
+	catIdx int(11) unsigned not null,
+	regdate datetime not null,
+	img text null,
+	title varchar(255) not null,
+	note text null,
+	viewCount int(11) unsigned not null default 0,
+	station text null,
+	signdate datetime not null,
+	maxPeople int(11) unsigned not null,
+	enabled tinyint(1) not null default false
+);
+
+alter table hs_study_info add catIdx int(11) unsigned not null;
+
+# 스터디 수강(참여) 
+create table hs_study_regist (
+	idx int(11) unsigned not null auto_increment primary key,
+	studyIdx int(11) unsigned not null,
+	userIdx int(11) unsigned not null,
+	regdate datetime not null
+);
+
+
+
+
+insert into hs_class_info 
+	(userIdx,  regdate, img, title, note, catIdx, tags) 
+values
+	(1, now(), 'images', '극자외선(EUV) 노광장비 제조업체 ASML의 3분기 매출', '극자외선(EUV) 노광장비 제조업체 ASML의 3분기 매출', 2, 'tree,plant');
+
+insert into hs_class_regist (classIdx, userIdx, regdate) values(2, 1, now());
+
+
+클래스 정보
+create table hs_class_info (
+	idx int(11) unsigned not null auto_increment primary key,
+	userIdx int(11) unsigned not null comment 'user idx',
+	regdate datetime not null,
+	img text null comment 'thumbnail image',
+	enabled tinyint(1) not null default true,
+	title text null,
+	note text null,
+	viewCount int(11) unsigned not null default 0,
+	catIdx int(11) unsigned not null,
+	tags text null
+);
+
+create table hs_class_cat (
+	idx int(11) unsigned not null auto_increment primary key,
+	name varchar(30) not null
+);
+insert into hs_class_cat (name) values('IT/Programming');
+insert into hs_class_cat (name) values('Picture');
+insert into hs_class_cat (name) values('Guitar/Music');
+insert into hs_class_cat (name) values('Travel');
+insert into hs_class_cat (name) values('Mathmatics');
+insert into hs_class_cat (name) values('Space/Science');
+insert into hs_class_cat (name) values('Cars');
+insert into hs_class_cat (name) values('Videos');
+
+클래스 회차정보
+create table hs_class_cur (
+	idx int(11) unsigned not null auto_increment primary key,
+	classIdx int(11) unsigned not null,
+	regdate datetime not null,
+	numb int(11) unsigned not null,
+	title varchar(100) not null,
+	note text null,
+	viewCount int(11) unsigned not null default 0,
+	videoPath text null,
+	videoSeconds int(11) unsigned not null,
+	img text null
+);
+
+create table hs_class_regist (
+	idx int(11) unsigned not null auto_increment primary key,
+	classIdx int(11) unsigned not null,
+	userIdx int(11) unsigned not null,
+	regdate datetime not null
+);
+
+
+
+
+
+
+select
+	b.catIdx as catIdx,
+	a.classIdx as classIdx,
+	b.title as title
+from
+	hs_class_regist as a,
+	hs_class_info as b
+where 
+	a.classIdx = b.idx 
+
+
+
+##
+select
+	b.catIdx as catIdx,
+	(select name from hs_study_cat where idx = b.catIdx) as catName,
+	count(*) as count,
+	(select count(*) as count from hs_study_regist as a, hs_study_info as b where a.studyIdx = b.idx) as sum
+from
+	hs_study_regist as a,
+	hs_study_info as b
+where 
+	a.studyIdx = b.idx 
+group by
+	catIdx
+order by 
+	catIdx asc;
+	
+
+
+##
+select
+	count(*) as count
+from
+	hs_study_regist as a,
+	hs_study_info as b
+where 
+	a.studyIdx = b.idx ;
+
+
+
+
+select count(*) from hs_study_regist  	
+
+
+insert into hs_study_regist (studyIdx, userIdx, regdate) values(21, 2, now());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -->
