@@ -197,9 +197,9 @@
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@android:drawable/stat_sys_upload" />
+        app:srcCompat="@android:drawable/stat_sys_upload_done" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/detail_tut_fab_sign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -207,12 +207,14 @@
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
+        android:text="수강"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/detail_tut_fab"
-        app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@android:drawable/stat_sys_vp_phone_call" />
+        app:layout_constraintRight_toRightOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/detail_tut_fab_quit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -220,12 +222,14 @@
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
+        android:text="탈퇴"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/detail_tut_fab_sign"
-        app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@android:drawable/btn_default" />
+        app:layout_constraintRight_toRightOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/detail_tut_fab_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -233,12 +237,14 @@
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
+        android:text="삭제"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/detail_tut_fab_quit"
-        app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@android:drawable/btn_default" />
+        app:layout_constraintRight_toRightOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/detail_tut_fab_update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -246,12 +252,14 @@
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
+        android:text="수정"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/detail_tut_fab_delete"
-        app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@android:drawable/btn_default" />
+        app:layout_constraintRight_toRightOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/detail_tut_fab_upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -259,10 +267,12 @@
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
+        android:text="회차 업로드"
         android:visibility="invisible"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
         app:layout_constraintBottom_toTopOf="@id/detail_tut_fab_update"
-        app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@android:drawable/btn_default" />
+        app:layout_constraintRight_toRightOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

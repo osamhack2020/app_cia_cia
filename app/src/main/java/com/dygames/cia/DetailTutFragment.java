@@ -244,7 +244,7 @@ public class DetailTutFragment extends Fragment {
 
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
-                            data[i] = new DetailTutItemAdapter.Data(object.getString("title"), BitmapFactory.decodeStream(new URL(object.getString("img")).openConnection().getInputStream()), object.getInt("idx"));
+                            data[i] = new DetailTutItemAdapter.Data(object.getString("title"), BitmapFactory.decodeStream(new URL(object.getString("img")).openConnection().getInputStream()), object.getInt("idx"), object.getString("videoPath"));
                         }
                         getActivity().runOnUiThread(new Runnable() {
                             @Override

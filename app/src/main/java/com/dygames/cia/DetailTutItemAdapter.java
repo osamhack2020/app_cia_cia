@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,12 +38,14 @@ public class DetailTutItemAdapter extends RecyclerView.Adapter<DetailTutItemAdap
     public static class Data {
         public String title;
         public Bitmap thumbnailID;
+        public String videoPath;
         public int idx;
 
-        public Data(String title, Bitmap thumbnailID, int idx) {
+        public Data(String title, Bitmap thumbnailID, int idx, String videoPath) {
             this.title = title;
             this.thumbnailID = thumbnailID;
             this.idx = idx;
+            this.videoPath = videoPath;
         }
     }
 
@@ -73,6 +77,14 @@ public class DetailTutItemAdapter extends RecyclerView.Adapter<DetailTutItemAdap
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         holder.title.setText(this.data[position].title);
         holder.thumbnail.setImageBitmap(this.data[position].thumbnailID);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.parse(data[position].videoPath), "video/*");
+                context.startActivity(intent);
+            }
+        });
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
