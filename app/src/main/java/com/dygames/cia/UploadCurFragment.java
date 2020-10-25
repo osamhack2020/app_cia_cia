@@ -1,12 +1,15 @@
 package com.dygames.cia;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -20,10 +23,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 import okhttp3.FormBody;
 import okhttp3.MediaType;
@@ -32,24 +38,20 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okio.BufferedSink;
+import okio.Okio;
 
 public class UploadCurFragment extends Fragment {
     View rootView;
     public int idx;
 
+    Uri video_URI;
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 11 && resultCode == Activity.RESULT_OK && null != data) {
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            Cursor cursor = getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
-            cursor.close();
-            ImageView imageView = (ImageView) rootView.findViewById(R.id.upload_cur_thumbnail);
-            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+        if (requestCode == 12 && resultCode == Activity.RESULT_OK && null != data) {
+            video_URI = data.getData();
         }
     }
 
@@ -62,8 +64,11 @@ public class UploadCurFragment extends Fragment {
         cur_thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(i, 11);
+                Uri uri = Uri.parse("content://media/external/images/media");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                intent.setType("video/*");
+                startActivityForResult(intent, 12);
             }
         });
 
@@ -78,16 +83,43 @@ public class UploadCurFragment extends Fragment {
                 new Thread() {
                     public void run() {
 
+                        ContentResolver contentResolver = getContext().getContentResolver();
+                        final String contentType = contentResolver.getType(video_URI);
+                        AssetFileDescriptor fd = null;
+
+                        try {
+                            fd = contentResolver.openAssetFileDescriptor(video_URI, "r");
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+
+
+                        final AssetFileDescriptor finalFd = fd;
+                        RequestBody videoFile = new RequestBody() {
+                            @Override
+                            public long contentLength() {
+                                return finalFd.getDeclaredLength();
+                            }
+
+                            @Override
+                            public MediaType contentType() {
+                                return MediaType.parse(contentType);
+                            }
+
+                            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                            @Override
+                            public void writeTo(BufferedSink sink) throws IOException {
+                                try (InputStream is = finalFd.createInputStream()) {
+                                    sink.writeAll(Okio.buffer(Okio.source(is)));
+                                }
+                            }
+                        };
+
                         String fileName = "profile.png";
                         try {
-                            Bitmap resizedImage = Bitmap.createScaledBitmap(photo, 512, 512, true);
-                            ByteArrayOutputStream bos = new ByteArrayOutputStream(photo.getWidth() * photo.getHeight());
-                            resizedImage.compress(Bitmap.CompressFormat.PNG, 100, bos);
-
                             RequestBody req = new MultipartBody.Builder()
                                     .setType(MultipartBody.FORM)
-                                    .addFormDataPart("image", fileName,
-                                            RequestBody.create(MediaType.parse("image/png"), bos.toByteArray()))
+                                    .addFormDataPart("video", fileName, videoFile)
                                     .build();
 
                             Request request = new Request.Builder()

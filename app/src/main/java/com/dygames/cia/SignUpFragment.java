@@ -3,6 +3,7 @@ package com.dygames.cia;
 import android.content.ContentValues;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,11 +44,26 @@ public class SignUpFragment extends Fragment {
         final EditText phone = rootView.findViewById(R.id.signup_phone_editText);
 
 
+        pw.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        pwCheck.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
         Button signUp = rootView.findViewById(R.id.signup_button);
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                if(pw.getText().length() <= 0 || email.getText().length() <= 0|| name.getText().length() <= 0|| phone.getText().length() <= 0|| pwCheck.getText().length() <= 0)
+                {
+                    Toast.makeText(getContext(), "회원가입 정보를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                
+                if(pw.getText().toString().compareTo(pwCheck.getText().toString()) != 0)
+                {
+                    Toast.makeText(getContext(), "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                
                 new Thread() {
                     public void run() {
                         OkHttpClient client = new OkHttpClient();

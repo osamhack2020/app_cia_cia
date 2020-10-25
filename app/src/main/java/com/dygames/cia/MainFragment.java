@@ -47,6 +47,7 @@ public class MainFragment extends Fragment {
         rootView.findViewById(R.id.main_layout).setPadding(Util.dpToPx(20), Util.dpToPx(100), Util.dpToPx(20), getActivity().findViewById(R.id.navigationView).getHeight());
         final CustomActionBar actionBar = rootView.findViewById(R.id.main_actionbar);
         final ScrollView main_scrollView = (ScrollView) rootView.findViewById(R.id.main_layout).getParent();
+        actionBar.setColor(0);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             main_scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
                 @Override

@@ -66,7 +66,7 @@
             android:layout_marginTop="10dp"
             android:text="강의를 개설하여 장병들과 공유해보세요!"
             android:textSize="12sp"
-            app:layout_constraintLeft_toLeftOf="@id/info_desc"
+            app:layout_constraintLeft_toRightOf="@id/info_profile_image"
             app:layout_constraintTop_toBottomOf="@id/info_desc" />
 
         <View

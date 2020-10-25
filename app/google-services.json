@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "301711984020",
+    "firebase_url": "https://collective-intel-in-army.firebaseio.com",
+    "project_id": "collective-intel-in-army",
+    "storage_bucket": "collective-intel-in-army.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:301711984020:android:50a479ac6f17e962b9fb81",
+        "android_client_info": {
+          "package_name": "com.dygames.cia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "301711984020-ans6j6ps9u35udt3nnmbjoebe4d1aatt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApgtQzjSBeqvbjMonD_sUV3BVOipVkeNE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "301711984020-ans6j6ps9u35udt3nnmbjoebe4d1aatt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

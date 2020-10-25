@@ -9,6 +9,7 @@
     android:layout_marginBottom="5dp">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/detail_member_cardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="10dp"
@@ -21,17 +22,21 @@
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:adjustViewBounds="true"
+            app:tint="#666"
+            app:tintMode="multiply"
             android:background="@drawable/view_background_rounding"
             android:scaleType="centerInside" />
+
+
     </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/detail_member_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
+        android:text="adsfadsf"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/detail_member_cardView"
+        app:layout_constraintLeft_toLeftOf="@id/detail_member_cardView"
+        app:layout_constraintRight_toRightOf="@id/detail_member_cardView"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

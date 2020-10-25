@@ -55,8 +55,12 @@ public class InfoFragment extends Fragment {
                     Response response = client.newCall(request).execute();
                     if (response.code() == 200) {
                         final JSONObject jsonObject = new JSONObject(response.body().string()).getJSONObject("user");
-                        final Bitmap bitmap = BitmapFactory.decodeStream(new URL(jsonObject.getString("img")).openConnection().getInputStream());
+                        String img = jsonObject.getString("img");
+                        Bitmap bitmap = null;
+                        if (img.compareTo("null") != 0)
+                            bitmap = BitmapFactory.decodeStream(new URL(img).openConnection().getInputStream());
 
+                        final Bitmap finalBitmap = bitmap;
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -64,8 +68,8 @@ public class InfoFragment extends Fragment {
                                     ((TextView) rootView.findViewById(R.id.info_name)).setText(jsonObject.getString("name"));
                                     ((TextView) rootView.findViewById(R.id.info_mail)).setText(jsonObject.getString("email"));
                                     ((TextView) rootView.findViewById(R.id.info_desc)).setText(jsonObject.getString("regdate").split(" ")[0] + " · " + jsonObject.getString("phonenm"));
-                                    ((ImageView) rootView.findViewById(R.id.info_profile_image)).setImageBitmap(bitmap);
-
+                                    if (finalBitmap != null)
+                                        ((ImageView) rootView.findViewById(R.id.info_profile_image)).setImageBitmap(finalBitmap);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -91,10 +95,11 @@ public class InfoFragment extends Fragment {
                 Request request = new Request.Builder()
                         .url(String.format("%s/api/study/manage", getResources().getString(R.string.server_address)))
                         .addHeader("Authorization", Util.userHSID)
-                        .post(req)
+                        //.post(req)
                         .build();
                 try {
                     Response response = client.newCall(request).execute();
+                    Log.d("DDDDA", response.code() + "");
                     if (response.code() == 200) {
                         final JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("list");
                         activity.runOnUiThread(new Runnable() {
@@ -136,10 +141,11 @@ public class InfoFragment extends Fragment {
                 Request request = new Request.Builder()
                         .url(String.format("%s/api/study/me", getResources().getString(R.string.server_address)))
                         .addHeader("Authorization", Util.userHSID)
-                        .post(req)
+                        //.post(req)
                         .build();
                 try {
                     Response response = client.newCall(request).execute();
+                    Log.d("DDDDB", response.code() + "");
                     if (response.code() == 200) {
                         final JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("list");
                         activity.runOnUiThread(new Runnable() {
@@ -182,7 +188,7 @@ public class InfoFragment extends Fragment {
                 Request request = new Request.Builder()
                         .url(String.format("%s/api/class/manage", getResources().getString(R.string.server_address)))
                         .addHeader("Authorization", Util.userHSID)
-                        .post(req)
+                        //.post(req)
                         .build();
                 try {
                     Response response = client.newCall(request).execute();
@@ -228,7 +234,7 @@ public class InfoFragment extends Fragment {
                 Request request = new Request.Builder()
                         .url(String.format("%s/api/class/me", getResources().getString(R.string.server_address)))
                         .addHeader("Authorization", Util.userHSID)
-                        .post(req)
+                        //.post(req)
                         .build();
                 try {
                     Response response = client.newCall(request).execute();

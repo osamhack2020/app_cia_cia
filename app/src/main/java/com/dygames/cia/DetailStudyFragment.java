@@ -1,8 +1,11 @@
 package com.dygames.cia;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +62,9 @@ public class DetailStudyFragment extends Fragment {
             }
         });
 
+        final Activity activity = getActivity();
+        final Context context = getContext();
+
         fab_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,10 +80,10 @@ public class DetailStudyFragment extends Fragment {
                         try {
                             Response response = client.newCall(request).execute();
                             if (response.code() == 200) {
-                                getActivity().runOnUiThread(new Runnable() {
+                                activity.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        getActivity().getSupportFragmentManager().beginTransaction().remove(DetailStudyFragment.this).commit();
+                                        ((FragmentActivity) activity).getSupportFragmentManager().beginTransaction().remove(DetailStudyFragment.this).commit();
                                     }
                                 });
                             } else {
@@ -105,7 +111,7 @@ public class DetailStudyFragment extends Fragment {
                         try {
                             Response response = client.newCall(request).execute();
                             if (response.code() == 200) {
-                                getActivity().runOnUiThread(new Runnable() {
+                                activity.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                     }
@@ -139,7 +145,7 @@ public class DetailStudyFragment extends Fragment {
                         try {
                             Response response = client.newCall(request).execute();
                             if (response.code() == 200) {
-                                getActivity().runOnUiThread(new Runnable() {
+                                activity.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                     }
@@ -161,17 +167,16 @@ public class DetailStudyFragment extends Fragment {
                 ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, updateStudyFragment).addToBackStack(null).commitAllowingStateLoss();
             }
         });
-
         new Thread() {
             public void run() {
                 OkHttpClient client = new OkHttpClient();
                 try {
-                    client.newCall(new Request.Builder().url(String.format("%s/api/study/%d/views", getResources().getString(R.string.server_address), studyIdx)).put(new MultipartBody.Builder().addFormDataPart("", "").build()).build()).execute();
+                    client.newCall(new Request.Builder().url(String.format("%s/api/study/%d/views", activity.getResources().getString(R.string.server_address), studyIdx)).put(new MultipartBody.Builder().addFormDataPart("", "").build()).build()).execute();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-                Request request = new Request.Builder().url(String.format("%s/api/study/%d", getResources().getString(R.string.server_address), studyIdx)).build();
+                Request request = new Request.Builder().url(String.format("%s/api/study/%d", activity.getResources().getString(R.string.server_address), studyIdx)).build();
                 try {
                     Response response = client.newCall(request).execute();
                     if (response.code() == 200) {
@@ -180,7 +185,7 @@ public class DetailStudyFragment extends Fragment {
                         URL url = new URL(jsonObject.getString("img"));
                         final Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
                         updateStudyFragment.targetBitmap = bitmap;
-                        getActivity().runOnUiThread(new Runnable() {
+                        activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 ((ImageView) rootView.findViewById(R.id.detail_study_thumbnail)).setImageBitmap(bitmap);
@@ -192,11 +197,11 @@ public class DetailStudyFragment extends Fragment {
                                     ((TextView) rootView.findViewById(R.id.detail_study_desc_text)).setText(jsonObject.getString("note"));
                                     ((TextView) rootView.findViewById(R.id.detail_study_info_date_text)).setText(jsonObject.getString("signdate").split(" ")[0]);
                                     ((TextView) rootView.findViewById(R.id.detail_study_location_text)).setText(jsonObject.getString("station"));
-                                    ((TextView) rootView.findViewById(R.id.detail_study_info_headText)).setText(String.format("%s · %s", Util.categories[jsonObject.getInt("catIdx") - 1], jsonObject.getString("userName")));
+                                    ((TextView) rootView.findViewById(R.id.detail_study_info_headText)).setText(String.format("%s · %s", /*Util.categories[jsonObject.getInt("catIdx") - 1]*/"", jsonObject.getString("userName")));
 
                                     String[] tags = jsonObject.getString("tags").split(",");
                                     for (int i = 0; i < tags.length; i++) {
-                                        Chip chip = new Chip(getContext(), null, R.style.AppTheme);
+                                        Chip chip = new Chip(context, null, R.style.AppTheme);
                                         chip.setTextSize(12);
                                         chip.setText(tags[i].trim());
                                         chip.setClickable(true);
@@ -219,13 +224,13 @@ public class DetailStudyFragment extends Fragment {
         }.start();
 
         final RecyclerView member_scroll = rootView.findViewById(R.id.detail_study_member_scroll);
-        member_scroll.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        member_scroll.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false));
         member_scroll.setHasFixedSize(true);
 
         new Thread() {
             public void run() {
                 OkHttpClient client = new OkHttpClient();
-                Request request = new Request.Builder().url(String.format("%s/api/study/%d/students", getResources().getString(R.string.server_address), studyIdx)).build();
+                Request request = new Request.Builder().url(String.format("%s/api/study/%d/students", activity.getResources().getString(R.string.server_address), studyIdx)).build();
                 try {
                     Response response = client.newCall(request).execute();
                     if (response.code() == 200) {
@@ -235,14 +240,14 @@ public class DetailStudyFragment extends Fragment {
 
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
-
                             data[i] = new DetailMemberAdapter.Data(object.getString("name"), object.getString("img"));
                         }
 
-                        getActivity().runOnUiThread(new Runnable() {
+                        activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 member_scroll.setAdapter(new DetailMemberAdapter(data));
+                                member_scroll.getAdapter().notifyDataSetChanged();
                             }
                         });
 

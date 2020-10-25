@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
-            android:paddingTop="20dp"
+            android:paddingTop="15dp"
             android:paddingRight="20dp">
 
             <ImageView
@@ -251,7 +251,7 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="15dp"
                 android:paddingRight="10dp"
-                android:text="CIA는 위생적인 조리 및 급식 여건 확인 / 감독 강화\n식당, 취사장, 잔반 처리장 청력 / 주기적인 소독\n부식류 수령 즉시 류별 손질 / 저장"
+                android:text="CIA는 비대면 모임, 강의 플랫폼입니다.\n온라인 상에서 부대 근방의\n장병들과 비대면 모임을\n갖거나 온라인 강의를\n수강할 수 있습니다."
                 android:textColor="#919191"
                 android:textSize="12sp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -278,7 +278,7 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="15dp"
                 android:paddingRight="10dp"
-                android:text="ㆍ육군 정체단 운영지원과 대위 정동훈\nㆍ육군 정체단 개발과 8급 이유연\nㆍ육군 정체단 운영지원과 정희성\nㆍ육군 정체단 개발과 상병 김도엽"
+                android:text="ㆍ운영지원과 대위 정동훈\nㆍ개발과 8급 이유연\nㆍ운영지원과 병장 정희성\nㆍ개발과 상병 김도엽"
                 android:textColor="#919191"
                 android:textSize="13sp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -301,32 +301,10 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="35dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/bn2"
+                android:src="@drawable/bn3"
                 app:layout_constraintLeft_toRightOf="@id/main_logo_0"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/main_about_member_desc_text" />
-
-            <ImageView
-                android:id="@+id/main_logo_2"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/bn3"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/main_logo_3"
-                app:layout_constraintTop_toBottomOf="@id/main_logo_0" />
-
-            <ImageView
-                android:id="@+id/main_logo_3"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/bn4"
-                app:layout_constraintLeft_toRightOf="@id/main_logo_2"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/main_logo_0" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -342,7 +320,7 @@
                 android:textSize="13sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/main_logo_3" />
+                app:layout_constraintTop_toBottomOf="@id/main_logo_1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -369,8 +347,8 @@
 
     <ImageView
         android:id="@+id/main_search_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="10dp"
         android:background="?android:selectableItemBackground"
@@ -382,8 +360,8 @@
 
     <ImageView
         android:id="@+id/main_info_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="10dp"
         android:background="?android:selectableItemBackground"
@@ -411,7 +389,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
-        android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
         android:visibility="invisible"
@@ -426,7 +403,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
-        android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
         android:visibility="invisible"

@@ -1,8 +1,14 @@
 package com.dygames.cia;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -10,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -43,10 +50,43 @@ public class LoginActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.login_frameLayout, signUpFragment).addToBackStack(null).commitAllowingStateLoss();
             }
         });
+        ((EditText) findViewById(R.id.login_pw_editText)).setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
+        findViewById(R.id.login_head_image).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent0 = new Intent(getApplicationContext(), MainActivity.class);
+                intent0.putExtra("studyIdx", 2);
+                PendingIntent intent1 = PendingIntent.getActivity(LoginActivity.this, 0, intent0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                NotificationCompat.Builder builder = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).createNotificationChannel(new NotificationChannel("cia", "CIA", NotificationManager.IMPORTANCE_HIGH));
+                    builder = new NotificationCompat.Builder(LoginActivity.this)
+                            .setSmallIcon(R.drawable.vlogo)
+                            .setContentTitle("비즈니스 스터디")
+                            .setContentText("비즈니스 스터디 알림입니다.")
+                            .setDefaults(Notification.DEFAULT_VIBRATE)
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                            .setAutoCancel(true)
+                            .setChannelId("cia")
+                            .setContentIntent(intent1);
+                }
+
+                ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).notify(0, builder.build());
+
+            }
+        });
 
         findViewById(R.id.login_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (pw.getText().length() <= 0 || email.getText().length() <= 0) {
+                    Toast.makeText(LoginActivity.this, "로그인 정보를 입력 해 주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 new Thread() {
                     public void run() {

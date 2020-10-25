@@ -81,7 +81,7 @@ public class DetailTutItemAdapter extends RecyclerView.Adapter<DetailTutItemAdap
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.parse(data[position].videoPath), "video/*");
+                intent.setDataAndType(Uri.parse(data[position].videoPath), "video/mp4");
                 context.startActivity(intent);
             }
         });
