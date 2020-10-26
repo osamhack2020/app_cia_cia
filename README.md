@@ -48,10 +48,7 @@ __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도
 ```
 
 # 기능 설계 
-+ 화면설계(AdobeXD) *별도 md 파일 생성예정
-```
-[링크 제목](https://theorydb.github.io "마우스를 올려놓으면 말풍선이 나옵니다.")
-```
++ 화면설계 : [링크 제목](https://theorydb.github.io "마우스를 올려놓으면 말풍선이 나옵니다.")
 + Android  *별도 md 파일 생성예정
 ```
 메인 화면 - 인기 강의, 스터디, 카테고리, 추천 강의, 스터디 확인 
@@ -61,32 +58,22 @@ __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도
 카테고리 화면 - 카테고리 별로 강의, 스터디 탐색
 강의, 스터디 업로드 화면 - 강의, 스터디를 등록 
 ```
-+ API 문서  *별도 md 파일 생성예정
-```
-[링크 제목](https://theorydb.github.io "마우스를 올려놓으면 말풍선이 나옵니다.")
-```
-
-+ DB 설계   *별도 md 파일 생성예정
++ API 문서 : [링크 제목](https://theorydb.github.io "마우스를 올려놓으면 말풍선이 나옵니다.")
++ DB 설계 : [링크 제목](https://theorydb.github.io "마우스를 올려놓으면 말풍선이 나옵니다.")
 
 
 # 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
 + APP : 안드로이드 스마트폰
 + WEB Management System : Google Chrome(권장)
 
-
-
 # 기술 스택 (Technique Used) 
 ### 1. UI / UX 
 + AdobeXD, Photoshop
-
-_목표_
 ```   
 - 사용자 중심의 직관적인 디자인과 사용자 경험을 제공한다.
 ```
 ### 2. Android(front-end)
 + Android
-
-_목표_
 ```
 - 사용자는 앱 내에서 회원가입 및 로그인하고 프로필 정보를 조회할 수 있다.
 - 사용자는 강의 콘텐츠를 개설하고 수강할 수 있다.
@@ -96,25 +83,18 @@ _목표_
 ```
 ### 3. Server(back-end)
 + Java, Tomcat 8.0.x / MariaDB 10.1.x UTF-8
-
-_목표_
 ```
 모든 API는  RESTful 하게 설계하고 개발한다.
 사용자들의 행동데이터를 로그 형태로 기록한다.
 ```
-
 ### 4. Web Management System
 + Spring, Java, Tomcat 8.0.x / MariaDB 10.1.x UTF-8
-
-_목표_
 ```
 - 모든 API는  RESTful 하게 설계하고 개발한다.
 - 시각화된 사용자들의 행동 데이터를 확인할 수 있다.
 - 사용자가 개설한 강의, 스터디, 수강, 이용, 참여한 강의나 스터디에 대한 통계 정보를 확인할 수 있다.
 ```
-
 ### 5. 기타 
-
 + 프로젝트 관리 : trello
 + 영상 제작 : PremierePro
 
@@ -169,3 +149,5 @@ CIA는 공개SW의 취지와 비슷합니다.
 ```
 
 # 저작권 및 사용권 정보 (Copyleft / End User License)
+```
+```
