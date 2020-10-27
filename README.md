@@ -40,8 +40,17 @@ __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도
 </div>
 
 ``` 
-앱 상세 이미지
-웹 상세 이미지
+<img width="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app1.jpg">
+<img width="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app1.jpg">
+<img width="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app1.jpg">
+<img width="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app1.jpg">
+<img width="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app1.jpg">
+<img width="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app1.jpg">
+<img width="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app1.jpg">
+<img width="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app1.jpg">
+
+<img width="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app1.jpg">
+<img width="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app1.jpg">
 ```
 # 프로젝트 동영상(중요) : [![이미지 텍스트](스크린샷 이미지)](유투브링크)
 
