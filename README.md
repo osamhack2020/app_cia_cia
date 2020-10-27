@@ -1,5 +1,4 @@
 # CIA(Collective Intelligence in Army)
-<center><img width="300px" src="https://user-images.githubusercontent.com/37019259/96568573-100c4000-1303-11eb-9bfb-7862f7c4e574.png"></center>
 <center><img width="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/logo_new.png"></center>
 
 ```
@@ -36,22 +35,15 @@ __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도
 
 # 프로젝트 세부내용 
 <div>
-<img width="600px" style="text-align: center; margin: 0 auto;" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/%EA%B0%9C%EB%B0%9C_BlockDiagram.PNG">
+<img style="text-align: center; margin: 0 auto;" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/%EA%B0%9C%EB%B0%9C_BlockDiagram.PNG">
 <img style="text-align: center; margin: 0 auto;" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/api_%EB%84%98%EC%96%B4%EC%98%A4%EB%8A%94_%EA%B0%92.png">
 </div>
 
+<img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app1.jpg"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app2.jpg"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app3.jpg"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app4.jpg">
+<img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app5.jpg"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app6.jpg"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app7.jpg"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app8.jpg">
 
-<img width="150px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app1.jpg">
-<img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app2.jpg">
-<img width="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app3.jpg">
-<img width="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app4.jpg">
-<img width="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app5.jpg">
-<img width="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app6.jpg">
-<img width="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app7.jpg">
-<img width="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app8.jpg">
-
-<img width="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/web1.jpg">
-<img width="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/web2.jpg">
+<img width="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/web1.png">
+<img width="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/web2.PNG">
 
 # 프로젝트 동영상(중요) : [![이미지 텍스트](스크린샷 이미지)](유투브링크)
 
