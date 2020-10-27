@@ -10,9 +10,9 @@
 # 팀 미션
 많은 사람들이 새해가 되면 새로운 목표를 세우듯, 군 장병들은 목표(몸 만들기, 영어 성적 만들기 등)를 가지고 입대합니다. 
 
-__하지만, 개인의 '의지'만으로는 어려운것이 현실입니다!__
+하지만, 개인의 '의지'만으로는 어려운것이 현실입니다!
 
-__그래서 CIA 팀이 나섰습니다.__
+그래서 CIA 팀이 나섰습니다.
 
 __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도 함께 배우고, 소통하고, 성장할 수 있는 플랫폼!!!__
 
@@ -37,8 +37,8 @@ __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도
 
 # 프로젝트 세부내용 
 <div>
-<img width="500" style="text-align: center; margin: 0 auto;" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/%EA%B0%9C%EB%B0%9C_BlockDiagram.PNG">
-<img width="500" style="text-align: center; margin: 0 auto;" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/api_%EB%84%98%EC%96%B4%EC%98%A4%EB%8A%94_%EA%B0%92.png">
+<img width="500px" style="text-align: center; margin: 0 auto;" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/%EA%B0%9C%EB%B0%9C_BlockDiagram.PNG">
+<img height="500px" width="700px" style="text-align: center; margin: 0 auto;" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/api_%EB%84%98%EC%96%B4%EC%98%A4%EB%8A%94_%EA%B0%92.png">
 </div>
 
 ``` 
@@ -49,7 +49,7 @@ __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도
 
 # 기능 설계 
 + 화면설계 : [링크 제목](https://theorydb.github.io "마우스를 올려놓으면 말풍선이 나옵니다.")
-+ API 문서 : [개발일정표(API문서 포함)](https://github.com/osamhack2020/app_cia_cia/blob/main/files/CIA_%EA%B0%9C%EB%B0%9C_%EC%9D%BC%EC%A0%95%ED%91%9C.xlsx "개발일정표(API문서 포함)")
++ API 문서 : [개발일정표(API문서 포함)](https://github.com/osamhack2020/app_cia_cia/raw/main/files/CIA_%EA%B0%9C%EB%B0%9C_%EC%9D%BC%EC%A0%95%ED%91%9C.xlsx "개발일정표(API문서 포함)")
 + DB 설계 : [DB 설계](https://github.com/osamhack2020/app_cia_cia/blob/main/files/DB%EC%84%A4%EA%B3%84.png "DB 설계")
 
 + CIA 빅데이터 자체 알고리즘 : [CIA 자체 알고리즘 - 사용자별 추천 강의/스터디 제공(하단)](http://cia777.cafe24.com/stat/basic "CIA 빅데이터 자체 알고리즘")
