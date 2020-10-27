@@ -1,6 +1,6 @@
 # CIA(Collective Intelligence in Army)
 <div>
-<img width="300" style="text-align: center; margin: 0 auto;" src="https://user-images.githubusercontent.com/37019259/96568573-100c4000-1303-11eb-9bfb-7862f7c4e574.png">
+<img style="text-align: center; margin: 0 auto;" src="https://user-images.githubusercontent.com/37019259/96568573-100c4000-1303-11eb-9bfb-7862f7c4e574.png">
 </div>
 
 ```
