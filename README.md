@@ -100,10 +100,10 @@ __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도
 ```
 + WebManagementSystem
 
-[링크 제목](https://theorydb.github.io "마우스를 올려놓으면 말풍선이 나옵니다.")
+[CIA Statistics 실시간 주요 통계 데이터 현황 모니터링](http://cia777.cafe24.com/stat/basic "CIA Statistics 실시간 주요 통계 데이터 현황 모니터링")
 
 ```
-서버 설치를 위해 tomcat, mysql을 설치하고 OOO.xml 설정값을 변경해준다.
+tomcat 8.5, MySQL 5.0, JDK 1.8 설치 후 war파일을 설치하여 서버를 구동합니다. 
 ```
 
 # 프로젝트 사용법
