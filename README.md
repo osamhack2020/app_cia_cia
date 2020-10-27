@@ -1,5 +1,5 @@
 # CIA(Collective Intelligence in Army)
-<center><img width="300px" style="text-align: center; margin: 0 auto;" src="https://user-images.githubusercontent.com/37019259/96568573-100c4000-1303-11eb-9bfb-7862f7c4e574.png">
+<center><img width="300px" style="text-align: center; margin: 0 auto;" src="https://user-images.githubusercontent.com/37019259/96568573-100c4000-1303-11eb-9bfb-7862f7c4e574.png"></center>
 
 ```
 팀명과 프로젝트명은 CIA(Collective Intelligence in Army)으로 軍 집단지성을 의미합니다. 
