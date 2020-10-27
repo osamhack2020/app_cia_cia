@@ -53,6 +53,7 @@ __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도
 
 
 # 프로젝트 동영상(중요) 
+
 <iframe width="1280" height="721" src="https://www.youtube.com/embed/GQ7DcyPnExg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 # 기능 설계(중요) 
