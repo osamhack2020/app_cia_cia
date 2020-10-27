@@ -53,9 +53,9 @@ __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도
 
 
 # 프로젝트 동영상(중요) 
-<iframe width="640" height="360" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/%EC%8B%9C%EC%97%B0%EC%98%81%EC%83%81%20%EC%8D%B8%EB%84%A4%EC%9D%BC.png" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>  
+<iframe width="1280" height="721" src="https://www.youtube.com/embed/GQ7DcyPnExg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-# 기능 설계 
+# 기능 설계(중요) 
 + 화면설계 : [링크 제목](https://theorydb.github.io "마우스를 올려놓으면 말풍선이 나옵니다.")
 + API 문서 : [개발일정표(API문서 포함)](https://github.com/osamhack2020/app_cia_cia/raw/main/files/CIA_%EA%B0%9C%EB%B0%9C_%EC%9D%BC%EC%A0%95%ED%91%9C.xlsx "개발일정표(API문서 포함)")
 + DB 설계 : [DB 설계](https://github.com/osamhack2020/app_cia_cia/blob/main/files/DB%EC%84%A4%EA%B3%84.png "DB 설계")
