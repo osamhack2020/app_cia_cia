@@ -34,12 +34,15 @@ __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도
 ```
 
 # 프로젝트 세부내용 
+## CIA Developement Flow
 <div>
 <img style="text-align: center; margin: 0 auto;" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/%EA%B0%9C%EB%B0%9C_BlockDiagram.PNG">
 
+## Big Data Analytics
 <img style="text-align: center; margin: 0 auto;" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/dataset.png">
 </div>
 
+## Wire Frame
 <img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app1.jpg"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app2.jpg"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app3.jpg"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app4.jpg">
 
 <img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app5.jpg"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app6.jpg"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app7.jpg"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app8.jpg">
@@ -47,7 +50,7 @@ __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도
 <img width="400px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/web1.png"><img width="400px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/web2.PNG">
 
 
-# 프로젝트 동영상(중요) : [![이미지 텍스트](스크린샷 이미지)](유투브링크)
+# 프로젝트 동영상(중요) : [![이미지 텍스트](스크린샷 이미지)](https://youtu.be/GQ7DcyPnExg)
 
 # 기능 설계 
 + 화면설계 : [링크 제목](https://theorydb.github.io "마우스를 올려놓으면 말풍선이 나옵니다.")
