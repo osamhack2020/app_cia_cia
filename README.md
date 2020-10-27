@@ -47,7 +47,7 @@ __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도
 
 <img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app5.jpg"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app6.jpg"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app7.jpg"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app8.jpg">
 
-<img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/web1.png"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/web11.PNG"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/web22.PNG"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/web33.PNG">
+<img width="200px" height="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/web1.png"><img width="200px" height="300px"  src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/web11.PNG"><img width="200px" height="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/web22.PNG"><img width="200px" height="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/web33.PNG">
 
 
 # 프로젝트 동영상(중요) 
