@@ -97,7 +97,8 @@ CIA 알고리즘 데이터셋(값)
 # 설치 안내 (Installation Process)
 + Android
 ```
-repository의 build.apk 파일을 설치하여 사용
+- [build.apk](https://github.com/osamhack2020/app_cia_cia/raw/main/build.apk "") 파일을 설치하여 사용할 수 있습니다.
+- 파일 접근 권한을 허용하지 않으면 오류가 발생할 수 있으니 권한을 허용해주시기 바랍니다.
 ```
 + WebManagementSystem
 
@@ -145,7 +146,15 @@ CIA는 공개SW의 취지와 비슷합니다.
 ```
 
 # 저작권 및 사용권 정보 (Copyleft / End User License)
-MIT License
+The MIT License (MIT)
+
+Copyright (c) 2020 cia
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 # 업데이트 정보 (Change Log)
 2020-10-26 1.0.0 ver.
