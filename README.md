@@ -37,7 +37,7 @@ __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도
 <div>
 <img style="text-align: center; margin: 0 auto;" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/%EA%B0%9C%EB%B0%9C_BlockDiagram.PNG">
 
-<img style="text-align: center; margin: 0 auto;" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/api_%EB%84%98%EC%96%B4%EC%98%A4%EB%8A%94_%EA%B0%92.png">
+<img style="text-align: center; margin: 0 auto;" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/dataset.png">
 </div>
 
 <img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app1.jpg"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app2.jpg"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app3.jpg"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app4.jpg">
