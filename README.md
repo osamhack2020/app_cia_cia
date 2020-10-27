@@ -1,6 +1,6 @@
 # CIA(Collective Intelligence in Army)
 <div>
-<img width="500px" style="text-align: center; margin: 0 auto;" src="https://user-images.githubusercontent.com/37019259/96568573-100c4000-1303-11eb-9bfb-7862f7c4e574.png">
+<img width="300px" style="text-align: center; margin: 0 auto;" src="https://user-images.githubusercontent.com/37019259/96568573-100c4000-1303-11eb-9bfb-7862f7c4e574.png">
 </div>
 
 ```
@@ -90,7 +90,7 @@ __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도
 + 프로젝트 관리 : trello
 + 영상 제작 : PremierePro
 
-# 설치 안내 (Installation Process)
+# 설치 안내
 + Android
 ```
 - [build.apk](https://github.com/osamhack2020/app_cia_cia/raw/main/build.apk "") 파일을 설치하여 사용할 수 있습니다.
@@ -104,7 +104,7 @@ __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도
 서버 설치를 위해 tomcat, mysql을 설치하고 OOO.xml 설정값을 변경해준다.
 ```
 
-# 프로젝트 사용법 (Getting Started)
+# 프로젝트 사용법
 ```
 CIA는 공개SW의 취지와 비슷합니다. 
 좋은 콘텐츠를 만들어 공유하고, 커뮤니티를 발전 시키는 것입니다. 크게 두가지 기능으로 이루어져 있습니다.
@@ -133,7 +133,7 @@ CIA는 공개SW의 취지와 비슷합니다.
 
 ```
 
-# 팀 정보 (Team Information)
+# 팀 정보
 ```
 - 대위 정동훈 (Project Management, Web Development), 
 - 8급 이유연 (Database, Data Analytics, Design), 
@@ -141,7 +141,7 @@ CIA는 공개SW의 취지와 비슷합니다.
 - 상병 김도엽(Android Application Development)
 ```
 
-# 저작권 및 사용권 정보 (Copyleft / End User License)
+# 저작권 및 사용권 정보
 The MIT License (MIT)
 
 Copyright (c) 2020 cia
@@ -152,5 +152,5 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-# 업데이트 정보 (Change Log)
+# 업데이트 정보
 2020-10-26 1.0.0 ver.
