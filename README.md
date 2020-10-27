@@ -53,7 +53,7 @@ __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도
 
 
 # 프로젝트 동영상(중요) 
- {% include movie.html id="https://youtu.be/GQ7DcyPnExg" %}
+ {% _include movie.html id="https://youtu.be/GQ7DcyPnExg" %}
  
  https://youtu.be/GQ7DcyPnExg
  
