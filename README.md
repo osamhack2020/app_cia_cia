@@ -1,5 +1,5 @@
 # CIA(Collective Intelligence in Army)
-<div display= "flex;">
+<div">
 <img width="300" style="text-align: center; margin: 0 auto;" src="https://user-images.githubusercontent.com/37019259/96568573-100c4000-1303-11eb-9bfb-7862f7c4e574.png">
 </div>
 
@@ -37,6 +37,9 @@ __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도
 
 # 프로젝트 세부내용 
 ```
+<div">
+<img width="400" style="text-align: center; margin: 0 auto;" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/%EA%B0%9C%EB%B0%9C_BlockDiagram.PNG">
+</div>
 CIA 알고리즘 데이터셋(값)
 앱 상세 이미지
 웹 상세 이미지
@@ -45,10 +48,10 @@ CIA 알고리즘 데이터셋(값)
 
 # 기능 설계 
 + 화면설계 : [링크 제목](https://theorydb.github.io "마우스를 올려놓으면 말풍선이 나옵니다.")
-+ API 문서 : [링크 제목](https://theorydb.github.io "마우스를 올려놓으면 말풍선이 나옵니다.")
-+ DB 설계 : [링크 제목](https://theorydb.github.io "마우스를 올려놓으면 말풍선이 나옵니다.")
++ API 문서 : [개발일정표(API문서 포함)](https://github.com/osamhack2020/app_cia_cia/blob/main/files/CIA_%EA%B0%9C%EB%B0%9C_%EC%9D%BC%EC%A0%95%ED%91%9C.xlsx "개발일정표(API문서 포함)")
++ DB 설계 : [DB 설계](https://github.com/osamhack2020/app_cia_cia/blob/main/files/DB%EC%84%A4%EA%B3%84.png "DB 설계")
 
-+ CIA 빅데이터 자체 알고리즘 : [CIA 빅데이터 자체 알고리즘](http://cia777.cafe24.com/stat/basic "CIA 빅데이터 자체 알고리즘")
++ CIA 빅데이터 자체 알고리즘 : [CIA 빅데이터 자체 알고리즘(실시간 주요 통계 모니터링](http://cia777.cafe24.com/stat/basic "CIA 빅데이터 자체 알고리즘")
 
 # 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
 + APP : 안드로이드 스마트폰
