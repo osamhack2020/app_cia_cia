@@ -3,6 +3,7 @@ package com.dygames.cia;
 import android.app.Activity;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,7 @@ public class CategoryFragment extends Fragment {
                         final ArrayList<CategoryAdapter.Data> study_data = new ArrayList<>();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
+                            Log.d("DDDD", object.getInt("catIdx") + "");
                             study_data.add(new CategoryAdapter.Data(object.getString("title"), object.getString("note"), BitmapFactory.decodeStream(new URL(object.getString("img")).openConnection().getInputStream()), object.getInt("idx"), false, object.getInt("catIdx"), object.getInt("viewCount"), object.getString("tags"), object.getString("userName")));
                         }
                         activity.runOnUiThread(new Runnable() {
@@ -66,6 +68,7 @@ public class CategoryFragment extends Fragment {
                                 study_scroll.setHasFixedSize(true);
                                 study_scroll.setAdapter(new CategoryAdapter(study_data));
                                 ((CategoryAdapter) study_scroll.getAdapter()).getFilter().filter((catIdx + 1) + "");
+                                category_spinner.setSelection(catIdx);
                             }
                         });
                     } else {
@@ -87,7 +90,8 @@ public class CategoryFragment extends Fragment {
                         final ArrayList<CategoryAdapter.Data> tut_data = new ArrayList<>();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
-                            tut_data.add(new CategoryAdapter.Data(object.getString("title"), object.getString("date"), BitmapFactory.decodeStream(new URL(object.getString("img")).openConnection().getInputStream()), object.getInt("idx"), true, object.getInt("catIdx"), object.getInt("viewCount"), object.getString("tags"), object.getString("userName")));
+                            Log.d("DDDD", object.getInt("catIdx") + "");
+                            tut_data.add(new CategoryAdapter.Data(object.getString("title"), object.getString("regdate"), BitmapFactory.decodeStream(new URL(object.getString("img")).openConnection().getInputStream()), object.getInt("idx"), true, object.getInt("catIdx"), object.getInt("viewCount"), object.getString("tags"), object.getString("userName")));
                         }
                         getActivity().runOnUiThread(new Runnable() {
                             @Override

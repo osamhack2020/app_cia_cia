@@ -2,6 +2,8 @@ package com.dygames.cia;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
@@ -11,11 +13,14 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,10 +32,13 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -45,14 +53,155 @@ public class UploadCurFragment extends Fragment {
     View rootView;
     public int idx;
 
-    Uri video_URI;
+    String video_path;
+
+    public static String getPath(final Context context, final Uri uri) {
+
+        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+
+        // DocumentProvider
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
+                // ExternalStorageProvider
+                if (isExternalStorageDocument(uri)) {
+                    final String docId = DocumentsContract.getDocumentId(uri);
+                    final String[] split = docId.split(":");
+                    final String type = split[0];
+
+                    if ("primary".equalsIgnoreCase(type)) {
+                        return Environment.getExternalStorageDirectory() + "/" + split[1];
+                    }
+
+                    // TODO handle non-primary volumes
+                }
+                // DownloadsProvider
+                else if (isDownloadsDocument(uri)) {
+
+                    final String id = DocumentsContract.getDocumentId(uri);
+                    final Uri contentUri = ContentUris.withAppendedId(
+                            Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+
+                    return getDataColumn(context, contentUri, null, null);
+                }
+                // MediaProvider
+                else if (isMediaDocument(uri)) {
+                    final String docId = DocumentsContract.getDocumentId(uri);
+                    final String[] split = docId.split(":");
+                    final String type = split[0];
+
+                    Uri contentUri = null;
+                    if ("image".equals(type)) {
+                        contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                    } else if ("video".equals(type)) {
+                        contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+                    } else if ("audio".equals(type)) {
+                        contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                    }
+
+                    final String selection = "_id=?";
+                    final String[] selectionArgs = new String[]{
+                            split[1]
+                    };
+
+                    return getDataColumn(context, contentUri, selection, selectionArgs);
+                }
+            }
+            // MediaStore (and general)
+            else if ("content".equalsIgnoreCase(uri.getScheme())) {
+                return getDataColumn(context, uri, null, null);
+            }
+            // File
+            else if ("file".equalsIgnoreCase(uri.getScheme())) {
+                return uri.getPath();
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the value of the data column for this Uri. This is useful for
+     * MediaStore Uris, and other file-based ContentProviders.
+     *
+     * @param context       The context.
+     * @param uri           The Uri to query.
+     * @param selection     (Optional) Filter used in the query.
+     * @param selectionArgs (Optional) Selection arguments used in the query.
+     * @return The value of the _data column, which is typically a file path.
+     */
+    public static String getDataColumn(Context context, Uri uri, String selection,
+                                       String[] selectionArgs) {
+
+        Cursor cursor = null;
+        final String column = "_data";
+        final String[] projection = {
+                column
+        };
+
+        try {
+            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
+                    null);
+            if (cursor != null && cursor.moveToFirst()) {
+                final int column_index = cursor.getColumnIndexOrThrow(column);
+                return cursor.getString(column_index);
+            }
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return null;
+    }
+
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is ExternalStorageProvider.
+     */
+    public static boolean isExternalStorageDocument(Uri uri) {
+        return "com.android.externalstorage.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is DownloadsProvider.
+     */
+    public static boolean isDownloadsDocument(Uri uri) {
+        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is MediaProvider.
+     */
+    public static boolean isMediaDocument(Uri uri) {
+        return "com.android.providers.media.documents".equals(uri.getAuthority());
+    }
+
+    public static MultipartBody.Part getMultiPartBody(String key, String mMediaUrl) {
+        if (mMediaUrl != null) {
+            File file = new File(mMediaUrl);
+            RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            return MultipartBody.Part.createFormData(key, file.getName(), requestFile);
+        } else {
+            return MultipartBody.Part.createFormData(key, "");
+        }
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 12 && resultCode == Activity.RESULT_OK && null != data) {
-            video_URI = data.getData();
+            Uri selectedImageUri = data.getData();
+            String filemanagerstring = selectedImageUri.getPath();
+            Log.d("DDDD", selectedImageUri.getPath());
+            video_path = getPath(getContext(), selectedImageUri);
+            Log.d("DDDD", video_path);
         }
+    }
+
+    private String getMimeType(String path) {
+        String extension = MimeTypeMap.getFileExtensionFromUrl(path);
+        return MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
     }
 
     @Nullable
@@ -64,10 +213,12 @@ public class UploadCurFragment extends Fragment {
         cur_thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse("content://media/external/images/media");
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                intent.setType("video/*");
+                Intent chooseFile;
+                Intent intent;
+                chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
+                chooseFile.addCategory(Intent.CATEGORY_OPENABLE);
+                chooseFile.setType("*/*");
+                intent = Intent.createChooser(chooseFile, "Choose a file");
                 startActivityForResult(intent, 12);
             }
         });
@@ -82,74 +233,48 @@ public class UploadCurFragment extends Fragment {
 
                 new Thread() {
                     public void run() {
+                        OkHttpClient client = new OkHttpClient();
+                        File videoFile = new File(video_path);
+                        Uri videoUri = Uri.fromFile(videoFile);
 
-                        ContentResolver contentResolver = getContext().getContentResolver();
-                        final String contentType = contentResolver.getType(video_URI);
-                        AssetFileDescriptor fd = null;
+                        String content_type = getMimeType(videoFile.getPath());
+                        RequestBody fileBody = RequestBody.create(MediaType.parse(content_type), videoFile);
 
+                        RequestBody requestBody = new MultipartBody.Builder()
+                                .setType(MultipartBody.FORM)
+                                .addFormDataPart("type", content_type)
+                                .addFormDataPart("uploaded_video", video_path.substring(video_path.lastIndexOf("/") + 1), fileBody)
+                                .build();
+
+                        Request request = new Request.Builder()
+                                .url(String.format("%s/file/upload", getResources().getString(R.string.server_address)))
+                                .put(requestBody)
+                                .build();
+
+                        String videoFileName = "";
+                        String fileName = "http://cia777.cafe24.com/resources/img/101.png";
                         try {
-                            fd = contentResolver.openAssetFileDescriptor(video_URI, "r");
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-
-
-                        final AssetFileDescriptor finalFd = fd;
-                        RequestBody videoFile = new RequestBody() {
-                            @Override
-                            public long contentLength() {
-                                return finalFd.getDeclaredLength();
-                            }
-
-                            @Override
-                            public MediaType contentType() {
-                                return MediaType.parse(contentType);
-                            }
-
-                            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-                            @Override
-                            public void writeTo(BufferedSink sink) throws IOException {
-                                try (InputStream is = finalFd.createInputStream()) {
-                                    sink.writeAll(Okio.buffer(Okio.source(is)));
-                                }
-                            }
-                        };
-
-                        String fileName = "profile.png";
-                        try {
-                            RequestBody req = new MultipartBody.Builder()
-                                    .setType(MultipartBody.FORM)
-                                    .addFormDataPart("video", fileName, videoFile)
-                                    .build();
-
-                            Request request = new Request.Builder()
-                                    .url(String.format("%s/file/upload", getResources().getString(R.string.server_address)))
-                                    .post(req)
-                                    .build();
-
-                            OkHttpClient client = new OkHttpClient();
-                            Response response = client.newCall(request).execute();
-                            fileName = response.body().string();
+                            videoFileName = client.newCall(request).execute().body().string();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
 
-                        final RequestBody requestBody = new FormBody.Builder()
+                        final RequestBody rb = new FormBody.Builder()
                                 .add("title", cur_title_editText.getText().toString())
                                 .add("img", String.format("%s%s", getResources().getString(R.string.server_address), fileName))
                                 .add("note", cur_desc_editText.getText().toString())
-                                .add("videopath", "")
+                                .add("videopath", videoFileName)
                                 .add("numb", "0")
                                 .add("classIdx", idx + "")
                                 .build();
 
-                        Request request = new Request.Builder()
+                        Request rq = new Request.Builder()
                                 .url(String.format("%s/api/curriculum/regist", getResources().getString(R.string.server_address)))
                                 .addHeader("Authorization", Util.userHSID)
-                                .post(requestBody)
+                                .post(rb)
                                 .build();
                         try {
-                            final Response response = new OkHttpClient().newCall(request).execute();
+                            final Response response = new OkHttpClient().newCall(rq).execute();
 
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override

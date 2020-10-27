@@ -31,7 +31,7 @@
             android:layout_height="44dp"
             android:layout_marginTop="10dp"
             android:background="#e1e1e1"
-            android:hint="Full Name"
+            android:hint="성명"
             android:paddingLeft="10dp"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -44,7 +44,7 @@
             android:layout_height="44dp"
             android:layout_marginTop="10dp"
             android:background="#e1e1e1"
-            android:hint="Email"
+            android:hint="이메일"
             android:paddingLeft="10dp"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -57,7 +57,7 @@
             android:layout_height="44dp"
             android:layout_marginTop="10dp"
             android:background="#e1e1e1"
-            android:hint="Phone Number"
+            android:hint="전화번호"
             android:paddingLeft="10dp"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -70,7 +70,7 @@
             android:layout_height="44dp"
             android:layout_marginTop="10dp"
             android:background="#e1e1e1"
-            android:hint="Password"
+            android:hint="비밀번호"
             android:paddingLeft="10dp"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -83,12 +83,38 @@
             android:layout_height="44dp"
             android:layout_marginTop="10dp"
             android:background="#e1e1e1"
-            android:hint="Password Check"
+            android:hint="비밀번호 확인"
             android:paddingLeft="10dp"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/signup_pw_editText" />
+
+        <EditText
+            android:id="@+id/signup_rank_editText"
+            android:layout_width="260dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="10dp"
+            android:background="#e1e1e1"
+            android:hint="계급"
+            android:paddingLeft="10dp"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/signup_pw_check_editText" />
+
+        <EditText
+            android:id="@+id/signup_birth_editText"
+            android:layout_width="260dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="10dp"
+            android:background="#e1e1e1"
+            android:hint="생년월일"
+            android:paddingLeft="10dp"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/signup_rank_editText" />
 
         <Button
             android:id="@+id/signup_button"
@@ -97,8 +123,8 @@
             android:layout_marginTop="17dp"
             android:text="회원가입"
             android:textSize="16sp"
-            app:layout_constraintRight_toRightOf="@id/signup_pw_check_editText"
-            app:layout_constraintTop_toBottomOf="@id/signup_pw_check_editText" />
+            app:layout_constraintRight_toRightOf="@id/signup_birth_editText"
+            app:layout_constraintTop_toBottomOf="@id/signup_birth_editText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
