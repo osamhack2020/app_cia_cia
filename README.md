@@ -1,5 +1,5 @@
 # CIA(Collective Intelligence in Army)
-<center><img width="300px" style="text-align: center; margin: 0 auto;" src="https://user-images.githubusercontent.com/37019259/96568573-100c4000-1303-11eb-9bfb-7862f7c4e574.png"></center>
+<center><img width="300px" src="https://user-images.githubusercontent.com/37019259/96568573-100c4000-1303-11eb-9bfb-7862f7c4e574.png"></center>
 
 ```
 팀명과 프로젝트명은 CIA(Collective Intelligence in Army)으로 軍 집단지성을 의미합니다. 
@@ -52,11 +52,11 @@ __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도
 
 + CIA 빅데이터 자체 알고리즘 : [CIA 자체 알고리즘 - 사용자별 추천 강의/스터디 제공(하단)](http://cia777.cafe24.com/stat/basic "CIA 빅데이터 자체 알고리즘")
 
-# 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
+# 컴퓨터 구성 / 필수 조건 안내
 + APP : 안드로이드 스마트폰
 + WEB Management System : Google Chrome(권장)
 
-# 기술 스택 (Technique Used) 
+# 기술 스택
 ### 1. UI / UX 
 + AdobeXD, Photoshop
 ```   
