@@ -1,5 +1,5 @@
 # CIA(Collective Intelligence in Army)
-<div">
+<div>
 <img width="300" style="text-align: center; margin: 0 auto;" src="https://user-images.githubusercontent.com/37019259/96568573-100c4000-1303-11eb-9bfb-7862f7c4e574.png">
 </div>
 
@@ -36,11 +36,12 @@ __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도
 ```
 
 # 프로젝트 세부내용 
-<div">
-<img width="400" style="text-align: center; margin: 0 auto;" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/%EA%B0%9C%EB%B0%9C_BlockDiagram.PNG">
+<div>
+<img width="500" style="text-align: center; margin: 0 auto;" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/%EA%B0%9C%EB%B0%9C_BlockDiagram.PNG">
+<img width="500" style="text-align: center; margin: 0 auto;" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/api_%EB%84%98%EC%96%B4%EC%98%A4%EB%8A%94_%EA%B0%92.png">
 </div>
-```
-CIA 알고리즘 데이터셋(값)
+
+``` 
 앱 상세 이미지
 웹 상세 이미지
 ```
