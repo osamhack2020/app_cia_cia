@@ -53,9 +53,8 @@ __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도
 
 
 # 프로젝트 동영상(중요) 
- {% _include movie.html id="https://youtu.be/GQ7DcyPnExg" %}
- 
- https://youtu.be/GQ7DcyPnExg
+
+ [![CIA 시연 영상](https://github.com/osamhack2020/app_cia_cia/blob/main/files/%EC%8B%9C%EC%97%B0%EC%98%81%EC%83%81%20%EC%8D%B8%EB%84%A4%EC%9D%BC.png)](https://youtu.be/GQ7DcyPnExg)
  
 # 기능 설계(중요) 
 + 화면설계 : [링크 제목](https://theorydb.github.io "마우스를 올려놓으면 말풍선이 나옵니다.")
