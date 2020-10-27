@@ -47,10 +47,13 @@ __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도
 
 <img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app5.jpg"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app6.jpg"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app7.jpg"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/app8.jpg">
 
-<img width="400px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/web1.png"><img src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/web11.PNG"><img src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/web22.PNG"><img src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/web33.PNG">
+<img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/web1.png"><img width="200px"src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/web11.PNG"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/web22.PNG"><img width="200px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/web33.PNG">
 
 
-# 프로젝트 동영상(중요) : [![CIA 시연 영상](<img src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/%EC%8B%9C%EC%97%B0%EC%98%81%EC%83%81%20%EC%8D%B8%EB%84%A4%EC%9D%BC.png">)](https://youtu.be/GQ7DcyPnExg)
+# 프로젝트 동영상(중요) 
+<iframe class="youtube" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/%EC%8B%9C%EC%97%B0%EC%98%81%EC%83%81%20%EC%8D%B8%EB%84%A4%EC%9D%BC.png"  
+ frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>  
+
 
 # 기능 설계 
 + 화면설계 : [링크 제목](https://theorydb.github.io "마우스를 올려놓으면 말풍선이 나옵니다.")
