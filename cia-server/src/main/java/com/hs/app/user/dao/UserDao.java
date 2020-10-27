@@ -21,6 +21,48 @@ public class UserDao extends SqlSessionDaoSupport {
 	
 	@Autowired private BCryptPasswordEncoder passwordEncoder;
 	
+	
+	
+	
+	public List<Map<String,Object>> loadJoinRate2() {
+		return getSqlSession().selectList("user.loadJoinRate2");
+	}
+	public List<Map<String,Object>> loadJoinRate1() {
+		return getSqlSession().selectList("user.loadJoinRate1");
+	}
+	
+	public List<Map<String,Object>> loadClassRateByCat2() {
+		return getSqlSession().selectList("user.loadClassRateByCat2");
+	}
+	
+	public List<Map<String,Object>> loadStudyRateByCat2() {
+		return getSqlSession().selectList("user.loadStudyRateByCat2");
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/** 회원 목록 크기 가져오기 */
+    public int getUserSize(String q) {
+    	Map<String,Object> pMap = new HashMap<String,Object>();
+    	pMap.put("q", q);
+        return getSqlSession().selectOne("user.getUserSize", pMap);
+    }
+    
+    /** 회원 목록 가져오기 */
+    public List<UserInfo> getUserList(int startRow, int rowBlockCount, String q) {
+        Map<String,Object> pMap = new HashMap<String,Object>();
+        pMap.put("startRow", startRow);
+        pMap.put("rowBlockCount", rowBlockCount);
+        pMap.put("q", q);
+        return getSqlSession().selectList("user.getUserList", pMap);
+    }
+	
 	public List<Map<String,Object>> loadClassRateByCat() {
 		return getSqlSession().selectList("user.loadClassRateByCat");
 	}

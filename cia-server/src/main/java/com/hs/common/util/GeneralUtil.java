@@ -1,37 +1,22 @@
 package com.hs.common.util;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.TimeZone;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import com.hs.common.support.SupportLog;
 
 public class GeneralUtil {
 	
@@ -46,24 +31,7 @@ public class GeneralUtil {
 	
 	
 	
-	/** 요청 주소 정보를 가져온다.(0:전체URL,1:요청패스만) */
-	public static String[] getCurrentUrl(HttpServletRequest request) {
-	    
-		try {
-			URL url = new URL(request.getRequestURL().toString());
-		    String host  = url.getHost();
-		    String userInfo = url.getUserInfo();
-		    String scheme = url.getProtocol();
-		    int port = url.getPort();
-		    String path = (String) request.getAttribute("javax.servlet.forward.request_uri");
-		    String query = (String) request.getAttribute("javax.servlet.forward.query_string");
-		    
-			return new String[] { new URI(scheme, userInfo, host, port, path, query, "").toString(), path };
-		} catch (Exception e) {
-			logger.error(SupportLog.getStackTrace(e));
-		}
-	    return null;
-	}
+
 	
 	/** 사이트별 검색키워드 파라미터 변수명 가져오기 */
 	public static String getSearchParamBySite(String domain) {

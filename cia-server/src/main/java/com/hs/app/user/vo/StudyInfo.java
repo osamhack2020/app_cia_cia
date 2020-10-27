@@ -14,9 +14,10 @@ public class StudyInfo {
 	private boolean enabled;
 	private String title;
 	private String tags;
-	private Integer catIdx;
+	private Integer catIdx;  
 	private String catName;
 	private String userName;
+	private String userImg;
 	
 	public StudyInfo() {}
 	public StudyInfo(int userIdx, String title, String note, 
@@ -34,6 +35,12 @@ public class StudyInfo {
 	
 	
 	
+	public String getUserImg() {
+		return userImg;
+	}
+	public void setUserImg(String userImg) {
+		this.userImg = userImg;
+	}
 	public String getUserName() {
 		return userName;
 	}

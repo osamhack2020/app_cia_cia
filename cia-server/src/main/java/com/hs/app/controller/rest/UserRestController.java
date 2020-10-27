@@ -115,8 +115,73 @@ public class UserRestController {
 -------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------
 
+[어드민 추가]
+
+추천강의 목록  			/api/adm/class/recommend		[GET]						응답[list]
+추천스터디 목록			/api/adm/study/recommend		[GET]						응답[list]
+회원 상세 정보 			/api/adm/user/{idx}				[GET]						응답[user,list1,list2]
+통계정보(스터디수강률) 	/api/stat/1						[GET]						응답[list]
+통계정보(강의수강률)		/api/stat/2						[GET]						응답[list]
+통계정보(스터디점유율)	/api/stat/3						[GET]						응답[list]
+통계정보(강의점유율) 		/api/stat/4						[GET]						응답[list]
+통계정보(가입경로) 		/api/stat/5						[GET]						응답[list]
+통계정보(가입자수) 		/api/stat/6						[GET]						응답[list] 
+
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+
 	
 */
+	
+	
+	/** 추천 강의 목록 로드 */
+	@RequestMapping(value = "adm/class/recommend", method = RequestMethod.GET)
+	public Map<String, Object> loadClassReco22(
+			@RequestParam(required = false) Integer limitCount,
+			HttpServletRequest request, HttpServletResponse response) {
+		Map<String,Object> rst = new HashMap<String,Object>();
+		List<ClassInfo> l = userDao.getRecoClassList(limitCount);
+		rst.put("list", l);
+		return rst;
+	}
+	/** 추천 스터디 목록 로드 */
+	@RequestMapping(value = "adm/study/recommend", method = RequestMethod.GET)
+	public Map<String, Object> loadStudyRec2(
+			@RequestParam(required = false) Integer limitCount,
+			HttpServletRequest request, HttpServletResponse response) {
+		Map<String,Object> rst = new HashMap<String,Object>();
+		List<StudyInfo> l = userDao.getRecoStudyList(limitCount);
+		rst.put("list", l);
+		return rst;
+	}
+	@RequestMapping(value = "/stat/5", method = RequestMethod.GET)
+	public Map<String, Object> getStat5(HttpServletRequest request, HttpServletResponse response) {
+		Map<String,Object> rst = new HashMap<String,Object>();
+		rst.put("list", userDao.loadJoinRate1());
+		return rst;
+	}
+	@RequestMapping(value = "/stat/6", method = RequestMethod.GET)
+	public Map<String, Object> getStat6(HttpServletRequest request, HttpServletResponse response) {
+		Map<String,Object> rst = new HashMap<String,Object>();
+		rst.put("list", userDao.loadJoinRate2());
+		return rst;
+	}
+
+	@RequestMapping(value = "/stat/3", method = RequestMethod.GET)
+	public Map<String, Object> getStat3(HttpServletRequest request, HttpServletResponse response) {
+		Map<String,Object> rst = new HashMap<String,Object>();
+		rst.put("list", userDao.loadClassRateByCat2());
+		return rst;
+	}
+	@RequestMapping(value = "/stat/4", method = RequestMethod.GET)
+	public Map<String, Object> getStat4(HttpServletRequest request, HttpServletResponse response) {
+		Map<String,Object> rst = new HashMap<String,Object>();
+		rst.put("list", userDao.loadStudyRateByCat2());
+		return rst;
+	}
+	
+	
+	
 	@RequestMapping(value = "/stat/2", method = RequestMethod.GET)
 	public Map<String, Object> getStat2(HttpServletRequest request, HttpServletResponse response) {
 		Map<String,Object> rst = new HashMap<String,Object>();
@@ -129,6 +194,31 @@ public class UserRestController {
 		rst.put("list", userDao.loadStudyRateByCat());
 		return rst;
 	}
+	  
+	
+	/** 회원정보 쿼리  */
+	@RequestMapping(value = "/adm/user/{idx}", method = RequestMethod.GET)
+	public Map<String, Object> myinsddsfo(
+			@PathVariable Integer idx,
+			HttpServletRequest request, HttpServletResponse response) {
+		
+		UserInfo userInfo = userDao.getUser(idx);
+		Map<String,Object> rst = new HashMap<String,Object>();
+		rst.put("user", userInfo);
+		
+		
+		rst.put("list1", userDao.loadRegistClassByUserIdx(idx)); // 수강 클래스
+		rst.put("list2", userDao.loadRegistStudyByUserIdx(idx)); // 수강 스터디
+		
+		
+		return rst;
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -418,7 +508,16 @@ public class UserRestController {
 	
 	
 
-	
+	/** (list) 회원 */
+	@RequestMapping(value = "/users/all")
+	public Map<String,Object> getUserList(
+        @RequestParam(required=false) Integer page,
+        @RequestParam(required=false) String q) {
+		
+        page = (page==null||page<1)?1:page;
+        Map<String,Object> rst = userService.loadUserList(page, 10, q);
+        return rst;
+	}
 	
 	/** 회원 로그인 */
 	@RequestMapping(value = "/users/signin")//, method = RequestMethod.POST)

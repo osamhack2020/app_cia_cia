@@ -18,7 +18,6 @@ import com.hs.app.user.dao.UserDao;
 import com.hs.app.user.vo.ClassInfo;
 import com.hs.app.user.vo.StudyInfo;
 import com.hs.app.user.vo.UserInfo;
-import com.hs.common.util.CookieUtil;
 import com.hs.common.util.GeneralUtil;
 import com.hs.common.util.PageUtil;
 
@@ -29,6 +28,23 @@ public class UserService {
 	@Autowired private BCryptPasswordEncoder passwordEncoder;
 	@Autowired private UserDao userDao;
 	@Autowired private JwtService jwtService;
+	
+	
+	/** 회원 목록 로드 */
+    public Map<String,Object> loadUserList(int page, int rowBlockCount, String q) {
+        
+        page = page<1?1:page;   
+        if(q!=null&&q!="") {q = q.trim(); logger.debug("검색어: "+q+"로 게시물 검색..");}
+        else {q=null;}
+        
+        PageUtil pu = new PageUtil(page,userDao.getUserSize(q),rowBlockCount,10);			
+		List<UserInfo> lists = userDao.getUserList(pu.getStartRow(), pu.getRowBlockCount(), q);		
+		
+        Map<String,Object> rst = new HashMap<String,Object>();
+		rst.put("pageNav", pu);
+		rst.put("list", lists);
+        return rst;
+    }
 	
 	public Map<String,Object> loadClass(int page, int rowBlockCount, String q) {
 		
@@ -114,18 +130,7 @@ public class UserService {
 		return isSuccess;
 	}
 	
-	/** 로그온 유저 쿠키 셋팅   */
-	private void setLoginUserCookie(String token, JwtUser userInf, HttpServletResponse response) throws UnsupportedEncodingException {
-		
-		// JWT 쿠키저장
-		CookieUtil.setCookie("HSID", token, response);
-		
-		// UserInformation 쿠키저장
-		CookieUtil.setCookie("user.email", userInf.getEmail(), response);
-		CookieUtil.setCookie("user.name", userInf.getName(), response);
-		CookieUtil.setCookie("user.img", userInf.getImg()==null?"":userInf.getImg(), response);
-		
-	}
+
 	
 	public boolean autoSignIn(int userIdx, HttpServletResponse response) throws UnsupportedEncodingException {
 		
@@ -152,7 +157,7 @@ public class UserService {
 					userInfo.getName(), userInfo.getImg(), userInfo.getPhonenm());
 			String token = jwtService.create("member", jwtUser, "user");
 			
-			setLoginUserCookie(token, jwtUser, response);
+//			setLoginUserCookie(token, jwtUser, response);
 			
 //			Map<String,Object> rMap = new HashMap<String,Object>();
 //			rMap.put("jwtUser", jwtUser);
@@ -184,7 +189,7 @@ public class UserService {
 						userInfo.getName(), userInfo.getImg(), userInfo.getPhonenm());
 				String token = jwtService.create("member", jwtUser, "user");
 				
-				setLoginUserCookie(token, jwtUser, response);
+//				setLoginUserCookie(token, jwtUser, response);
 				
 				// 마지막 접속일이 null이면 가입 후 처음 로그인한걸로 간주..
 //				String findate = userInfo.getFindate();

@@ -21,9 +21,7 @@ import com.hs.app.board.dao.BoardDao;
 import com.hs.app.board.service.BoardService;
 import com.hs.app.board.vo.BoardInfo;
 import com.hs.app.board.vo.BoardMenu;
-import com.nhncorp.lucy.security.xss.LucyXssFilter;
 import com.nhncorp.lucy.security.xss.XssFilter;
-import com.nhncorp.lucy.security.xss.XssSaxFilter;
 
 @RestController
 @RequestMapping(value = "/api/boards")
@@ -35,7 +33,7 @@ public class BoardRestController {
 	@Autowired private BoardDao boardDao;
 	
 	/*
-		＃BoardService
+		＃BoardService   
 		
 			[게시물 등록] 			/api/boards 		[POST] 
 			[게시물 다중 삭제] 		/api/boards 		[DELETE] 

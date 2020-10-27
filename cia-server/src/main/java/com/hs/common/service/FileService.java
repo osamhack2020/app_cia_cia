@@ -3,24 +3,14 @@ package com.hs.common.service;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.StringReader;
-import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -28,25 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.hs.common.support.SupportLog;
 import com.hs.common.vo.FileResult;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.tool.xml.XMLWorker;
-import com.itextpdf.tool.xml.XMLWorkerFontProvider;
-import com.itextpdf.tool.xml.XMLWorkerHelper;
-import com.itextpdf.tool.xml.css.CssFile;
-import com.itextpdf.tool.xml.css.StyleAttrCSSResolver;
-import com.itextpdf.tool.xml.html.CssAppliers;
-import com.itextpdf.tool.xml.html.CssAppliersImpl;
-import com.itextpdf.tool.xml.html.Tags;
-import com.itextpdf.tool.xml.parser.XMLParser;
-import com.itextpdf.tool.xml.pipeline.css.CSSResolver;
-import com.itextpdf.tool.xml.pipeline.css.CssResolverPipeline;
-import com.itextpdf.tool.xml.pipeline.end.PdfWriterPipeline;
-import com.itextpdf.tool.xml.pipeline.html.HtmlPipeline;
-import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
 
 
 public class FileService {
@@ -55,14 +27,10 @@ public class FileService {
 	
 	private void resizeImg(String path, String name, String type) {
 		
-		System.out.println("패스: "+path);
-		System.out.println("이름: "+name);
-		System.out.println("확장자: "+type);
 		
-		
-		String imgOriginalPath= path + name;// "C:/dev/temp/test.png";           // 원본 이미지 파일명
-        String imgTargetPath= path + name;// "C:/dev/temp/test_resize.png";    // 새 이미지 파일명
-        String imgFormat = type;//"png";                             // 새 이미지 포맷. jpg, gif 등
+		String imgOriginalPath= path + name;		// "C:/dev/temp/test.png";           // 원본 이미지 파일명
+        String imgTargetPath= path + name;			// "C:/dev/temp/test_resize.png";    // 새 이미지 파일명
+        String imgFormat = type;					//"png";                             // 새 이미지 포맷. jpg, gif 등
         int newWidth = 600;                                  // 변경 할 넓이
         int newHeight = 600;                                 // 변경 할 높이
         String mainPosition = "W";                             // W:넓이중심, H:높이중심, X:설정한 수치로(비율무시)
@@ -70,7 +38,7 @@ public class FileService {
         Image image;
         int imageWidth;
         int imageHeight;
-        double ratio;
+        double ratio;  
         int w;
         int h;
  
@@ -138,58 +106,7 @@ public class FileService {
 		
 		return false;
 	}
-	/** 문자열로 파일(텍스트형식) 업로드&덮어쓰기*/
-	public boolean overwriteTxtFile(HttpServletRequest request, String filePath, String fileName, String note){
-		
-		// 파일을 업로드할 경로
-		String uploadPath = request.getSession().getServletContext().getRealPath(filePath);
-		File dir = new File(uploadPath);
-		if (!dir.isDirectory()) { dir.mkdirs(); }
-		
-	
-		FileOutputStream fileOutputStream = null;
-		OutputStreamWriter outputStreamWriter = null;
-		BufferedWriter writer = null;
-		
-		
-		// 이미 존재하는 파일일경우 파일을 먼저 선 삭제처리한다.
-		File file = new File(uploadPath+fileName);
-		if(file.exists()==true){
-			logger.debug("파일이 중복입니다. 경로 : " + uploadPath + fileName);
-			if(file.delete()){
-				logger.debug("파일이 정상적으로 삭제되었습니다. 경로 : " + uploadPath + fileName);
-			} 
-		}else{
-			logger.debug("파일이 중복이 아닙니다. 경로 : " + uploadPath + fileName);
-		}
-		
-		
-		try {
-			
-			fileOutputStream = new FileOutputStream(uploadPath+fileName);
-			outputStreamWriter = new OutputStreamWriter(fileOutputStream, "utf-8");
-			writer = new BufferedWriter(outputStreamWriter);
-			
-			writer.write(note);
-			writer.flush();
-			
-		} catch (Exception e) {			
-			logger.error(SupportLog.getStackTrace(e));						
-			return false;
-		} finally {			
-			try {
-				if(fileOutputStream!=null)			
-					fileOutputStream.close();								
-				if(fileOutputStream!=null)
-					outputStreamWriter.close();				
-				if(writer!=null)
-					writer.close();					
-			} catch (Exception e2) {}			
-		}
-		
-		
-		return true;
-	}
+
 	
 	
 	
@@ -292,12 +209,7 @@ public class FileService {
 				result.setSorf("0001");
 				return result;
 			}
-			// 파일 최대크기 제한 검사
-//			long maxsize = 0;
-//			if (maxsize != 0 && maxsize < mFile.getSize()) {			
-//				result.setSorf("0002");
-//				return result;	
-//			}
+
 			
 			// 최초 클라이언트 파일패스를 가져옴
 			String originalFileName = mFile.getOriginalFilename();
@@ -358,10 +270,10 @@ public class FileService {
 				result.setSorf("0000");
 			
 			} catch (IllegalStateException e) {			
-				logger.error(SupportLog.getStackTrace(e));				
+						
 				result.setSorf("0004");
 			} catch (IOException e) {				
-				logger.error(SupportLog.getStackTrace(e));
+			
 				result.setSorf("0005");
 			} 
 
@@ -370,145 +282,5 @@ public class FileService {
 		return result;
 	} // fileUpload end
 	
-	
-	public void createPDF(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-		String CSS_FILE = request.getSession().getServletContext().getRealPath("/resources/edunschool/file/pdf.css");
-		String TTF_FILE = request.getSession().getServletContext().getRealPath("/resources/edunschool/file/malgun.ttf");
-		String PDF_FILE = request.getSession().getServletContext().getRealPath("/resources/edunschool/file/pdf.html"); 
-		
-		// Document 생성
-		Document document = new Document(PageSize.A4, 50, 50, 50, 50); // 용지 및 여백 설정
-		     
-		// PdfWriter 생성
-		//PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("d:/test.pdf")); // 바로 다운로드.
-		PdfWriter writer = PdfWriter.getInstance(document, response.getOutputStream());
-		writer.setInitialLeading(12.5f);
-		 
-		// 파일 다운로드 설정
-		response.setContentType("application/pdf");
-		String fileName = URLEncoder.encode("교육 참석 확인증", "UTF-8"); // 파일명이 한글일 땐 인코딩 필요
-		response.setHeader("Content-Transper-Encoding", "binary");
-		response.setHeader("Content-Disposition", "inline; filename=" + fileName + ".pdf");
-		 
-		// Document 오픈
-		document.open();
-		XMLWorkerHelper helper = XMLWorkerHelper.getInstance();
-		     
-		// CSS
-		CSSResolver cssResolver = new StyleAttrCSSResolver();
-		CssFile cssFile = helper.getCSS(new FileInputStream(CSS_FILE));
-		cssResolver.addCss(cssFile);
-		     
-		// HTML, 폰트 설정
-		XMLWorkerFontProvider fontProvider = new XMLWorkerFontProvider(XMLWorkerFontProvider.DONTLOOKFORFONTS);
-		fontProvider.register(TTF_FILE, "MalgunGothic"); // MalgunGothic은 alias,
-		CssAppliers cssAppliers = new CssAppliersImpl(fontProvider);
-		 
-		HtmlPipelineContext htmlContext = new HtmlPipelineContext(cssAppliers);
-		htmlContext.setTagFactory(Tags.getHtmlTagProcessorFactory());
-		 
-		// Pipelines
-		PdfWriterPipeline pdf = new PdfWriterPipeline(document, writer);
-		HtmlPipeline html = new HtmlPipeline(htmlContext, pdf);
-		CssResolverPipeline css = new CssResolverPipeline(cssResolver, html);
-		 
-		XMLWorker worker = new XMLWorker(css, true);
-		XMLParser xmlParser = new XMLParser(worker, Charset.forName("UTF-8"));
-		 
-//		// 폰트 설정에서 별칭으로 줬던 "MalgunGothic"을 html 안에 폰트로 지정한다.
-//		String htmlStr = "<html><head><body style='font-family: MalgunGothic;'>"
-//		            + "<p>PDF 안에 들어갈 내용입니다.</p>"
-//		            + "<h3>한글, English, 漢字.</h3>"
-//		        + "</body></head></html>";
-//		 
-//		StringReader strReader = new StringReader(htmlStr);
-//		xmlParser.parse(strReader);
-		
-		xmlParser.parse(new FileReader(PDF_FILE));
-		
-		 
-		document.close();
-		writer.close();
-	}
-	
-	public void createPDF(HttpServletRequest request, String filePath, String fileName, String content) {
-		
-		File dir = new File(request.getSession().getServletContext().getRealPath(filePath));
-		if (!dir.isDirectory()) { dir.mkdirs(); }
-		
-	
-		//파일을 만들어 주세요.
-		File file = new File(request.getSession().getServletContext().getRealPath( filePath + fileName ));
-		 
-//			//css
-		String scss = request.getSession().getServletContext().getRealPath("/resources/edunschool/file/pdf.css");
-//			//font
-//			String font = request.getSession().getServletContext().getRealPath("/font/printFont.ttf");
-
-		
-		try {
-		    // Document 생성
-		    Document document = new Document(PageSize.A4, 50, 50, 50, 50);
-		 
-		    // PdfWriter 생성
-		    // PdfWriter writer = PdfWriter.getInstance(document, new
-		    // FileOutputStream("d:/test.pdf")); // 바로 다운로드.
-		    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
-		    writer.setInitialLeading(12.5f);
-		 
-		    // Document 오픈
-		    document.open();
-		    XMLWorkerHelper helper = XMLWorkerHelper.getInstance();
-		 
-		    // CSS
-		    CSSResolver cssResolver = new StyleAttrCSSResolver();
-		    CssFile cssFile = helper.getCSS(new FileInputStream(scss));
-		    cssResolver.addCss(cssFile);
-		    
-		    
-		 
-		    // HTML, 폰트 설정
-		    XMLWorkerFontProvider fontProvider = new XMLWorkerFontProvider(XMLWorkerFontProvider.DONTLOOKFORFONTS);
-		    //fontProvider.register(sfont, "MalgunGothic"); // MalgunGothic은
-		 
-		    CssAppliers cssAppliers = new CssAppliersImpl(fontProvider);
-		 
-		    HtmlPipelineContext htmlContext = new HtmlPipelineContext(cssAppliers);
-		    htmlContext.setTagFactory(Tags.getHtmlTagProcessorFactory());
-		 
-		    // Pipelines
-		    PdfWriterPipeline pdf = new PdfWriterPipeline(document, writer);
-		    HtmlPipeline html = new HtmlPipeline(htmlContext, pdf);
-		    CssResolverPipeline css = new CssResolverPipeline(cssResolver, html);
-		 
-		    XMLWorker worker = new XMLWorker(css, true);
-		    XMLParser xmlParser = new XMLParser(worker, Charset.forName("UTF-8"));
-		 
-		    // 폰트 설정에서 별칭으로 줬던 "MalgunGothic"을 html 안에 폰트로 지정한다.
-		    String sHtml = "<html><head></head><body style='font-family:MalgunGothic;'>" + content + "</body></html>";
-		    sHtml = "<!DOCTYPE html><html><head><meta http-equiv='Content-Type'content='text/html; charset=utf-8'/><meta charset='UTF-8'/><title>교육참석확인증</title></head><body><style>*{font-family:'휴먼명조'}table{width:100%;margin:0px auto;border:2px solid black;border-collapse:collapse;padding:0px;font-weight:bold;font-size:14pt}table,tr,td{border-collapse:collapse}td{border:1px solid black;padding:15px 10px}.center{text-align:center}.f_w{width:20%}</style><div><span style='font-size:14px;padding:3px 0px;'>발급번호:YYYY-MM-DD</span></div><table border='0'><tr><td class='center'colspan='4'style='font-size:22pt;padding: 30px 0px;'>교육참석확인증</td></tr><tr><td class='center f_w'>아이디</td><td></td><td class='center f_w'>소&nbsp;&nbsp;속</td><td></td></tr><tr><td class='center f_w'>성&nbsp;&nbsp;명</td><td></td><td class='center f_w'>연락처</td><td></td></tr><tr><td colspan='4'style='font-size:15pt;padding:30px 10px;'>상기자는메디치교육센터에서실시한다음의교육과정에참석하여수료하였음을확인합니다.</td></tr><tr><td class='center'colspan='1'>과정명</td><td colspan='3'></td></tr><tr><td class='center'colspan='1'>기&nbsp;&nbsp;간</td><td colspan='3'></td></tr><tr><td class='center'colspan='1'>금&nbsp;&nbsp;액</td><td colspan='3'></td></tr><tr><td class='center'colspan='1'>장&nbsp;&nbsp;소</td><td colspan='3'></td></tr><tr><td colspan='4'><div style='padding:30px 0px 25px 0px;text-align: center;font-weight:normal;'>YYYY년MM월DD일</div><div style='padding:25px 0px 50px 0px;text-align: left;font-size:16pt;'><span style='display:inline-block;vertical-align: middle;width:45%;text-align: center;'>메디치이앤에스(주)<br/>메디치교육센터</span><span style='display:inline-block;vertical-align: middle;width:10%;;text-align: center;'>대&nbsp;표</span><span style='display:inline-block;vertical-align: middle;width:25%;;text-align: center;position:relative;'><span style='z-index:1;'>이&nbsp;종&nbsp;관</span><img style='position:absolute;top:-40px;left:80px;width:100px;z-index:-1;'src='http://localhost/resources/edunschool/file/i.jpg'/></span><span style='display:inline-block;vertical-align: middle;text-align: center;'>&nbsp;</span></div></td></tr></table><div><span style='font-size:14px;padding:3px 0px;'>[메디치교육센터www.medici-edu.co.kr전화:02-861-8568팩스:070-7525-8368]</span></div></body></html>";
-		    // byte[] bHtml = (map.get("printData").toString()).getBytes();
-		 
-		    xmlParser.parse(new StringReader(sHtml));
-		    //xmlParser.parse(new FileReader(request.getSession().getServletContext().getRealPath("/resources/edunschool/file/pdf.html")));
-		    
-//		    String pdfFile = request.getSession().getServletContext().getRealPath("/resources/edunschool/file/pdf.html");
-//		    BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(pdfFile), Charset.forName("UTF-8")));
-//		    String str;
-//		    String fStr = "";
-//		    while ((str = br.readLine()) != null) {
-//		    	fStr += str;
-//		    	System.out.println(str);
-//	        }
-//		    xmlParser.parse(new StringReader(fStr));
-		    
-		    document.close();
-		    writer.close();
-		    
-		} catch (Exception e) {
-			logger.error(SupportLog.getStackTrace(e));
-		} 
-	}
 	
 }

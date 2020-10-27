@@ -20,7 +20,7 @@
     	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		
 		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.target>1.8</maven.compiler.target>  
 
 		<!-- 자바 버전 1.7 -->
 		<java-version>1.8</java-version>
@@ -41,6 +41,16 @@
 		<org.springframework.social.facebook-version>2.0.2.RELEASE</org.springframework.social.facebook-version>
 
 	</properties>
+	
+	<repositories>
+
+		<repository>
+			<id>in-project</id>
+			<name>custom jars</name>
+			<url>file://${project.basedir}/lib</url>
+		</repository>
+
+	</repositories>
 
 	<dependencies>
 		
@@ -603,10 +613,10 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.social</groupId>
-			<artifactId>spring-social-web</artifactId>
+			<artifactId>spring-social-web</artifactId>  
 			<version>${org.springframework.social-version}</version>
 		</dependency>
-
+ 
 
 
 		<dependency>
@@ -614,10 +624,11 @@
 			<artifactId>spring-mobile-device</artifactId>
 			<version>1.1.3.RELEASE</version>
 		</dependency>
+		
 	</dependencies>
 	
 	
-	<build>
+	<!-- <build>
 		<sourceDirectory>${basedir}/src/main/java</sourceDirectory>
 		<plugins>
 			<plugin>
@@ -636,7 +647,28 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>
+	</build> -->
 	
+	<!-- <build>
+		<sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.6.1</version>
+				<configuration>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<warSourceDirectory>webapp</warSourceDirectory>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build> -->
+	  
 	
 </project>

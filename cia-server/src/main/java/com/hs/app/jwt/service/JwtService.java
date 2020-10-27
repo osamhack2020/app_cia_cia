@@ -20,6 +20,7 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+
 public class JwtService {
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
@@ -30,18 +31,18 @@ public class JwtService {
 	
 	public <T> String create(String key, T data, String subject){
 		
-		logger.info("키:"+key+",데이터:"+data+",주제:"+subject);
+		logger.info("키:"+key+",데이터:"+data+",주제:"+subject);  
 		
-		String jwt = Jwts.builder()
+		String jwt = Jwts.builder()  
 						 .setHeaderParam("typ", "JWT")
 						 .setHeaderParam("regDate", System.currentTimeMillis())
 						 .setSubject(subject)
-						 .claim(key, data) // 로그인 중 마음껏 이용할 회원 정보들을 저장 (아이디,이메일,닉네임 등)
+						 .claim(key, data) // 로그인 중 마음껏 이용할 회원 정보들을 저장 (아이디,이메일,닉네임 등)  
 						 .signWith(SignatureAlgorithm.HS256, this.generateKey())
 						 .compact(); // 직렬화
 		return jwt;
 	}	
-	
+		
 	/** jwt토큰값이 유효한지 검사 */
 	public boolean isUsable(String jwt) {
 		try{

@@ -14,6 +14,7 @@ public class ClassInfo {
 	private String tags;
 	private String userName;
 	private String catName;
+	private String userImg;
 	
 	public ClassInfo() {}
 	public ClassInfo(Integer userIdx, String img, String title, String note, String tags, Integer catIdx) {
@@ -25,6 +26,13 @@ public class ClassInfo {
 		this.catIdx = catIdx;
 	}
 	
+	
+	public String getUserImg() {
+		return userImg;
+	}
+	public void setUserImg(String userImg) {
+		this.userImg = userImg;
+	}
 	public Integer getIdx() {
 		return idx;
 	}

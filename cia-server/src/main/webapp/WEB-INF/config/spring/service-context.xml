@@ -19,92 +19,32 @@
 
 	<!-- ========================= RESOURCE DEFINITIONS ========================= -->
 	
-	<!-- 사이트정보XML파일 -->
 	<util:properties id="siteinfo" location="classpath:/siteinfo.xml" />
 	
-	<!-- 사이트정보XML클래스객체 -->
-<!-- 	<bean id="siteInfoBean" class="com.hs.common.support.SiteInfo"/>  -->
-	
-	<!-- 컴포넌트스캔설정 : 루트컨텍스트는 controller빼고 모두 스캔하도록 -->
 	<context:component-scan base-package="com.hs">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
-	
-	<!-- 비동기 처리 -->
 	<task:executor id="asyncExecutor" pool-size="100-1000" queue-capacity="1000" rejection-policy="ABORT" />
  	<task:annotation-driven executor="asyncExecutor" />
-	
-	
-	<!--
-	//============================================================================================================= [이메일 관련]
-	-->
-	<!-- (메일서비스를위한)메일발송 서비스-->
-  <!--   <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">        
-        <property name="host" value="#{siteinfo['mail.host']}" /> 
-        <property name="port" value="#{siteinfo['mail.port']}" />    
-        <property name="defaultEncoding" value="utf-8"/> 
-        <property name="username" value="#{siteinfo['mail.username']}" /> 
-        <property name="password" value="#{siteinfo['mail.password']}" />       
-        <property name="javaMailProperties">
-            <props>
-                <prop key="mail.smtp.starttls.enable">true</prop>
-                <prop key="mail.smtp.auth">true</prop>
-                <prop key="mail.debug">true</prop>
-            </props>
-        </property>     
-    </bean> -->
-    
-    <!-- (메일서비스를위한)벨로시티 메일템플릿 -->
-    <!-- <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
-		<property name="velocityProperties">
-			<props>
-				<prop key="resource.loader">class</prop>
-				<prop key="class.resource.loader.class">org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader</prop>
-				<prop key="input.encoding">utf-8</prop>              
-  				<prop key="output.encoding">utf-8</prop>
-			</props>
-		</property>
-	</bean> -->
-    
-    <!-- 메일서비스 -->
-<!--     <bean id="emailService" class="com.hs.common.service.EmailService" depends-on="mailSender, velocityEngine"/> -->
-    
-    <!--
-	//============================================================================================================= [파일 관련]
-	-->
-    
-	<!-- 파일서비스 -->
-	<bean id="fileService" class="com.hs.common.service.FileService" /> 
-	
-	<!--
-	//============================================================================================================= [파일 관련]
-	-->
-	
-	
-	<!--
-	//============================================================================================================= [일반 서비스]
-	-->
-	
-	
-	<bean id="httpConnectionService" class="com.hs.common.service.HttpConnectionService" />
-<!-- 	<bean id="GeneralService" class="com.hs.common.service.GeneralService" /> -->
 	
     
 	<bean id="boardService" class="com.hs.app.board.service.BoardService"/>
 	<bean id="boardDao" class="com.hs.app.board.dao.BoardDao">
-		<property name="sqlSessionFactory" ref="sqlSessionFactory" /> 
-	</bean> 
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>       
+	</bean>   
 	
 	<bean id="userService" class="com.hs.app.user.service.UserService"/>
 	<bean id="userDao" class="com.hs.app.user.dao.UserDao">
-		<property name="sqlSessionFactory" ref="sqlSessionFactory" /> 
-	</bean> 
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/> 
+	</bean>   
 	
-	<bean id="JwtService" class="com.hs.app.jwt.service.JwtService" />
+	<bean id="JwtService" class="com.hs.app.jwt.service.JwtService"/>
 	
 	<bean id="basicDao" class="com.hs.app.basic.dao.BasicDao">
-		<property name="sqlSessionFactory" ref="sqlSessionFactory" /> 
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/> 
 	</bean> 
+	
+	<bean id="fileService" class="com.hs.common.service.FileService" /> 
 	
 </beans>

@@ -2,6 +2,103 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
 <mapper namespace="user">	
 
+
+	
+	<select id="loadJoinRate2" resultType="java.util.Map">
+		select DATE_FORMAT(regdate,'%Y-%m') as date, count(*) as count, (select count(*) from hs_user_info) as sum from hs_user_info group by DATE_FORMAT(regdate,'%Y-%m')
+		order by DATE_FORMAT(regdate,'%Y-%m') asc
+	</select>
+	<select id="loadJoinRate1" resultType="java.util.Map">
+		select
+			
+			joinPath,
+			count(*) as count,
+			(select count(*) from hs_user_info) as sum
+			
+		from
+			hs_user_info
+		group by
+			joinPath
+		order by 
+			idx asc
+	</select>
+	
+	
+	<select id="loadClassRateByCat2" resultType="java.util.Map">
+		select
+			b.catIdx as catIdx,
+			a.name as name,
+			count(*) as count,
+			(select count(*) from hs_class_info) as sum
+		from
+			hs_class_cat as a,
+			hs_class_info as b
+		where 
+			a.idx = b.catIdx 
+		group by
+			a.idx
+		order by 
+			a.idx asc
+	</select>
+	<select id="loadStudyRateByCat2" resultType="java.util.Map">
+		select
+			b.catIdx as catIdx,
+			a.name as name,
+			count(*) as count,
+			(select count(*) from hs_study_info) as sum
+		from
+			hs_study_cat as a,
+			hs_study_info as b
+		where 
+			a.idx = b.catIdx 
+		group by
+			a.idx
+		order by 
+			a.idx asc
+	</select>
+	
+	
+	<!-- 회원 목록 크기 -->
+    <select id="getUserSize" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*) from hs_user_info where true 
+        <if test="q != null">
+            and ( 	            	
+	            	name LIKE CONCAT('%', #{q}, '%') or 
+	            	email LIKE CONCAT('%', #{q}, '%') or 
+	            	phonenm LIKE CONCAT('%', #{q}, '%') 
+            	)
+        </if>
+    </select>
+	<!-- 회원 목록  -->
+    <select id="getUserList" parameterType="java.util.Map" resultType="com.hs.app.user.vo.UserInfo">
+        select 
+            idx,
+			password,
+			name,
+			email,
+			phonenm,
+			regdate,
+			img,
+			enabled,
+			(select count(*) from hs_class_info where userIdx = a.idx) as myClassCount,
+			(select count(*) from hs_study_info where userIdx = a.idx) as myStudyCount,
+			(select count(*) from hs_class_regist where userIdx = a.idx) as regClassCount,
+			(select count(*) from hs_study_regist where userIdx = a.idx) as regStudyCount
+        from  
+            hs_user_info as a 
+        where true 
+        <if test="q != null">     
+            and ( 	            	  
+	            	name LIKE CONCAT('%', #{q}, '%') or 
+	            	email LIKE CONCAT('%', #{q}, '%') or 
+	            	phonenm LIKE CONCAT('%', #{q}, '%') 
+            	)
+        </if>
+        order by
+            idx asc 
+        limit 
+            #{startRow}, #{rowBlockCount}
+    </select>
 	
 	<select id="loadClassRateByCat" resultType="java.util.Map">
 		select
@@ -167,7 +264,7 @@
 			(select name from hs_user_info where idx = a.userIdx) as userName,
 			(select name from hs_study_cat where idx = a.catidx) as catName
 		from 
-			hs_class_info where idx = #{idx}
+			hs_class_info as a where idx = #{idx}
 	</select> 
 
 	<select id="getClassCatList" resultType="com.hs.app.user.vo.ClassCat">
@@ -178,6 +275,7 @@
 		select 
 			idx, userIdx, regdate, img, enabled, title, note, viewCount, catIdx, tags,
 			(select name from hs_user_info where idx = a.userIdx) as userName,
+			(select img from hs_user_info where idx = a.userIdx) as userImg,
 			(select name from hs_study_cat where idx = a.catidx) as catName
 		from
 			hs_class_info as a
@@ -273,7 +371,7 @@
 			catIdx,
 			(select name from hs_study_cat where idx = a.catidx) as catName
 		from 
-			hs_study_info where idx = #{idx}
+			hs_study_info as a where idx = #{idx}
 	</select>
 	
 	<!-- 스터디 삭제 -->
@@ -327,6 +425,7 @@
 			idx,
 			userIdx,
 			(select name from hs_user_info where idx = a.userIdx) as userName,
+			(select img from hs_user_info where idx = a.userIdx) as userImg,
 			regdate,
 			img,
 			title,
@@ -426,6 +525,7 @@
 			b.tags as tags,
 			b.catIdx as catIdx,
 			(select name from hs_user_info where idx = b.userIdx) as userName,
+			(select img from hs_user_info where idx = b.userIdx) as userImg,
 			(select name from hs_class_cat where idx = b.catIdx) as catName
 		from
 			hs_class_regist a,
@@ -442,7 +542,7 @@
 		select 
 			b.idx as idx,
 			b.userIdx as userIdx,
-			a.regdate as regdate,
+			a.regdate as regdate,  
 			b.img as img,
 			b.title as title,
 			b.note as note,
@@ -453,6 +553,7 @@
 			b.tags as tags,
 			b.catIdx as catIdx,
 			(select name from hs_user_info where idx = b.userIdx) as userName,
+			(select img from hs_user_info where idx = b.userIdx) as userImg,
 			(select name from hs_study_cat where idx = b.catIdx) as catName
 		from
 			hs_study_regist a,

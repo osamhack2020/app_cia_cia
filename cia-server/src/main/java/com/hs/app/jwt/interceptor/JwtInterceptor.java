@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hs.app.jwt.exception.UnauthorizedException;
 import com.hs.app.jwt.service.JwtService;
 import com.hs.app.user.dao.UserDao;
-import com.hs.common.util.CookieUtil;
 
 public class JwtInterceptor implements HandlerInterceptor {
 	

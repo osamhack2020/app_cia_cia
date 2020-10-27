@@ -4,36 +4,6 @@
 
 <tiles-definitions>
 
-
-	<definition name="layout.basic2" template="/theme/basic2/include/layout.jsp">
-		<put-attribute name="wrap_content" value="" />
-	</definition>
-	<definition name="basic2:*" extends="layout.basic2" >
-		<put-attribute name="wrap_content" value="/theme/basic2/{1}.jsp"/>
-	</definition>
-	<definition name="basic2:*/*" extends="layout.basic2">
-		<put-attribute name="wrap_content" value="/theme/basic2/{1}/{2}.jsp"/>
-	</definition>
-	<definition name="basic2:*/*/*" extends="layout.basic2">
-		<put-attribute name="wrap_content" value="/theme/basic2/{1}/{2}/{3}.jsp"/>
-	</definition>
-	
-	
-	
-	<definition name="layout.basic2_mobile" template="/theme/basic2_mobile/include/layout.jsp">
-		<put-attribute name="wrap_content" value="" />
-	</definition>
-	<definition name="basic2_mobile:*" extends="layout.basic2_mobile" >
-		<put-attribute name="wrap_content" value="/theme/basic2_mobile/{1}.jsp"/>
-	</definition>
-	<definition name="basic2_mobile:*/*" extends="layout.basic2_mobile">
-		<put-attribute name="wrap_content" value="/theme/basic2_mobile/{1}/{2}.jsp"/>
-	</definition>
-	<definition name="basic2_mobile:*/*/*" extends="layout.basic2_mobile">
-		<put-attribute name="wrap_content" value="/theme/basic2_mobile/{1}/{2}/{3}.jsp"/>
-	</definition>
-	
-	
 	
 	<definition name="layout.basic" template="/theme/basic/include/layout.jsp">
 		<put-attribute name="wrap_content" value="" />
