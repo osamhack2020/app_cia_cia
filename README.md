@@ -54,7 +54,7 @@ __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도
 
 # 프로젝트 동영상(중요) 
 
-추후 공개
+[![CIA 시연 영상](https://github.com/osamhack2020/app_cia_cia/blob/main/files/%EC%8B%9C%EC%97%B0%EC%98%81%EC%83%81%20%EC%8D%B8%EB%84%A4%EC%9D%BC.png)](https://youtu.be/F93ZzIUok28)
  
 # 기능 설계(중요) 
 + API 문서 : [개발일정표(API문서 포함)](https://github.com/osamhack2020/app_cia_cia/raw/main/files/CIA_%EA%B0%9C%EB%B0%9C_%EC%9D%BC%EC%A0%95%ED%91%9C.xlsx "개발일정표(API문서 포함)")
