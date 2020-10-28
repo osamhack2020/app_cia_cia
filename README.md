@@ -58,8 +58,11 @@ __군 <비대면 강의/스터디 플랫폼 앱(App)>, 이제는 군대에서도
  
 # 기능 설계(중요) 
 + API 문서 : [개발일정표(API문서 포함)](https://github.com/osamhack2020/app_cia_cia/raw/main/files/CIA_%EA%B0%9C%EB%B0%9C_%EC%9D%BC%EC%A0%95%ED%91%9C.xlsx "개발일정표(API문서 포함)")
+<img width="200px" height="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/%EC%9D%BC%EC%A0%95%EA%B4%80%EB%A6%AC.PNG">
 + DB 설계 : [DB 설계](https://github.com/osamhack2020/app_cia_cia/blob/main/files/DB%EC%84%A4%EA%B3%84.png "DB 설계")
+<img width="200px" height="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/DB%20%EC%84%A4%EA%B3%84_%EC%82%AC%EC%A7%84.PNG">
 + 발표 자료 : [발표 자료](https://github.com/osamhack2020/app_cia_cia/blob/main/document/CIA%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pdf "CIA 발표 자료입니다.")
+<img width="200px" height="300px" src="<img width="200px" height="300px" src="https://github.com/osamhack2020/app_cia_cia/blob/main/files/web1.png">
 + CIA 빅데이터 자체 알고리즘 : [CIA 자체 알고리즘 - 사용자별 추천 강의/스터디 제공(하단)](http://cia777.cafe24.com/stat/basic "CIA 빅데이터 자체 알고리즘")
 
 # 컴퓨터 구성 / 필수 조건 안내
